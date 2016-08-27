@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\SampleCode">
+      <UniqueIdentifier>{e6834429-5061-4a4d-9d25-6ded6867f60e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\screen">
+      <UniqueIdentifier>{be45daf2-ca8d-4a51-a805-3055fde3acf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\event">
+      <UniqueIdentifier>{883b216f-b783-451b-8987-57464b435b0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gl">
+      <UniqueIdentifier>{211b9054-3314-40d6-ba29-75275da05cda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game_object">
+      <UniqueIdentifier>{1a4cb778-b616-4e26-beaf-ae48aea61c51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game_object\hud">
+      <UniqueIdentifier>{86c153a9-2bed-4962-9b76-d94760311891}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game_object\hud\objects">
+      <UniqueIdentifier>{4d4b64e5-a474-422c-88cd-afc4bd4cbde6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\event\types">
+      <UniqueIdentifier>{2fb3834a-e26a-42fc-8c38-dd0857b3c29b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\input">
+      <UniqueIdentifier>{11321ac1-dad8-4842-9770-a75287a1a01e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\triangles.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Drawing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SampleCode\LoadShaders.cpp">
+      <Filter>Source Files\SampleCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\7z-Decompression.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\event\EventHandler.cpp">
+      <Filter>Source Files\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\game_object\GameObjectManager.cpp">
+      <Filter>Source Files\game_object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\game_object\hud\HudManager.cpp">
+      <Filter>Source Files\game_object\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\game_object\hud\objects\Map.cpp">
+      <Filter>Source Files\game_object\hud\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\game_object\hud\I_HudObject.cpp">
+      <Filter>Source Files\game_object\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\input\Mouse.cpp">
+      <Filter>Source Files\input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\input\Keyboard.cpp">
+      <Filter>Source Files\input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\input\InputManager.cpp">
+      <Filter>Source Files\input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Source\triangles.vert">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\..\Source\triangles.frag">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\Drawing.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SampleCode\LoadShaders.h">
+      <Filter>Source Files\SampleCode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\event\EventHandler.h">
+      <Filter>Source Files\event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\gl\gl.h">
+      <Filter>Source Files\gl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\game_object\GameObjectManager.h">
+      <Filter>Source Files\game_object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\game_object\hud\HudManager.h">
+      <Filter>Source Files\game_object\hud</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\game_object\hud\objects\Map.h">
+      <Filter>Source Files\game_object\hud\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\event\types\I_CursorPosHook.h">
+      <Filter>Source Files\event\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\game_object\hud\I_HudObject.h">
+      <Filter>Source Files\game_object\hud</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\event\types\I_FramebufferSizeHook.h">
+      <Filter>Source Files\event\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\event\types\I_MouseButtonHook.h">
+      <Filter>Source Files\event\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\input\Mouse.h">
+      <Filter>Source Files\input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\input\Keyboard.h">
+      <Filter>Source Files\input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\input\InputManager.h">
+      <Filter>Source Files\input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\event\types\I_ScrollHook.h">
+      <Filter>Source Files\event\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\game_object\hud\I_HudObject_Animated.h">
+      <Filter>Source Files\game_object\hud</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Game.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

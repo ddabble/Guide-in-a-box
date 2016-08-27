@@ -1,0 +1,65 @@
+#include "HudManager.h"
+
+#include "../../event/EventHandler.h"
+#include "../../SampleCode/LoadShaders.h"
+
+#include "objects/Map.h"
+
+void HudManager::init(const Game* game)
+{
+	buildProgram();
+	registerHudObjects(game);
+}
+
+void HudManager::buildProgram()
+{
+	ShaderInfo shaders[] =
+	{
+		{ GL_VERTEX_SHADER, "../../Source/triangles.vert" },
+		{ GL_FRAGMENT_SHADER, "../../Source/triangles.frag" },
+		{ GL_NONE, NULL }
+	};
+
+	m_program = LoadShaders(shaders);
+}
+
+void HudManager::registerHudObjects(const Game* game)
+{
+	m_objects.reserve(1);
+
+	m_objects.push_back(new Map(m_program, game));
+}
+
+void HudManager::addEventHooks(EventHandler& eventHandler)
+{
+	eventHandler.addFramebufferSizeHook(this);
+
+	for (auto& object : m_objects)
+		object->addEventHooks(eventHandler);
+}
+
+void HudManager::frameUpdate(const Game* game)
+{
+	glUseProgram(m_program);
+
+	for (auto& object : m_objects)
+		object->frameUpdate(m_program, game);
+}
+
+void HudManager::physicsUpdate(const Game* game)
+{
+	for (auto& object : m_objects)
+		object->physicsUpdate(game);
+}
+
+void HudManager::framebufferSizeCallback(int width, int height)
+{
+	for (auto& object : m_objects)
+		object->onFramebufferResize(width, height);
+}
+
+void HudManager::deallocateData()
+{
+	for (int i = 0; i < m_objects.size(); i++)
+		delete m_objects[i];
+}
