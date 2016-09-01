@@ -39,7 +39,6 @@ protected:
 	xPixelPos and yPixelPos are the coordinates of the image's lower left corner.
 	*/
 	virtual void setFields(unsigned int width, unsigned int height, int xPixelPos, int yPixelPos, bool preserveAspectRatioOnResize);
-
 	/*
 	width and height are the image's dimensions measured in pixels.
 	xWindowPos and yWindowPos are the coordinates of the image's lower left corner.
@@ -94,8 +93,11 @@ protected:
 	template<typename numeric_type> GLfloat pixelsToWindowCoordWidth(numeric_type pixels);
 	template<typename numeric_type> GLfloat pixelsToWindowCoordHeight(numeric_type pixels);
 
-private:
-	void _move(GLfloat xDirection, GLfloat yDirection);
-	void _moveTo(GLfloat xPos, GLfloat yPos);
-	void _zoom(GLfloat newWidth, GLfloat newHeight, GLfloat focusX = 0.5f, GLfloat focusY = 0.5f);
+protected:
+	void _setWidth(GLfloat width_windowCoords, bool preserveAspectRatio, GLfloat vertexData[8]);
+	void _setHeight(GLfloat height_windowCoords, bool preserveAspectRatio, GLfloat vertexData[8]);
+
+	void _move(GLfloat xDirection, GLfloat yDirection, GLfloat vertexData[8]);
+	void _moveTo(GLfloat xPos, GLfloat yPos, GLfloat vertexData[8]);
+	void _zoom(GLfloat newWidth, GLfloat newHeight, GLfloat focusX, GLfloat focusY, GLfloat vertexData[8]);
 };

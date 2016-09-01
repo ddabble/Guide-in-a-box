@@ -3,9 +3,8 @@
 #include <GLFW/glfw3.h>
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
-#include <glm/glm.hpp>
 
-Map::Map(GLuint program, const Game* game) : I_HudObject(game)
+Map::Map(GLuint program, const Game* game) : I_HudObject_Animated(game)
 {
 	stbi_set_flip_vertically_on_load(true);
 	int width, height, components;
@@ -41,10 +40,9 @@ Map::Map(GLuint program, const Game* game) : I_HudObject(game)
 
 	m_vertexDataIndex = glGetUniformLocation(program, "vertexData");
 
-	m_zoomPercentage = 100;
-	m_transformationProgress = TRANSFORMATION_DURATION;
+	m_zoomLevel = ZoomLevel();
 
-	this->setFields(width, height, 0, 0, true);
+	this->setFields(width, height, 0, 0, true, 1.0f / 4);
 }
 
 void Map::addEventHooks(EventHandler& eventHandler)
@@ -58,62 +56,27 @@ void Map::cursorPosCallback(InputManager& input)
 	if (input.getMouse().m_isLeftMouseButtonDown)
 	{
 		CursorPos cursorPos = input.getMouse().getCursorPos();
-		move(cursorPos.deltaX, cursorPos.deltaY);
+		move(cursorPos.deltaX, cursorPos.deltaY, false);
 	}
 }
 
-enum zoomPercentages
-{
-	_25,
-	_37,
-	_50,
-	_75,
-	_100,
-	_200
-};
-
 void Map::scrollCallback(float xOffset, float yOffset, InputManager& input)
 {
-#define MIN_ZOOM_PERCENTAGE 10
-#define MAX_ZOOM_PERCENTAGE 200
-
-	short newZoomPercentage = glm::clamp(m_zoomPercentage + (int)yOffset * 10, MIN_ZOOM_PERCENTAGE, MAX_ZOOM_PERCENTAGE);
-	if (newZoomPercentage == m_zoomPercentage)
-		return;
-	else
-		m_zoomPercentage = newZoomPercentage;
-
 	CursorPos cursorPos = input.getMouse().getCursorPos();
 
-	GLfloat oldVertexData[4 * 2 + 4 * 2];
-	memcpy(oldVertexData, m_vertexData, sizeof(m_vertexData));
+	ZoomLevel oldZoomLevel = m_zoomLevel;
+	if (oldZoomLevel == m_zoomLevel.offsetLevel((int)yOffset))
+		return;
 
-	zoom(int(m_pixelWidth * (m_zoomPercentage / 100.0f)), -1, (GLfloat)cursorPos.xPos / m_game->getWindowWidth(), (GLfloat)cursorPos.yPos / m_game->getWindowHeight());
-
-	memcpy(m_vertexDataTransformationDestination, m_vertexData, sizeof(m_vertexData));
-	memcpy(m_vertexData, oldVertexData, sizeof(oldVertexData));
-
-	m_transformationProgress = 0;
+	zoom(int(m_pixelWidth * m_zoomLevel.getPercentage()), -1, true, (GLfloat)cursorPos.xPos / m_game->getWindowWidth(), (GLfloat)cursorPos.yPos / m_game->getWindowHeight());
 }
 
 void Map::frameUpdate(GLuint program, const Game* game)
 {
+	I_HudObject_Animated::frameUpdate(program, game);
+
 	glUniform2fv(m_vertexDataIndex, 8, m_vertexData);
 
 	glBindVertexArray(m_vertexArrayObject);
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-}
-
-void Map::physicsUpdate(const Game* game)
-{
-	if (m_transformationProgress < TRANSFORMATION_DURATION)
-	{
-		for (int i = 0; i < 8; i += 2)
-		{
-			m_vertexData[i] = m_vertexDataTransformationDestination[i] * m_transformationProgress / TRANSFORMATION_DURATION;
-			m_vertexData[i + 1] = m_vertexDataTransformationDestination[i + 1] * m_transformationProgress / TRANSFORMATION_DURATION;
-		}
-
-		m_transformationProgress++;
-	}
 }

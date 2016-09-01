@@ -7,11 +7,12 @@
 #include "types/I_MouseButtonHook.h"
 #include "types/I_ScrollHook.h"
 
+class Game;
 struct GLFWwindow;
 
 class EventHandler
 {
-	friend class Game;
+	friend Game;
 
 private:
 	static std::vector<EventHandler*> eventHandlers;

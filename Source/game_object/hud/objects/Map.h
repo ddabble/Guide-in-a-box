@@ -1,22 +1,43 @@
 #pragma once
 
-#include "../../../Game.h"
-#include "../I_HudObject.h"
+#include "../I_HudObject_Animated.h"
 #include "../../../event/types/I_CursorPosHook.h"
 #include "../../../event/types/I_ScrollHook.h"
 
-class Map : public I_HudObject, I_CursorPosHook, I_ScrollHook
+#include <glm/glm.hpp>
+
+#include "../../../Game.h"
+
+class Map : public I_HudObject_Animated, I_CursorPosHook, I_ScrollHook
 {
+private:
+	class ZoomLevel
+	{
+		static constexpr uint8_t LEVELS[6] = { 25, 37, 50, 75, 100, 200 };
+
+	private:
+		int m_levelIndex;
+
+	public:
+		ZoomLevel(int levelIndex = 4) : m_levelIndex(glm::clamp(levelIndex, 0, (int)sizeof(LEVELS) - 1)) {}
+
+		uint8_t getLevel() { return LEVELS[m_levelIndex]; }
+
+		float getPercentage() { return LEVELS[m_levelIndex] / 100.0f; }
+
+		void setLevel(int levelIndex) { m_levelIndex = glm::clamp(levelIndex, 0, (int)sizeof(LEVELS) - 1); }
+
+		ZoomLevel offsetLevel(int indexOffset) { m_levelIndex = glm::clamp(m_levelIndex + indexOffset, 0, (int)sizeof(LEVELS) - 1); return *this; }
+
+		bool operator==(const ZoomLevel& other) { return m_levelIndex == other.m_levelIndex; }
+	};
+
 private:
 	GLuint m_vertexArrayObject;
 
 	GLint m_vertexDataIndex;
 
-	short m_zoomPercentage;
-
-	GLfloat m_vertexDataTransformationDestination[4 * 2 + 4 * 2];
-	uint8_t m_transformationProgress;
-	static constexpr uint8_t TRANSFORMATION_DURATION = Game::PHYSICS_UPDATES_PER_SECOND /*/ 2*/ * 3;
+	ZoomLevel m_zoomLevel;
 
 public:
 	Map(GLuint program, const Game* game);
@@ -27,5 +48,4 @@ public:
 	void scrollCallback(float xOffset, float yOffset, InputManager& input) override;
 
 	void frameUpdate(GLuint program, const Game* game) override;
-	void physicsUpdate(const Game* game) override;
 };

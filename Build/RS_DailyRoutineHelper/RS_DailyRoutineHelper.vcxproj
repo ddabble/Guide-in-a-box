@@ -164,6 +164,7 @@
     <ClCompile Include="..\..\Source\game_object\GameObjectManager.cpp" />
     <ClCompile Include="..\..\Source\game_object\hud\HudManager.cpp" />
     <ClCompile Include="..\..\Source\game_object\hud\I_HudObject.cpp" />
+    <ClCompile Include="..\..\Source\game_object\hud\I_HudObject_Animated.cpp" />
     <ClCompile Include="..\..\Source\game_object\hud\objects\Map.cpp" />
     <ClCompile Include="..\..\Source\input\InputManager.cpp" />
     <ClCompile Include="..\..\Source\input\Keyboard.cpp" />
