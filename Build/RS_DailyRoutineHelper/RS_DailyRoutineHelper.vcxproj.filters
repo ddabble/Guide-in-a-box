@@ -84,6 +84,9 @@
     <ClCompile Include="..\..\Source\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\game_object\hud\I_HudObject_Animated.cpp">
+      <Filter>Source Files\game_object\hud</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Source\triangles.vert">

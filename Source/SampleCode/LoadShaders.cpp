@@ -8,7 +8,7 @@ static const GLchar* ReadShader(const char* filename)
 	FILE* infile;
 	fopen_s(&infile, filename, "rb");
 
-	if (!infile)
+	if (infile == nullptr)
 	{
 #ifdef _DEBUG
 		std::cerr << "Unable to open file '" << filename << "'" << std::endl;

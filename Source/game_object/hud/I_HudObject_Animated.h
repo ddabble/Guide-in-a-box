@@ -2,42 +2,54 @@
 
 #include "I_HudObject.h"
 
+class Game;
+
 class I_HudObject_Animated : public I_HudObject
 {
-	/*
-	width and height are the image's dimensions measured in pixels.
-	xPixelPos and yPixelPos are the coordinates of the image's lower left corner.
-	*/
-	void setFields(unsigned int width, unsigned int height, int xPixelPos, int yPixelPos, bool preserveAspectRatioOnResize) override;
+protected:
+	GLfloat m_vertexDataAnimationOrigin[4 * 2];
+	GLfloat m_vertexDataAnimationDestination[4 * 2];
 
-	/*
-	width and height are the image's dimensions measured in pixels.
-	xWindowPos and yWindowPos are the coordinates of the image's lower left corner.
-	*/
-	void setFields(unsigned int width, unsigned int height, GLfloat xWindowPos, GLfloat yWindowPos, bool preserveAspectRatioOnResize) override;
+	float m_animationDuration;
+	bool m_isAnimating = false;
+private:
+	double m_animationStartTime;
 
-	void setWidth(int width_pixels, bool preserveAspectRatio) override;
-	void setHeight(int height_pixels, bool preserveAspectRatio) override;
+public:
+	virtual void frameUpdate(GLuint program, const Game* game) override;
 
-	void setWidth(GLfloat width_windowCoords, bool preserveAspectRatio) override;
-	void setHeight(GLfloat height_windowCoords, bool preserveAspectRatio) override;
+protected:
+	I_HudObject_Animated(const Game* game) : I_HudObject(game) {}
 
-	void move(int xDirection_pixels, int yDirection_pixels) override;
-	void move(GLfloat xDirection_windowCoords, GLfloat yDirection_windowCoords) override;
+	void setFields(unsigned int width, unsigned int height, int xPixelPos, int yPixelPos, bool preserveAspectRatioOnResize, float animationDuration);
+	void setFields(unsigned int width, unsigned int height, GLfloat xWindowPos, GLfloat yWindowPos, bool preserveAspectRatioOnResize, float animationDuration);
 
-	/* xPixelPos and yPixelPos are the coordinates of the image's lower left corner. */
-	void moveTo(int xPixelPos, int yPixelPos) override;
-	/* xWindowPos and yWindowPos are the coordinates of the image's lower left corner. */
-	void moveTo(GLfloat xWindowPos, GLfloat yWindowPos) override;
+	void setWidth(int width_pixels, bool preserveAspectRatio, bool animate);
+	void setHeight(int height_pixels, bool preserveAspectRatio, bool animate);
 
-	/*
-	Set newWidth_pixels or newHeight_pixels to -1 to make the image maintain its aspect ratio during the zoom.
-	focusX and focusY are relative to the window's lower left corner, and are clamped between 0 and 1.
-	*/
-	void zoom(int newWidth_pixels, int newHeight_pixels, GLfloat focusX = 0.5f, GLfloat focusY = 0.5f) override;
-	/*
-	Set newWidth_windowCoords or newHeight_windowCoords to -1 to make the image maintain its aspect ratio during the zoom.
-	focusX and focusY are relative to the window's lower left corner, and are clamped between 0 and 1.
-	*/
-	void zoom(GLfloat newWidth_windowCoords, GLfloat newHeight_windowCoords, GLfloat focusX = 0.5f, GLfloat focusY = 0.5f) override;
+	void setWidth(GLfloat width_windowCoords, bool preserveAspectRatio, bool animate);
+	void setHeight(GLfloat height_windowCoords, bool preserveAspectRatio, bool animate);
+
+	void move(int xDirection_pixels, int yDirection_pixels, bool animate);
+	void move(GLfloat xDirection_windowCoords, GLfloat yDirection_windowCoords, bool animate);
+
+	void moveTo(int xPixelPos, int yPixelPos, bool animate);
+	void moveTo(GLfloat xWindowPos, GLfloat yWindowPos, bool animate);
+
+	void zoom(int newWidth_pixels, int newHeight_pixels, bool animate, GLfloat focusX = 0.5f, GLfloat focusY = 0.5f);
+	void zoom(GLfloat newWidth_windowCoords, GLfloat newHeight_windowCoords, bool animate, GLfloat focusX = 0.5f, GLfloat focusY = 0.5f);
+
+private:
+	void setFields(unsigned int width, unsigned int height, int xPixelPos, int yPixelPos, bool preserveAspectRatioOnResize) override {}
+	void setFields(unsigned int width, unsigned int height, GLfloat xWindowPos, GLfloat yWindowPos, bool preserveAspectRatioOnResize) override {}
+	void setWidth(int width_pixels, bool preserveAspectRatio) override {}
+	void setHeight(int height_pixels, bool preserveAspectRatio) override {}
+	void setWidth(GLfloat width_windowCoords, bool preserveAspectRatio) override {}
+	void setHeight(GLfloat height_windowCoords, bool preserveAspectRatio) override {}
+	void move(int xDirection_pixels, int yDirection_pixels) override {}
+	void move(GLfloat xDirection_windowCoords, GLfloat yDirection_windowCoords) override {}
+	void moveTo(int xPixelPos, int yPixelPos) override {}
+	void moveTo(GLfloat xWindowPos, GLfloat yWindowPos) override {}
+	void zoom(int newWidth_pixels, int newHeight_pixels, GLfloat focusX = 0.5f, GLfloat focusY = 0.5f) override {}
+	void zoom(GLfloat newWidth_windowCoords, GLfloat newHeight_windowCoords, GLfloat focusX = 0.5f, GLfloat focusY = 0.5f) override {}
 };
