@@ -13,11 +13,6 @@ protected:
 	unsigned int m_pixelWidth;
 	unsigned int m_pixelHeight;
 
-	/* X coordinate of the image's lower left corner. */
-	int m_xPixelPos;
-	/* Y coordinate of the image's lower left corner. */
-	int m_yPixelPos;
-
 	GLfloat m_vertexData[4 * 2 + 4 * 2];
 
 	bool m_preserveAspectRatioOnResize;
@@ -29,7 +24,7 @@ public:
 	virtual void physicsUpdate(const Game* game) {}
 
 	/* Should be called whenever the framebuffer is resized. */
-	virtual void onFramebufferResize(int newWidth, int newHeight);
+	virtual void onFramebufferResize(int lastWidth, int lastHeight, int newWidth, int newHeight);
 
 protected:
 	I_HudObject(const Game* game) : m_game(game) {}
@@ -47,9 +42,6 @@ protected:
 
 	GLfloat getWindowCoordWidth() { return m_vertexData[2] - m_vertexData[0]; }
 	GLfloat getWindowCoordHeight() { return m_vertexData[5] - m_vertexData[3]; }
-
-	GLfloat getXWindowPos() { return m_vertexData[0]; }
-	GLfloat getYWindowPos() { return m_vertexData[1]; }
 
 	virtual void setWidth(int width_pixels, bool preserveAspectRatio);
 	virtual void setHeight(int height_pixels, bool preserveAspectRatio);

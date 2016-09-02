@@ -28,7 +28,7 @@ public:
 	void frameUpdate(const Game* game);
 	void physicsUpdate(const Game* game);
 
-	void framebufferSizeCallback(int width, int height) override;
+	void framebufferSizeCallback(int lastWidth, int lastHeight, int newWidth, int newHeight) override;
 
 	/* Should be called when the object data is not gonna be used anymore, including on program termination. */
 	void deallocateData();

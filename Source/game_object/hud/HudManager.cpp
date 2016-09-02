@@ -52,10 +52,10 @@ void HudManager::physicsUpdate(const Game* game)
 		object->physicsUpdate(game);
 }
 
-void HudManager::framebufferSizeCallback(int width, int height)
+void HudManager::framebufferSizeCallback(int lastWidth, int lastHeight, int newWidth, int newHeight)
 {
 	for (auto& object : m_objects)
-		object->onFramebufferResize(width, height);
+		object->onFramebufferResize(lastWidth, lastHeight, newWidth, newHeight);
 }
 
 void HudManager::deallocateData()
