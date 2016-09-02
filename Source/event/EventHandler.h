@@ -43,8 +43,8 @@ private:
 	static void registerCallbacks(GLFWwindow* window);
 
 private:
-	static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
-	void framebufferSize(GLFWwindow* window, int width, int height);
+	static void framebufferSizeCallback(GLFWwindow* window, int newWidth, int newHeight);
+	void framebufferSize(GLFWwindow* window, int newWidth, int newHeight);
 
 	static void windowRefreshCallback(GLFWwindow* window);
 	void windowRefresh(GLFWwindow* window);

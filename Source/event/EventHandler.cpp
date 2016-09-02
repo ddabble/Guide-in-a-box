@@ -30,20 +30,23 @@ void EventHandler::registerCallbacks(GLFWwindow* window)
 	glfwSetScrollCallback(window, scrollCallback);
 }
 
-void EventHandler::framebufferSizeCallback(GLFWwindow* window, int width, int height)
+void EventHandler::framebufferSizeCallback(GLFWwindow* window, int newWidth, int newHeight)
 {
 	for (EventHandler* eventHandler : eventHandlers)
-		eventHandler->framebufferSize(window, width, height);
+		eventHandler->framebufferSize(window, newWidth, newHeight);
 }
-void EventHandler::framebufferSize(GLFWwindow* window, int width, int height)
+void EventHandler::framebufferSize(GLFWwindow* window, int newWidth, int newHeight)
 {
-	glViewport(0, 0, width, height);
+	glViewport(0, 0, newWidth, newHeight);
+
+	int& width = m_game->m_windowWidth;
+	int& height = m_game->m_windowHeight;
 
 	for (auto& hook : m_framebufferSizeHooks)
-		hook->framebufferSizeCallback(width, height);
+		hook->framebufferSizeCallback(width, height, newWidth, newHeight);
 
-	m_game->m_windowWidth = width;
-	m_game->m_windowHeight = height;
+	width = newWidth;
+	height = newHeight;
 }
 
 void EventHandler::windowRefreshCallback(GLFWwindow* window)
