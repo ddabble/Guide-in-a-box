@@ -27,6 +27,12 @@ void HudManager::registerHudObjects(const Game* game)
 {
 	m_objects.reserve(1);
 
+	glUseProgram(m_program);
+	glActiveTexture(GL_TEXTURE0);
+
+	GLint uniform = glGetUniformLocation(m_program, "tex");
+	glUniform1i(uniform, 0);
+
 	m_objects.push_back(new Map(m_program, game));
 }
 
@@ -41,6 +47,7 @@ void HudManager::addEventHooks(EventHandler& eventHandler)
 void HudManager::frameUpdate(const Game* game)
 {
 	glUseProgram(m_program);
+	glActiveTexture(GL_TEXTURE0);
 
 	for (auto& object : m_objects)
 		object->frameUpdate(m_program, game);

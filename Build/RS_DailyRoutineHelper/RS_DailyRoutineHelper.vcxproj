@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{91918A4E-3A60-4A78-9AAF-70CC7C40BD1E}</ProjectGuid>
+    <ProjectGuid>{613990C6-4F22-4543-9D51-EA380E234625}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>RS_DailyRoutineHelper</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
@@ -189,6 +189,7 @@
     <ClInclude Include="..\..\Source\game_object\hud\HudManager.h" />
     <ClInclude Include="..\..\Source\game_object\hud\I_HudObject.h" />
     <ClInclude Include="..\..\Source\game_object\hud\I_HudObject_Animated.h" />
+    <ClInclude Include="..\..\Source\game_object\hud\objects\Arrow.h" />
     <ClInclude Include="..\..\Source\game_object\hud\objects\Map.h" />
     <ClInclude Include="..\..\Source\gl\gl.h" />
     <ClInclude Include="..\..\Source\input\InputManager.h" />

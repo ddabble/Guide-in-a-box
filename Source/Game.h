@@ -39,6 +39,9 @@ protected:
 	virtual void terminate();
 
 public:
+	static constexpr int INITIAL_WINDOW_WIDTH = 1280;
+	static constexpr int INITIAL_WINDOW_HEIGHT = 768;
+
 	static constexpr unsigned int PHYSICS_UPDATES_PER_SECOND = 50;
 	static constexpr double PHYSICS_UPDATE_INTERVAL = 1.0 / PHYSICS_UPDATES_PER_SECOND;
 
