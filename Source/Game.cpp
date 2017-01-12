@@ -15,10 +15,10 @@
 
 #include "event/EventHandler.h"
 
-Game::Game() : m_eventHandler(EventHandler(this)), m_gameObjectManager(GameObjectManager()), m_input(InputManager())
+Game::Game() : m_eventHandler(EventHandler(this)), m_gameObjectManager(GameObjectManager()), m_input(InputManager()),
+m_windowWidth(INITIAL_WINDOW_WIDTH), m_windowHeight(INITIAL_WINDOW_HEIGHT)
 {
-	m_windowWidth = 1280;
-	m_windowHeight = 768;
+
 }
 
 void Game::run()
@@ -82,6 +82,9 @@ GLFWwindow* Game::windowInit()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 
+	// TODO: Make this an option in the settings
+	//glfwWindowHint(GLFW_SAMPLES, 4);
+
 	window = glfwCreateWindow(m_windowWidth, m_windowHeight, "RS Daily Routine Helper", NULL, NULL);
 	if (!window)
 	{
@@ -105,6 +108,10 @@ GLFWwindow* Game::windowInit()
 	return window;
 }
 
+#include "game_object/hud/objects/Arrow.h"
+Arrow* arrow1;
+Arrow* arrow2;
+
 void Game::init(GLFWwindow* window)
 {
 	m_gameObjectManager.init(this);
@@ -126,6 +133,9 @@ void Game::init(GLFWwindow* window)
 	glClearColor(0.3f, 0.3f, 0.3f, 1);
 
 	m_input.getMouse().init(window, m_windowHeight);
+
+	arrow1 = new Arrow(this, { 320, 192 }, { 960, 384 });
+	arrow2 = new Arrow(this, { 120, 192 }, { 460, 384 });
 }
 
 // TODO: Put GL-code in own files
@@ -135,6 +145,9 @@ void Game::frameUpdate(GLFWwindow* window)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	m_gameObjectManager.frameUpdate(this);
+
+	arrow1->frameUpdate(this);
+	arrow2->frameUpdate(this);
 
 	// Setup
 	//glEnable(GL_CULL_FACE);

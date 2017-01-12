@@ -11,9 +11,8 @@ Map::Map(GLuint program, const Game* game) : I_HudObject_Animated(game)
 	unsigned char* imageData = stbi_load("../../Source/map.png", &width, &height, &components, 0);
 	GLenum format = (components == 4) ? GL_RGBA : GL_RGB;
 
-	GLuint mapTexture;
-	glGenTextures(1, &mapTexture);
-	glBindTexture(GL_TEXTURE_2D, mapTexture);
+	glGenTextures(1, &m_textureObject);
+	glBindTexture(GL_TEXTURE_2D, m_textureObject);
 
 	glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, width, height);
 	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, format, GL_UNSIGNED_BYTE, imageData);
@@ -77,6 +76,9 @@ void Map::frameUpdate(GLuint program, const Game* game)
 
 	glUniform2fv(m_vertexDataIndex, 8, m_vertexData);
 
+	glBindTexture(GL_TEXTURE_2D, m_textureObject);
+
 	glBindVertexArray(m_vertexArrayObject);
+	// TODO: glDrawElements instead?
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 }
