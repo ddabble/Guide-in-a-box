@@ -2,6 +2,7 @@
 
 #include <thread>
 
+#include "screen/Window.h"
 #include "event/EventHandler.h"
 #include "game_object/GameObjectManager.h"
 #include "input/InputManager.h"
@@ -16,8 +17,7 @@ class Game
 protected:
 	static Game* instance;
 
-	int m_windowWidth;
-	int m_windowHeight;
+	Window m_window;
 
 	EventHandler m_eventHandler;
 
@@ -38,16 +38,6 @@ protected:
 	/* Should only be called after the init() method has returned. */
 	virtual void terminate();
 
-public:
-	static constexpr int INITIAL_WINDOW_WIDTH = 1280;
-	static constexpr int INITIAL_WINDOW_HEIGHT = 768;
-
-	static constexpr unsigned int PHYSICS_UPDATES_PER_SECOND = 50;
-	static constexpr double PHYSICS_UPDATE_INTERVAL = 1.0 / PHYSICS_UPDATES_PER_SECOND;
-
-	virtual unsigned int getPhysicsUpdatesPerSecond() const { return PHYSICS_UPDATES_PER_SECOND; }
-	virtual double getPhysicsUpdateInterval() const { return PHYSICS_UPDATE_INTERVAL; }
-
 protected:
 	std::thread m_physicsThread;
 	static void physics(Game* game);
@@ -62,8 +52,13 @@ protected:
 	virtual void physicsUpdate();
 
 public:
-	int getWindowWidth() const { return m_windowWidth; }
-	int getWindowHeight() const { return m_windowHeight; }
+	static constexpr unsigned int PHYSICS_UPDATES_PER_SECOND = 50;
+	static constexpr double PHYSICS_UPDATE_INTERVAL = 1.0 / PHYSICS_UPDATES_PER_SECOND;
+
+	virtual unsigned int getPhysicsUpdatesPerSecond() const { return PHYSICS_UPDATES_PER_SECOND; }
+	virtual double getPhysicsUpdateInterval() const { return PHYSICS_UPDATE_INTERVAL; }
 
 	const GameObjectManager& getGameObjectManager() const { return m_gameObjectManager; }
+
+	const Window& getWindow() const { return m_window; }
 };

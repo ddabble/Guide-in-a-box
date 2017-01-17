@@ -113,12 +113,12 @@ void I_HudObject::zoom(GLfloat newWidth_windowCoords, GLfloat newHeight_windowCo
 
 template<typename numeric_type> GLfloat I_HudObject::pixelsToWindowCoordWidth(numeric_type pixels)
 {
-	return 2 * (GLfloat)pixels / m_game->getWindowWidth();
+	return 2 * (GLfloat)pixels / m_game->getWindow().getWidth();
 }
 
 template<typename numeric_type> GLfloat I_HudObject::pixelsToWindowCoordHeight(numeric_type pixels)
 {
-	return 2 * (GLfloat)pixels / m_game->getWindowHeight();
+	return 2 * (GLfloat)pixels / m_game->getWindow().getHeight();
 }
 
 void I_HudObject::_setWidth(GLfloat width_windowCoords, bool preserveAspectRatio, GLfloat vertexData[8])

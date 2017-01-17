@@ -180,7 +180,7 @@ public:
 		Point m1 = rotatePointWithVector({ -lineWidth / 2.0f - diagonal + 1, lineWidth / 2.0f },  rotationVector, length);
 		Point m2 = rotatePointWithVector({ -lineWidth / 2.0f - diagonal + 1, -lineWidth / 2.0f }, rotationVector, length);
 		Point m3 = rotatePointWithVector({ -diagonal, 0 },                                        rotationVector, length);
-		//                                     + 1 pixel is apparently needed to make the lines look perfectly straight:
+		//                                 + 1 pixel is apparently needed to make the lines look perfectly straight
 		Point l1 = rotatePointWithVector({ -20 - diagonal + 1, 20 },                              rotationVector, length);
 		Point r1 = rotatePointWithVector({ -20 - diagonal + 1, -20 },                             rotationVector, length);
 		Point l2 = rotatePointWithVector({ -20 + 1, 20 },                                         rotationVector, length);
@@ -196,7 +196,7 @@ public:
 		r2 = { arrowEndPoint.x + r2.x, arrowEndPoint.y + r2.y };
 		l2 = { arrowEndPoint.x + l2.x, arrowEndPoint.y + l2.y };
 
-		// TODO: the arrows have curvature proportional to how far away from the center of the window they are
+		// TODO: the arrows have curvature proportional to how far away from the center of the window they are (using a geometry shader..?)
 		GLfloat vertexData[] =
 		{
 			// Shaft, left half:
@@ -221,10 +221,11 @@ public:
 			r1.x, r1.y,
 			r2.x, r2.y
 		};
+		Window window = game->getWindow();
 		for (int i = 0; i < sizeof(vertexData) / sizeof(GLfloat); i += 2)
 		{
-			vertexData[i] = pixelCoordsToWindowCoords_x(vertexData[i], game);
-			vertexData[i + 1] = pixelCoordsToWindowCoords_y(vertexData[i + 1], game);
+			vertexData[i] = window.pixelCoordsToWindowCoords_x(vertexData[i]);
+			vertexData[i + 1] = window.pixelCoordsToWindowCoords_y(vertexData[i + 1]);
 		}
 
 		glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
@@ -265,8 +266,8 @@ public:
 
 		// TODO: Make resizeMatrix available from Game
 
-		float widthRatio = (float)Game::INITIAL_WINDOW_WIDTH / game->getWindowWidth();
-		float heightRatio = (float)Game::INITIAL_WINDOW_HEIGHT / game->getWindowHeight();
+		float widthRatio = (float)Window::INITIAL_WINDOW_WIDTH / game->getWindow().getWidth();
+		float heightRatio = (float)Window::INITIAL_WINDOW_HEIGHT / game->getWindow().getHeight();
 
 		resizeMatrix = glm::translate(glm::mat4(1.0f), { widthRatio - 1, heightRatio - 1, 0.0f });
 		resizeMatrix = glm::scale(resizeMatrix,        { widthRatio,     heightRatio,     1.0f });
@@ -277,16 +278,5 @@ public:
 		constexpr GLint firsts[] = { 0, 4, 8, 12 };
 		constexpr GLint counts[] = { 4, 4, 4, 4 };
 		glMultiDrawArrays(GL_TRIANGLE_FAN, firsts, counts, 4);
-	}
-
-	// TODO: pixelCoordsToWindowCoords_x vs pixelsToWindowCoord_Width_
-	GLfloat pixelCoordsToWindowCoords_x(GLfloat pixels, const Game* game)
-	{
-		return 2 * pixels / game->getWindowWidth() - 1;
-	}
-
-	GLfloat pixelCoordsToWindowCoords_y(GLfloat pixels, const Game* game)
-	{
-		return 2 * pixels / game->getWindowHeight() - 1;
 	}
 };
