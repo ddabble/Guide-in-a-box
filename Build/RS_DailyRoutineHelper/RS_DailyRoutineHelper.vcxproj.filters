@@ -87,6 +87,9 @@
     <ClCompile Include="..\..\Source\game_object\hud\I_HudObject_Animated.cpp">
       <Filter>Source Files\game_object\hud</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\screen\Window.cpp">
+      <Filter>Source Files\screen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Source\triangles.vert">
@@ -150,6 +153,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\game_object\hud\objects\Arrow.h">
       <Filter>Source Files\game_object\hud\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\screen\Window.h">
+      <Filter>Source Files\screen</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

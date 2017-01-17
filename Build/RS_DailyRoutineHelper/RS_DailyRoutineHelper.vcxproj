@@ -172,6 +172,7 @@
     <ClCompile Include="..\..\Source\Game.cpp" />
     <ClCompile Include="..\..\Source\main.cpp" />
     <ClCompile Include="..\..\Source\SampleCode\LoadShaders.cpp" />
+    <ClCompile Include="..\..\Source\screen\Window.cpp" />
     <ClCompile Include="..\..\Source\triangles.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +198,7 @@
     <ClInclude Include="..\..\Source\input\Mouse.h" />
     <ClInclude Include="..\..\Source\Game.h" />
     <ClInclude Include="..\..\Source\SampleCode\LoadShaders.h" />
+    <ClInclude Include="..\..\Source\screen\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

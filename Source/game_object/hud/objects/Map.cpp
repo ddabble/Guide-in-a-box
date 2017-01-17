@@ -67,7 +67,8 @@ void Map::scrollCallback(float xOffset, float yOffset, InputManager& input)
 	if (oldZoomLevel == m_zoomLevel.offsetLevel((int)yOffset))
 		return;
 
-	zoom(int(m_pixelWidth * m_zoomLevel.getPercentage()), -1, true, (GLfloat)cursorPos.xPos / m_game->getWindowWidth(), (GLfloat)cursorPos.yPos / m_game->getWindowHeight());
+	Window window = m_game->getWindow();
+	zoom(int(m_pixelWidth * m_zoomLevel.getPercentage()), -1, true, (GLfloat)cursorPos.xPos / window.getWidth(), (GLfloat)cursorPos.yPos / window.getHeight());
 }
 
 void Map::frameUpdate(GLuint program, const Game* game)

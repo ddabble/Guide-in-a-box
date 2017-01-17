@@ -15,8 +15,7 @@
 
 #include "event/EventHandler.h"
 
-Game::Game() : m_eventHandler(EventHandler(this)), m_gameObjectManager(GameObjectManager()), m_input(InputManager()),
-m_windowWidth(INITIAL_WINDOW_WIDTH), m_windowHeight(INITIAL_WINDOW_HEIGHT)
+Game::Game() : m_window(Window()), m_eventHandler(EventHandler(this)), m_gameObjectManager(GameObjectManager()), m_input(InputManager())
 {
 
 }
@@ -85,7 +84,7 @@ GLFWwindow* Game::windowInit()
 	// TODO: Make this an option in the settings
 	//glfwWindowHint(GLFW_SAMPLES, 4);
 
-	window = glfwCreateWindow(m_windowWidth, m_windowHeight, "RS Daily Routine Helper", NULL, NULL);
+	window = glfwCreateWindow(m_window.m_windowWidth, m_window.m_windowHeight, "RS Daily Routine Helper", NULL, NULL);
 	if (!window)
 	{
 		std::cerr << "Unable to create a window with GLFW.\n" << "exiting..." << std::endl;
@@ -132,7 +131,7 @@ void Game::init(GLFWwindow* window)
 
 	glClearColor(0.3f, 0.3f, 0.3f, 1);
 
-	m_input.getMouse().init(window, m_windowHeight);
+	m_input.getMouse().init(window, m_window.m_windowHeight);
 
 	arrow1 = new Arrow(this, { 320, 192 }, { 960, 384 });
 	arrow2 = new Arrow(this, { 120, 192 }, { 460, 384 });

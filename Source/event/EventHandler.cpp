@@ -39,8 +39,8 @@ void EventHandler::framebufferSize(GLFWwindow* window, int newWidth, int newHeig
 {
 	glViewport(0, 0, newWidth, newHeight);
 
-	int& width = m_game->m_windowWidth;
-	int& height = m_game->m_windowHeight;
+	int& width = m_game->m_window.m_windowWidth;
+	int& height = m_game->m_window.m_windowHeight;
 
 	for (auto& hook : m_framebufferSizeHooks)
 		hook->framebufferSizeCallback(width, height, newWidth, newHeight);
@@ -81,7 +81,7 @@ void EventHandler::cursorPositionCallback(GLFWwindow* window, double xPos, doubl
 void EventHandler::cursorPosition(GLFWwindow* window, double xPos, double yPos)
 {
 	InputManager& input = m_game->m_input;
-	input.m_mouse.updateCursorPos(xPos, yPos, m_game->m_windowHeight);
+	input.m_mouse.updateCursorPos(xPos, yPos, m_game->m_window.m_windowHeight);
 
 	for (auto& hook : m_cursorPosHooks)
 		hook->cursorPosCallback(input);
