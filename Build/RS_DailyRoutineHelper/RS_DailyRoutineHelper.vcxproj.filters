@@ -40,6 +40,9 @@
     <Filter Include="Source Files\input">
       <UniqueIdentifier>{11321ac1-dad8-4842-9770-a75287a1a01e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\texture">
+      <UniqueIdentifier>{03dd50ce-6d64-4b2a-94cf-faa58ec7044b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\triangles.cpp">
@@ -52,9 +55,6 @@
       <Filter>Source Files\SampleCode</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\7z-Decompression.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\event\EventHandler.cpp">
@@ -89,6 +89,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\screen\Window.cpp">
       <Filter>Source Files\screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\texture\ImageDecompression.cpp">
+      <Filter>Source Files\texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +159,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\screen\Window.h">
       <Filter>Source Files\screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\texture\ImageDecompression.h">
+      <Filter>Source Files\texture</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

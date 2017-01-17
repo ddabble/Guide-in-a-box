@@ -158,7 +158,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\7z-Decompression.cpp" />
     <ClCompile Include="..\..\Source\Drawing.cpp" />
     <ClCompile Include="..\..\Source\event\EventHandler.cpp" />
     <ClCompile Include="..\..\Source\game_object\GameObjectManager.cpp" />
@@ -173,6 +172,7 @@
     <ClCompile Include="..\..\Source\main.cpp" />
     <ClCompile Include="..\..\Source\SampleCode\LoadShaders.cpp" />
     <ClCompile Include="..\..\Source\screen\Window.cpp" />
+    <ClCompile Include="..\..\Source\texture\ImageDecompression.cpp" />
     <ClCompile Include="..\..\Source\triangles.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -199,6 +199,7 @@
     <ClInclude Include="..\..\Source\Game.h" />
     <ClInclude Include="..\..\Source\SampleCode\LoadShaders.h" />
     <ClInclude Include="..\..\Source\screen\Window.h" />
+    <ClInclude Include="..\..\Source\texture\ImageDecompression.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

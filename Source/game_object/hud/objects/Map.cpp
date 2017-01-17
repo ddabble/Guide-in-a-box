@@ -1,22 +1,21 @@
 #include "Map.h"
 
 #include <GLFW/glfw3.h>
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb_image.h>
+
+#include "../../../texture/ImageDecompression.h"
 
 Map::Map(GLuint program, const Game* game) : I_HudObject_Animated(game)
 {
-	stbi_set_flip_vertically_on_load(true);
-	int width, height, components;
-	unsigned char* imageData = stbi_load("../../Source/map.png", &width, &height, &components, 0);
-	GLenum format = (components == 4) ? GL_RGBA : GL_RGB;
+	int width, height;
+	GLenum format;
+	unsigned char* imageData = extractImageFrom7zFile("../../Source/map.7z", &width, &height, &format);
 
 	glGenTextures(1, &m_textureObject);
 	glBindTexture(GL_TEXTURE_2D, m_textureObject);
 
 	glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, width, height);
 	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, format, GL_UNSIGNED_BYTE, imageData);
-	stbi_image_free(imageData);
+	freeImageData(imageData);
 
 	glGenVertexArrays(1, &m_vertexArrayObject);
 	glBindVertexArray(m_vertexArrayObject);
