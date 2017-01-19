@@ -2,10 +2,12 @@
 
 #include <iostream>
 
-// Must be included before the GLFW header
-#include <glload/gl_load.h>
+//// Must be included before the GLFW header
+//#include <glload/gl_load.h>
+
 // Must be included before the GLFW header
 #include "gl/gl.h"
+
 #define GLFW_DLL
 #include <GLFW/glfw3.h>
 
@@ -15,33 +17,38 @@
 
 #include "event/EventHandler.h"
 
-Game::Game() : m_window(Window()), m_eventHandler(EventHandler(this)), m_gameObjectManager(GameObjectManager()), m_input(InputManager())
+
+#include "game_object/hud/objects/Arrow.h"
+Arrow* arrow1;
+Arrow* arrow2;
+
+Game::Game() : m_window("RS Daily Routine Helper"), m_eventHandler(this), m_gameObjectManager(this, m_eventHandler), m_input(this)
 {
+	//glGenerateMipmap(GL_TEXTURE_2D);
 
-}
+	// Magnification/minification mipmapping
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
-void Game::run()
-{
-	GLFWwindow* window = windowInit();
-	if (window == nullptr)
-		return;
+	//glEnable(GL_PROGRAM_POINT_SIZE);
 
-	init(window);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//glEnable(GL_BLEND);
 
-	glfwSwapInterval(1);
+	glClearColor(0.3f, 0.3f, 0.3f, 1);
+
+	arrow1 = new Arrow(this, { 320, 192 }, { 960, 384 });
+	arrow2 = new Arrow(this, { 120, 192 }, { 460, 384 });
 
 	m_physicsThread = std::thread(physics, this);
+}
 
-	while (!glfwWindowShouldClose(window))
-	{
-		frameUpdate(window);
+Game::~Game()
+{
+	m_keepRunning = false;
+	m_physicsThread.join();
 
-		glfwSwapBuffers(window);
-
-		glfwPollEvents();
-	}
-
-	terminate();
+	glfwTerminate();
 }
 
 void Game::physics(Game* game)
@@ -69,72 +76,16 @@ void Game::runPhysics()
 	}
 }
 
-GLFWwindow* Game::windowInit()
+void Game::run()
 {
-	GLFWwindow* window;
-
-	glfwSetErrorCallback(EventHandler::errorCallback);
-
-	if (!glfwInit())
-		return nullptr;
-
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-
-	// TODO: Make this an option in the settings
-	//glfwWindowHint(GLFW_SAMPLES, 4);
-
-	window = glfwCreateWindow(m_window.m_windowWidth, m_window.m_windowHeight, "RS Daily Routine Helper", NULL, NULL);
-	if (!window)
+	while (!glfwWindowShouldClose(m_window.m_window))
 	{
-		std::cerr << "Unable to create a window with GLFW.\n" << "exiting..." << std::endl;
-		glfwTerminate();
-		return nullptr;
+		frameUpdate(m_window.m_window);
+
+		glfwSwapBuffers(m_window.m_window);
+
+		glfwPollEvents();
 	}
-
-	glfwSetWindowSizeLimits(window, 100, 100, GLFW_DONT_CARE, GLFW_DONT_CARE);
-
-	glfwMakeContextCurrent(window);
-
-	int loadTest = ogl_LoadFunctions();
-	if (loadTest == ogl_LOAD_FAILED)
-	{
-		std::cerr << "Unable to initialize GL Load.\n" << loadTest - ogl_LOAD_SUCCEEDED << " core functions failed to load.\n" << "exiting..." << std::endl;
-		glfwTerminate();
-		return nullptr;
-	}
-
-	return window;
-}
-
-#include "game_object/hud/objects/Arrow.h"
-Arrow* arrow1;
-Arrow* arrow2;
-
-void Game::init(GLFWwindow* window)
-{
-	m_gameObjectManager.init(this);
-
-	m_gameObjectManager.addEventHooks(m_eventHandler);
-	EventHandler::registerCallbacks(window);
-
-	//glGenerateMipmap(GL_TEXTURE_2D);
-
-	// Magnification/minification mipmapping
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-	//glEnable(GL_PROGRAM_POINT_SIZE);
-
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	//glEnable(GL_BLEND);
-
-	glClearColor(0.3f, 0.3f, 0.3f, 1);
-
-	m_input.getMouse().init(window, m_window.m_windowHeight);
-
-	arrow1 = new Arrow(this, { 320, 192 }, { 960, 384 });
-	arrow2 = new Arrow(this, { 120, 192 }, { 460, 384 });
 }
 
 // TODO: Put GL-code in own files
@@ -159,14 +110,4 @@ void Game::frameUpdate(GLFWwindow* window)
 void Game::physicsUpdate()
 {
 	m_gameObjectManager.physicsUpdate(this);
-}
-
-void Game::terminate()
-{
-	m_keepRunning = false;
-	m_physicsThread.join();
-
-	m_gameObjectManager.deallocateData();
-
-	glfwTerminate();
 }

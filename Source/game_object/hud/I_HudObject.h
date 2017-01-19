@@ -18,8 +18,6 @@ protected:
 	bool m_preserveAspectRatioOnResize;
 
 public:
-	virtual void addEventHooks(EventHandler& eventHandler) {}
-
 	virtual void frameUpdate(GLuint program, const Game* game) = 0;
 	virtual void physicsUpdate(const Game* game) {}
 

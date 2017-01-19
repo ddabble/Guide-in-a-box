@@ -1,11 +1,16 @@
 #include "Map.h"
 
+#include "../../../Game.h"
+
 #include <GLFW/glfw3.h>
 
 #include "../../../texture/ImageDecompression.h"
 
-Map::Map(GLuint program, const Game* game) : I_HudObject_Animated(game)
+Map::Map(GLuint program, const Game* game, EventHandler& eventHandler) : I_HudObject_Animated(game)
 {
+	eventHandler.addCursorPosHook(this);
+	eventHandler.addScrollHook(this);
+
 	int width, height;
 	GLenum format;
 	unsigned char* imageData = extractImageFrom7zFile("../../Source/map.7z", &width, &height, &format);
@@ -41,12 +46,6 @@ Map::Map(GLuint program, const Game* game) : I_HudObject_Animated(game)
 	m_zoomLevel = ZoomLevel();
 
 	this->setFields(width, height, 0, 0, true, 1.0f / 4);
-}
-
-void Map::addEventHooks(EventHandler& eventHandler)
-{
-	eventHandler.addCursorPosHook(this);
-	eventHandler.addScrollHook(this);
 }
 
 void Map::cursorPosCallback(InputManager& input)

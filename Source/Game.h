@@ -27,16 +27,11 @@ protected:
 
 protected:
 	Game();
+	~Game();
 
 	virtual void run();
 
-	virtual GLFWwindow* windowInit();
-	virtual void init(GLFWwindow* window);
-
 	virtual void frameUpdate(GLFWwindow* window);
-
-	/* Should only be called after the init() method has returned. */
-	virtual void terminate();
 
 protected:
 	std::thread m_physicsThread;

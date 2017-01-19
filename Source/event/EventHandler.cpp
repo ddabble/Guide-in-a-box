@@ -12,12 +12,9 @@ std::vector<EventHandler*> EventHandler::eventHandlers;
 
 EventHandler::EventHandler(Game* game) : m_game(game)
 {
-	eventHandlers.push_back(this);
-}
+	registerCallbacks(game->m_window.m_window);
 
-void EventHandler::errorCallback(int error, const char* description)
-{
-	std::cerr << "Error: " << description << std::endl;
+	eventHandlers.push_back(this);
 }
 
 void EventHandler::registerCallbacks(GLFWwindow* window)
@@ -81,7 +78,7 @@ void EventHandler::cursorPositionCallback(GLFWwindow* window, double xPos, doubl
 void EventHandler::cursorPosition(GLFWwindow* window, double xPos, double yPos)
 {
 	InputManager& input = m_game->m_input;
-	input.m_mouse.updateCursorPos(xPos, yPos, m_game->m_window.m_windowHeight);
+	input.m_mouse.updateCursorPos(xPos, yPos, m_game->m_window);
 
 	for (auto& hook : m_cursorPosHooks)
 		hook->cursorPosCallback(input);
@@ -114,13 +111,10 @@ void EventHandler::scrollCallback(GLFWwindow* window, double xOffset, double yOf
 	for (EventHandler* eventHandler : eventHandlers)
 		eventHandler->scroll(window, xOffset, yOffset);
 }
-void EventHandler::scroll(GLFWwindow* window, double _xOffset, double _yOffset)
+void EventHandler::scroll(GLFWwindow* window, double xOffset, double yOffset)
 {
-	float xOffset = (float)_xOffset;
-	float yOffset = (float)_yOffset;
-
 	InputManager& input = m_game->m_input;
 
 	for (auto& hook : m_scrollHooks)
-		hook->scrollCallback(xOffset, yOffset, input);
+		hook->scrollCallback((float)xOffset, (float)yOffset, input);
 }

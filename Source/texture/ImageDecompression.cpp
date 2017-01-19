@@ -6,8 +6,7 @@ see attached file "ImageDecompression_original (7zMain).c"
 #include "ImageDecompression.h"
 
 #include <iostream>
-#include <stdio.h>
-#include <string.h>
+#include <string>
 
 #include <7z.h>
 #include <7zAlloc.h>

@@ -1,5 +1,7 @@
 #pragma once
 
+class Game;
+class Window;
 struct GLFWwindow;
 
 struct CursorPos
@@ -13,17 +15,17 @@ struct CursorPos
 
 class Mouse
 {
-	friend class Game;
 	friend class EventHandler;
 
 private:
 	CursorPos m_cursorPos;
 
-	void init(GLFWwindow* window, int windowHeight);
-
-	void updateCursorPos(double _xPos, double _yPos, int windowHeight);
+	/* Should be called every time the cursor is moved. */
+	void updateCursorPos(double xPos, double yPos, Window window);
 
 public:
+	Mouse(const Game* game);
+
 	const CursorPos& getCursorPos() { return m_cursorPos; }
 
 	// TODO:
