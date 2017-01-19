@@ -5,10 +5,17 @@
 
 #include "objects/Map.h"
 
-void HudManager::init(const Game* game)
+HudManager::HudManager(const Game* game, EventHandler& eventHandler)
 {
+	eventHandler.addFramebufferSizeHook(this);
 	buildProgram();
-	registerHudObjects(game);
+	registerHudObjects(game, eventHandler);
+}
+
+HudManager::~HudManager()
+{
+	for (int i = 0; i < m_objects.size(); i++)
+		delete m_objects[i];
 }
 
 void HudManager::buildProgram()
@@ -23,25 +30,15 @@ void HudManager::buildProgram()
 	m_program = LoadShaders(shaders);
 }
 
-void HudManager::registerHudObjects(const Game* game)
+void HudManager::registerHudObjects(const Game* game, EventHandler& eventHandler)
 {
-	m_objects.reserve(1);
-
 	glUseProgram(m_program);
 	glActiveTexture(GL_TEXTURE0);
 
 	GLint uniform = glGetUniformLocation(m_program, "tex");
 	glUniform1i(uniform, 0);
 
-	m_objects.push_back(new Map(m_program, game));
-}
-
-void HudManager::addEventHooks(EventHandler& eventHandler)
-{
-	eventHandler.addFramebufferSizeHook(this);
-
-	for (auto& object : m_objects)
-		object->addEventHooks(eventHandler);
+	m_objects.push_back(new Map(m_program, game, eventHandler));
 }
 
 void HudManager::frameUpdate(const Game* game)
@@ -63,10 +60,4 @@ void HudManager::framebufferSizeCallback(int lastWidth, int lastHeight, int newW
 {
 	for (auto& object : m_objects)
 		object->onFramebufferResize(lastWidth, lastHeight, newWidth, newHeight);
-}
-
-void HudManager::deallocateData()
-{
-	for (int i = 0; i < m_objects.size(); i++)
-		delete m_objects[i];
 }

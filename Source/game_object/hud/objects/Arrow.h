@@ -1,8 +1,9 @@
 ﻿#pragma once
 
+#include "../../../Game.h"
+
 #include <stb_image.h>
 #include <glm/gtc/type_ptr.hpp>
-#include "../../../Game.h"
 
 class Arrow
 {

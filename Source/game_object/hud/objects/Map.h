@@ -6,7 +6,7 @@
 
 #include <glm/glm.hpp>
 
-#include "../../../Game.h"
+class Game;
 
 class Map : public I_HudObject_Animated, I_CursorPosHook, I_ScrollHook
 {
@@ -27,7 +27,11 @@ private:
 
 		void setLevel(int levelIndex) { m_levelIndex = glm::clamp(levelIndex, 0, (int)sizeof(LEVELS) - 1); }
 
-		ZoomLevel offsetLevel(int indexOffset) { m_levelIndex = glm::clamp(m_levelIndex + indexOffset, 0, (int)sizeof(LEVELS) - 1); return *this; }
+		ZoomLevel offsetLevel(int indexOffset)
+		{
+			m_levelIndex = glm::clamp(m_levelIndex + indexOffset, 0, (int)sizeof(LEVELS) - 1);
+			return *this;
+		}
 
 		bool operator==(const ZoomLevel& other) { return m_levelIndex == other.m_levelIndex; }
 	};
@@ -42,9 +46,7 @@ private:
 	ZoomLevel m_zoomLevel;
 
 public:
-	Map(GLuint program, const Game* game);
-
-	void addEventHooks(EventHandler& eventHandler) override;
+	Map(GLuint program, const Game* game, EventHandler& eventHandler);
 
 	void cursorPosCallback(InputManager& input) override;
 	void scrollCallback(float xOffset, float yOffset, InputManager& input) override;

@@ -2,20 +2,27 @@
 
 #include "../gl/gl.h"
 
+struct GLFWwindow;
+
 class Window
 {
 	friend class Game;
 	friend class EventHandler;
 
-private:
-	int m_windowWidth;
-	int m_windowHeight;
-
-	Window() : m_windowWidth(INITIAL_WINDOW_WIDTH), m_windowHeight(INITIAL_WINDOW_HEIGHT) {}
-
 public:
 	static constexpr int INITIAL_WINDOW_WIDTH = 1280;
 	static constexpr int INITIAL_WINDOW_HEIGHT = 768;
+
+private:
+	GLFWwindow* m_window;
+
+	int m_windowWidth;
+	int m_windowHeight;
+
+	Window(char* windowName);
+
+public:
+	GLFWwindow* getGLFWwindow() { return m_window; }
 
 	int getWidth() const { return m_windowWidth; }
 	int getHeight() const { return m_windowHeight; }

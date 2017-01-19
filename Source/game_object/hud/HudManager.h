@@ -17,19 +17,14 @@ private:
 	std::vector<I_HudObject*> m_objects;
 
 	void buildProgram();
-
-	void registerHudObjects(const Game* game);
+	void registerHudObjects(const Game* game, EventHandler& eventHandler);
 
 public:
-	void init(const Game* game);
-
-	void addEventHooks(EventHandler& eventHandler);
+	HudManager(const Game* game, EventHandler& eventHandler);
+	~HudManager();
 
 	void frameUpdate(const Game* game);
 	void physicsUpdate(const Game* game);
 
 	void framebufferSizeCallback(int lastWidth, int lastHeight, int newWidth, int newHeight) override;
-
-	/* Should be called when the object data is not gonna be used anymore, including on program termination. */
-	void deallocateData();
 };

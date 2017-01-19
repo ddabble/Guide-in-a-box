@@ -1,9 +1,9 @@
 #include "I_HudObject.h"
 
+#include "../../Game.h"
+
 #include <cstring>
 #include <glm/glm.hpp>
-
-#include "../../Game.h"
 
 static constexpr GLfloat VERTEX_TEMPLATE[] =
 {

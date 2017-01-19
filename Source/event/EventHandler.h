@@ -33,12 +33,10 @@ public:
 	void addScrollHook(I_ScrollHook* hook) { m_scrollHooks.push_back(hook); }
 
 private:
-	/* Should be registered before GLFW is initiated. */
-	static void errorCallback(int error, const char* description);
-
 	/*
+	Must be called after the GLFWwindow has been initialized.
 	Should be called after all event hooks have been added.
-	Note: this does not register an error callback function, which should be registered before GLFW is initiated.
+	Note: this does not register an error callback function, which should be registered before GLFW is initialized.
 	*/
 	static void registerCallbacks(GLFWwindow* window);
 
