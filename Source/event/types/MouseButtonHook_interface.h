@@ -2,7 +2,7 @@
 
 #include "../../input/InputManager.h"
 
-class I_MouseButtonHook
+class MouseButtonHook_interface
 {
 public:
 	virtual void mouseButtonCallback(InputManager& input) = 0;

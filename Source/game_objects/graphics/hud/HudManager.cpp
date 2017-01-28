@@ -1,7 +1,7 @@
 #include "HudManager.h"
 
-#include "../../event/EventHandler.h"
-#include "../../SampleCode/LoadShaders.h"
+#include "../../../event/EventHandler.h"
+#include "../../../SampleCode/LoadShaders.h"
 
 #include "objects/Map.h"
 
@@ -41,19 +41,13 @@ void HudManager::registerHudObjects(const Game* game, EventHandler& eventHandler
 	m_objects.push_back(new Map(m_program, game, eventHandler));
 }
 
-void HudManager::frameUpdate(const Game* game)
+void HudManager::graphicsUpdate(const Game* game)
 {
 	glUseProgram(m_program);
 	glActiveTexture(GL_TEXTURE0);
 
 	for (auto& object : m_objects)
-		object->frameUpdate(m_program, game);
-}
-
-void HudManager::physicsUpdate(const Game* game)
-{
-	for (auto& object : m_objects)
-		object->physicsUpdate(game);
+		object->graphicsUpdate(m_program, game);
 }
 
 void HudManager::framebufferSizeCallback(int lastWidth, int lastHeight, int newWidth, int newHeight)

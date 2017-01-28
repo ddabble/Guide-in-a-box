@@ -4,7 +4,7 @@
 
 #include "screen/Window.h"
 #include "event/EventHandler.h"
-#include "game_object/GameObjectManager.h"
+#include "game_objects/GameObjectManager.h"
 #include "input/InputManager.h"
 
 struct GLFWwindow;
@@ -31,7 +31,8 @@ protected:
 
 	virtual void run();
 
-	virtual void frameUpdate(GLFWwindow* window);
+	virtual void frameUpdate();
+	virtual void graphicsUpdate();
 
 protected:
 	std::thread m_physicsThread;

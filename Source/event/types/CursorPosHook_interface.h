@@ -2,7 +2,7 @@
 
 #include "../../input/InputManager.h"
 
-class I_CursorPosHook
+class CursorPosHook_interface
 {
 public:
 	virtual void cursorPosCallback(InputManager& input) = 0;

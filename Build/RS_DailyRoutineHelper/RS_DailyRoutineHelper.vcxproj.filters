@@ -22,18 +22,6 @@
     <Filter Include="Source Files\event">
       <UniqueIdentifier>{883b216f-b783-451b-8987-57464b435b0d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\gl">
-      <UniqueIdentifier>{211b9054-3314-40d6-ba29-75275da05cda}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\game_object">
-      <UniqueIdentifier>{1a4cb778-b616-4e26-beaf-ae48aea61c51}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\game_object\hud">
-      <UniqueIdentifier>{86c153a9-2bed-4962-9b76-d94760311891}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\game_object\hud\objects">
-      <UniqueIdentifier>{4d4b64e5-a474-422c-88cd-afc4bd4cbde6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\event\types">
       <UniqueIdentifier>{2fb3834a-e26a-42fc-8c38-dd0857b3c29b}</UniqueIdentifier>
     </Filter>
@@ -42,6 +30,27 @@
     </Filter>
     <Filter Include="Source Files\texture">
       <UniqueIdentifier>{03dd50ce-6d64-4b2a-94cf-faa58ec7044b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game_objects">
+      <UniqueIdentifier>{667bfede-a9e7-4f60-a913-34c99cf022ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game_objects\frame">
+      <UniqueIdentifier>{18364c93-1f72-48fd-86b8-f543d6279888}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game_objects\graphics">
+      <UniqueIdentifier>{b0982b3b-87ec-4465-9df3-ba214263ea9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game_objects\physics">
+      <UniqueIdentifier>{726ad45d-80dd-4fb3-867f-034494a6d764}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game_objects\graphics\hud">
+      <UniqueIdentifier>{f8ba4283-579f-4538-aaf1-ca0db8ee9d7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game_objects\graphics\hud\objects">
+      <UniqueIdentifier>{1796c927-c102-49fb-956f-38258f9c03a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gl">
+      <UniqueIdentifier>{211b9054-3314-40d6-ba29-75275da05cda}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -60,18 +69,6 @@
     <ClCompile Include="..\..\Source\event\EventHandler.cpp">
       <Filter>Source Files\event</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\game_object\GameObjectManager.cpp">
-      <Filter>Source Files\game_object</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\game_object\hud\HudManager.cpp">
-      <Filter>Source Files\game_object\hud</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\game_object\hud\objects\Map.cpp">
-      <Filter>Source Files\game_object\hud\objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\game_object\hud\I_HudObject.cpp">
-      <Filter>Source Files\game_object\hud</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\input\Mouse.cpp">
       <Filter>Source Files\input</Filter>
     </ClCompile>
@@ -84,14 +81,35 @@
     <ClCompile Include="..\..\Source\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\game_object\hud\I_HudObject_Animated.cpp">
-      <Filter>Source Files\game_object\hud</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\screen\Window.cpp">
       <Filter>Source Files\screen</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\texture\ImageDecompression.cpp">
       <Filter>Source Files\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\game_objects\GameObjectManager.cpp">
+      <Filter>Source Files\game_objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\game_objects\graphics\hud\HudManager.cpp">
+      <Filter>Source Files\game_objects\graphics\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\game_objects\graphics\hud\objects\Map.cpp">
+      <Filter>Source Files\game_objects\graphics\hud\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\game_objects\graphics\hud\HudObject_interface.cpp">
+      <Filter>Source Files\game_objects\graphics\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\game_objects\graphics\hud\HudObject_Animated_interface.cpp">
+      <Filter>Source Files\game_objects\graphics\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\game_objects\graphics\GraphicsObjectManager.cpp">
+      <Filter>Source Files\game_objects\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\game_objects\frame\FrameObjectManager.cpp">
+      <Filter>Source Files\game_objects\frame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\game_objects\physics\PhysicsObjectManager.cpp">
+      <Filter>Source Files\game_objects\physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -115,27 +133,6 @@
     <ClInclude Include="..\..\Source\gl\gl.h">
       <Filter>Source Files\gl</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\game_object\GameObjectManager.h">
-      <Filter>Source Files\game_object</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\game_object\hud\HudManager.h">
-      <Filter>Source Files\game_object\hud</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\game_object\hud\objects\Map.h">
-      <Filter>Source Files\game_object\hud\objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\event\types\I_CursorPosHook.h">
-      <Filter>Source Files\event\types</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\game_object\hud\I_HudObject.h">
-      <Filter>Source Files\game_object\hud</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\event\types\I_FramebufferSizeHook.h">
-      <Filter>Source Files\event\types</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\event\types\I_MouseButtonHook.h">
-      <Filter>Source Files\event\types</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\input\Mouse.h">
       <Filter>Source Files\input</Filter>
     </ClInclude>
@@ -145,23 +142,62 @@
     <ClInclude Include="..\..\Source\input\InputManager.h">
       <Filter>Source Files\input</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\event\types\I_ScrollHook.h">
-      <Filter>Source Files\event\types</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\game_object\hud\I_HudObject_Animated.h">
-      <Filter>Source Files\game_object\hud</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\Game.h">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\game_object\hud\objects\Arrow.h">
-      <Filter>Source Files\game_object\hud\objects</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\screen\Window.h">
       <Filter>Source Files\screen</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\texture\ImageDecompression.h">
       <Filter>Source Files\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\game_objects\GameObjectManager.h">
+      <Filter>Source Files\game_objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\game_objects\frame\FrameObject_interface.h">
+      <Filter>Source Files\game_objects\frame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\game_objects\physics\PhysicsObject_interface.h">
+      <Filter>Source Files\game_objects\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\game_objects\graphics\GraphicsObject_interface.h">
+      <Filter>Source Files\game_objects\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\game_objects\graphics\hud\HudManager.h">
+      <Filter>Source Files\game_objects\graphics\hud</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\game_objects\graphics\hud\HudObject_interface.h">
+      <Filter>Source Files\game_objects\graphics\hud</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\game_objects\graphics\hud\objects\Arrow.h">
+      <Filter>Source Files\game_objects\graphics\hud\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\game_objects\graphics\hud\objects\Map.h">
+      <Filter>Source Files\game_objects\graphics\hud\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\event\types\CursorPosHook_interface.h">
+      <Filter>Source Files\event\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\event\types\FramebufferSizeHook_interface.h">
+      <Filter>Source Files\event\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\event\types\MouseButtonHook_interface.h">
+      <Filter>Source Files\event\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\event\types\ScrollHook_interface.h">
+      <Filter>Source Files\event\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\game_objects\graphics\hud\HudObject_Animated_interface.h">
+      <Filter>Source Files\game_objects\graphics\hud</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\game_objects\graphics\GraphicsObjectManager.h">
+      <Filter>Source Files\game_objects\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\game_objects\frame\FrameObjectManager.h">
+      <Filter>Source Files\game_objects\frame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\game_objects\physics\PhysicsObjectManager.h">
+      <Filter>Source Files\game_objects\physics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

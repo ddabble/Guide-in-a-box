@@ -1,8 +1,12 @@
 ﻿#pragma once
 
-#include "../../../Game.h"
+#include "../../../../Game.h"
 
+#include <iostream>
 #include <stb_image.h>
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 class Arrow
@@ -241,7 +245,7 @@ public:
 		//glEnable(GL_MULTISAMPLE);
 	}
 
-	void frameUpdate(const Game* game)
+	void graphicsUpdate(const Game* game)
 	{
 		glUseProgram(m_program);
 

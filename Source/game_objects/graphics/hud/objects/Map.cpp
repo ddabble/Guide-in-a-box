@@ -1,12 +1,12 @@
 #include "Map.h"
 
-#include "../../../Game.h"
+#include "../../../../Game.h"
 
 #include <GLFW/glfw3.h>
 
-#include "../../../texture/ImageDecompression.h"
+#include "../../../../texture/ImageDecompression.h"
 
-Map::Map(GLuint program, const Game* game, EventHandler& eventHandler) : I_HudObject_Animated(game)
+Map::Map(GLuint program, const Game* game, EventHandler& eventHandler) : HudObject_Animated_interface(game)
 {
 	eventHandler.addCursorPosHook(this);
 	eventHandler.addScrollHook(this);
@@ -69,9 +69,9 @@ void Map::scrollCallback(float xOffset, float yOffset, InputManager& input)
 	zoom(int(m_pixelWidth * m_zoomLevel.getPercentage()), -1, true, (GLfloat)cursorPos.xPos / window.getWidth(), (GLfloat)cursorPos.yPos / window.getHeight());
 }
 
-void Map::frameUpdate(GLuint program, const Game* game)
+void Map::graphicsUpdate(GLuint program, const Game* game)
 {
-	I_HudObject_Animated::frameUpdate(program, game);
+	HudObject_Animated_interface::graphicsUpdate(program, game);
 
 	glUniform2fv(m_vertexDataIndex, 8, m_vertexData);
 

@@ -2,10 +2,10 @@
 
 #include <vector>
 
-#include "types/I_FramebufferSizeHook.h"
-#include "types/I_CursorPosHook.h"
-#include "types/I_MouseButtonHook.h"
-#include "types/I_ScrollHook.h"
+#include "types/FramebufferSizeHook_interface.h"
+#include "types/CursorPosHook_interface.h"
+#include "types/MouseButtonHook_interface.h"
+#include "types/ScrollHook_interface.h"
 
 class Game;
 struct GLFWwindow;
@@ -19,18 +19,18 @@ private:
 
 	Game* m_game;
 
-	std::vector<I_FramebufferSizeHook*> m_framebufferSizeHooks;
-	std::vector<I_CursorPosHook*> m_cursorPosHooks;
-	std::vector<I_MouseButtonHook*> m_mouseButtonHooks;
-	std::vector<I_ScrollHook*> m_scrollHooks;
+	std::vector<FramebufferSizeHook_interface*> m_framebufferSizeHooks;
+	std::vector<CursorPosHook_interface*> m_cursorPosHooks;
+	std::vector<MouseButtonHook_interface*> m_mouseButtonHooks;
+	std::vector<ScrollHook_interface*> m_scrollHooks;
 
 	EventHandler(Game* game);
 
 public:
-	void addFramebufferSizeHook(I_FramebufferSizeHook* hook) { m_framebufferSizeHooks.push_back(hook); }
-	void addCursorPosHook(I_CursorPosHook* hook) { m_cursorPosHooks.push_back(hook); }
-	void addMouseButtonHook(I_MouseButtonHook* hook) { m_mouseButtonHooks.push_back(hook); }
-	void addScrollHook(I_ScrollHook* hook) { m_scrollHooks.push_back(hook); }
+	void addFramebufferSizeHook(FramebufferSizeHook_interface* hook) { m_framebufferSizeHooks.push_back(hook); }
+	void addCursorPosHook(CursorPosHook_interface* hook) { m_cursorPosHooks.push_back(hook); }
+	void addMouseButtonHook(MouseButtonHook_interface* hook) { m_mouseButtonHooks.push_back(hook); }
+	void addScrollHook(ScrollHook_interface* hook) { m_scrollHooks.push_back(hook); }
 
 private:
 	/*

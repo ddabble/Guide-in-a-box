@@ -1,10 +1,10 @@
 #pragma once
 
-#include "I_HudObject.h"
+#include "HudObject_interface.h"
 
 class Game;
 
-class I_HudObject_Animated : public I_HudObject
+class HudObject_Animated_interface : public HudObject_interface
 {
 protected:
 	GLfloat m_vertexDataAnimationOrigin[4 * 2];
@@ -16,10 +16,10 @@ private:
 	double m_animationStartTime;
 
 public:
-	virtual void frameUpdate(GLuint program, const Game* game) override;
+	virtual void graphicsUpdate(GLuint program, const Game* game) override;
 
 protected:
-	I_HudObject_Animated(const Game* game) : I_HudObject(game) {}
+	HudObject_Animated_interface(const Game* game) : HudObject_interface(game) {}
 
 	void setFields(unsigned int width, unsigned int height, int xPixelPos, int yPixelPos, bool preserveAspectRatioOnResize, float animationDuration);
 	void setFields(unsigned int width, unsigned int height, GLfloat xWindowPos, GLfloat yWindowPos, bool preserveAspectRatioOnResize, float animationDuration);
