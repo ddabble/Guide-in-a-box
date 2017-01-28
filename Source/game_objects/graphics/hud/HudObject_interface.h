@@ -1,11 +1,10 @@
 #pragma once
 
-#include "../../gl/gl.h"
-#include "../../event/EventHandler.h"
+#include "../../../gl/gl.h"
 
 class Game;
 
-class I_HudObject
+class HudObject_interface
 {
 protected:
 	const Game* m_game;
@@ -18,14 +17,13 @@ protected:
 	bool m_preserveAspectRatioOnResize;
 
 public:
-	virtual void frameUpdate(GLuint program, const Game* game) = 0;
-	virtual void physicsUpdate(const Game* game) {}
+	virtual void graphicsUpdate(GLuint program, const Game* game) = 0;
 
 	/* Should be called whenever the framebuffer is resized. */
 	virtual void onFramebufferResize(int lastWidth, int lastHeight, int newWidth, int newHeight);
 
 protected:
-	I_HudObject(const Game* game) : m_game(game) {}
+	HudObject_interface(const Game* game) : m_game(game) {}
 
 	/*
 	width and height are the image's dimensions measured in pixels.

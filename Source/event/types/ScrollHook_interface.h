@@ -2,7 +2,7 @@
 
 #include "../../input/InputManager.h"
 
-class I_ScrollHook
+class ScrollHook_interface
 {
 public:
 	virtual void scrollCallback(float xOffset, float yOffset, InputManager& input) = 0;

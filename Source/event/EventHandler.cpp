@@ -53,7 +53,8 @@ void EventHandler::windowRefreshCallback(GLFWwindow* window)
 }
 void EventHandler::windowRefresh(GLFWwindow* window)
 {
-	m_game->frameUpdate(window);
+	m_game->frameUpdate();
+	m_game->graphicsUpdate();
 
 	glfwSwapBuffers(window);
 }
@@ -65,7 +66,8 @@ void EventHandler::windowPosCallback(GLFWwindow* window, int xPos, int yPos)
 }
 void EventHandler::windowPos(GLFWwindow* window, int xPos, int yPos)
 {
-	m_game->frameUpdate(window);
+	m_game->frameUpdate();
+	m_game->graphicsUpdate();
 
 	glfwSwapBuffers(window);
 }

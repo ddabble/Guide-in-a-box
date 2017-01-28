@@ -1,9 +1,9 @@
-#include "I_HudObject_Animated.h"
+#include "HudObject_Animated_interface.h"
 
 #include <cstring>
 #include <GLFW/glfw3.h>
 
-void I_HudObject_Animated::frameUpdate(GLuint program, const Game* game)
+void HudObject_Animated_interface::graphicsUpdate(GLuint program, const Game* game)
 {
 	if (!m_isAnimating)
 		return;
@@ -22,29 +22,29 @@ void I_HudObject_Animated::frameUpdate(GLuint program, const Game* game)
 		m_isAnimating = false;
 }
 
-void I_HudObject_Animated::setFields(unsigned int width, unsigned int height, int xPixelPos, int yPixelPos, bool preserveAspectRatioOnResize, float animationDuration)
+void HudObject_Animated_interface::setFields(unsigned int width, unsigned int height, int xPixelPos, int yPixelPos, bool preserveAspectRatioOnResize, float animationDuration)
 {
 	m_animationDuration = animationDuration;
-	I_HudObject::setFields(width, height, xPixelPos, yPixelPos, preserveAspectRatioOnResize);
+	HudObject_interface::setFields(width, height, xPixelPos, yPixelPos, preserveAspectRatioOnResize);
 }
 
-void I_HudObject_Animated::setFields(unsigned int width, unsigned int height, GLfloat xWindowPos, GLfloat yWindowPos, bool preserveAspectRatioOnResize, float animationDuration)
+void HudObject_Animated_interface::setFields(unsigned int width, unsigned int height, GLfloat xWindowPos, GLfloat yWindowPos, bool preserveAspectRatioOnResize, float animationDuration)
 {
 	m_animationDuration = animationDuration;
-	I_HudObject::setFields(width, height, xWindowPos, yWindowPos, preserveAspectRatioOnResize);
+	HudObject_interface::setFields(width, height, xWindowPos, yWindowPos, preserveAspectRatioOnResize);
 }
 
-void I_HudObject_Animated::setWidth(int width_pixels, bool preserveAspectRatio, bool animate)
+void HudObject_Animated_interface::setWidth(int width_pixels, bool preserveAspectRatio, bool animate)
 {
 	setWidth(pixelsToWindowCoordWidth(width_pixels), preserveAspectRatio, animate);
 }
 
-void I_HudObject_Animated::setHeight(int height_pixels, bool preserveAspectRatio, bool animate)
+void HudObject_Animated_interface::setHeight(int height_pixels, bool preserveAspectRatio, bool animate)
 {
 	setHeight(pixelsToWindowCoordWidth(height_pixels), preserveAspectRatio, animate);
 }
 
-void I_HudObject_Animated::setWidth(GLfloat width_windowCoords, bool preserveAspectRatio, bool animate)
+void HudObject_Animated_interface::setWidth(GLfloat width_windowCoords, bool preserveAspectRatio, bool animate)
 {
 	if (animate)
 	{
@@ -64,7 +64,7 @@ void I_HudObject_Animated::setWidth(GLfloat width_windowCoords, bool preserveAsp
 		_setWidth(width_windowCoords, preserveAspectRatio, m_vertexData);
 }
 
-void I_HudObject_Animated::setHeight(GLfloat height_windowCoords, bool preserveAspectRatio, bool animate)
+void HudObject_Animated_interface::setHeight(GLfloat height_windowCoords, bool preserveAspectRatio, bool animate)
 {
 	if (animate)
 	{
@@ -84,12 +84,12 @@ void I_HudObject_Animated::setHeight(GLfloat height_windowCoords, bool preserveA
 		_setHeight(height_windowCoords, preserveAspectRatio, m_vertexData);
 }
 
-void I_HudObject_Animated::move(int xDirection_pixels, int yDirection_pixels, bool animate)
+void HudObject_Animated_interface::move(int xDirection_pixels, int yDirection_pixels, bool animate)
 {
 	move(pixelsToWindowCoordWidth(xDirection_pixels), pixelsToWindowCoordHeight(yDirection_pixels), animate);
 }
 
-void I_HudObject_Animated::move(GLfloat xDirection_windowCoords, GLfloat yDirection_windowCoords, bool animate)
+void HudObject_Animated_interface::move(GLfloat xDirection_windowCoords, GLfloat yDirection_windowCoords, bool animate)
 {
 	if (animate)
 	{
@@ -109,12 +109,12 @@ void I_HudObject_Animated::move(GLfloat xDirection_windowCoords, GLfloat yDirect
 		_move(xDirection_windowCoords, yDirection_windowCoords, m_vertexData);
 }
 
-void I_HudObject_Animated::moveTo(int xPixelPos, int yPixelPos, bool animate)
+void HudObject_Animated_interface::moveTo(int xPixelPos, int yPixelPos, bool animate)
 {
 	moveTo(pixelsToWindowCoordWidth(xPixelPos) - 1, pixelsToWindowCoordHeight(yPixelPos) - 1, animate);
 }
 
-void I_HudObject_Animated::moveTo(GLfloat xWindowPos, GLfloat yWindowPos, bool animate)
+void HudObject_Animated_interface::moveTo(GLfloat xWindowPos, GLfloat yWindowPos, bool animate)
 {
 	if (animate)
 	{
@@ -134,12 +134,12 @@ void I_HudObject_Animated::moveTo(GLfloat xWindowPos, GLfloat yWindowPos, bool a
 		_move(xWindowPos, yWindowPos, m_vertexData);
 }
 
-void I_HudObject_Animated::zoom(int newWidth_pixels, int newHeight_pixels, bool animate, GLfloat focusX, GLfloat focusY)
+void HudObject_Animated_interface::zoom(int newWidth_pixels, int newHeight_pixels, bool animate, GLfloat focusX, GLfloat focusY)
 {
 	zoom(pixelsToWindowCoordWidth(newWidth_pixels), pixelsToWindowCoordHeight(newHeight_pixels), animate, focusX, focusY);
 }
 
-void I_HudObject_Animated::zoom(GLfloat newWidth_windowCoords, GLfloat newHeight_windowCoords, bool animate, GLfloat focusX, GLfloat focusY)
+void HudObject_Animated_interface::zoom(GLfloat newWidth_windowCoords, GLfloat newHeight_windowCoords, bool animate, GLfloat focusX, GLfloat focusY)
 {
 	if (animate)
 	{

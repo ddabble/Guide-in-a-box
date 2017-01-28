@@ -1,14 +1,14 @@
 #pragma once
 
-#include "../I_HudObject_Animated.h"
-#include "../../../event/types/I_CursorPosHook.h"
-#include "../../../event/types/I_ScrollHook.h"
+#include "../HudObject_Animated_interface.h"
+#include "../../../../event/types/CursorPosHook_interface.h"
+#include "../../../../event/types/ScrollHook_interface.h"
 
 #include <glm/glm.hpp>
 
 class Game;
 
-class Map : public I_HudObject_Animated, I_CursorPosHook, I_ScrollHook
+class Map : public HudObject_Animated_interface, CursorPosHook_interface, ScrollHook_interface
 {
 private:
 	class ZoomLevel
@@ -51,5 +51,5 @@ public:
 	void cursorPosCallback(InputManager& input) override;
 	void scrollCallback(float xOffset, float yOffset, InputManager& input) override;
 
-	void frameUpdate(GLuint program, const Game* game) override;
+	void graphicsUpdate(GLuint program, const Game* game) override;
 };
