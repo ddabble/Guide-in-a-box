@@ -5,11 +5,11 @@
 
 #include "objects/Map.h"
 
-HudManager::HudManager(const Game* game, EventHandler& eventHandler)
+HudManager::HudManager(const GraphicsObjectManager& graphicsObjectManager, EventHandler& eventHandler)
 {
 	eventHandler.addFramebufferSizeHook(this);
 	buildProgram();
-	registerHudObjects(game, eventHandler);
+	registerHudObjects(graphicsObjectManager, eventHandler);
 }
 
 HudManager::~HudManager()
@@ -30,7 +30,7 @@ void HudManager::buildProgram()
 	m_program = LoadShaders(shaders);
 }
 
-void HudManager::registerHudObjects(const Game* game, EventHandler& eventHandler)
+void HudManager::registerHudObjects(const GraphicsObjectManager& graphicsObjectManager, EventHandler& eventHandler)
 {
 	glUseProgram(m_program);
 	glActiveTexture(GL_TEXTURE0);
@@ -38,19 +38,19 @@ void HudManager::registerHudObjects(const Game* game, EventHandler& eventHandler
 	GLint uniform = glGetUniformLocation(m_program, "tex");
 	glUniform1i(uniform, 0);
 
-	m_objects.push_back(new Map(m_program, game, eventHandler));
+	m_objects.push_back(new Map(m_program, graphicsObjectManager, eventHandler));
 }
 
-void HudManager::graphicsUpdate(const Game* game)
+void HudManager::graphicsUpdate(const GraphicsObjectManager& graphicsObjectManager)
 {
 	glUseProgram(m_program);
 	glActiveTexture(GL_TEXTURE0);
 
 	for (auto& object : m_objects)
-		object->graphicsUpdate(m_program, game);
+		object->graphicsUpdate(m_program, graphicsObjectManager);
 }
 
-void HudManager::framebufferSizeCallback(int lastWidth, int lastHeight, int newWidth, int newHeight)
+void HudManager::framebufferSizeCallback(int lastWidth, int lastHeight, int newWidth, int newHeight, const GraphicsObjectManager& graphicsObjectManager)
 {
 	for (auto& object : m_objects)
 		object->onFramebufferResize(lastWidth, lastHeight, newWidth, newHeight);

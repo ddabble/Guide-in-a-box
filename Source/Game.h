@@ -15,8 +15,6 @@ class Game
 	friend class EventHandler;
 
 protected:
-	static Game* instance;
-
 	Window m_window;
 
 	EventHandler m_eventHandler;
@@ -27,7 +25,7 @@ protected:
 
 protected:
 	Game();
-	~Game();
+	virtual ~Game();
 
 	virtual void run();
 
@@ -53,8 +51,6 @@ public:
 
 	virtual unsigned int getPhysicsUpdatesPerSecond() const { return PHYSICS_UPDATES_PER_SECOND; }
 	virtual double getPhysicsUpdateInterval() const { return PHYSICS_UPDATE_INTERVAL; }
-
-	const GameObjectManager& getGameObjectManager() const { return m_gameObjectManager; }
 
 	const Window& getWindow() const { return m_window; }
 };

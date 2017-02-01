@@ -2,8 +2,6 @@
 
 #include "HudObject_interface.h"
 
-class Game;
-
 class HudObject_Animated_interface : public HudObject_interface
 {
 protected:
@@ -16,10 +14,13 @@ private:
 	double m_animationStartTime;
 
 public:
-	virtual void graphicsUpdate(GLuint program, const Game* game) override;
+	virtual void graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager) override;
+
+public:
+	virtual ~HudObject_Animated_interface() {}
 
 protected:
-	HudObject_Animated_interface(const Game* game) : HudObject_interface(game) {}
+	HudObject_Animated_interface(const GraphicsObjectManager& graphicsObjectManager) : HudObject_interface(graphicsObjectManager) {}
 
 	void setFields(unsigned int width, unsigned int height, int xPixelPos, int yPixelPos, bool preserveAspectRatioOnResize, float animationDuration);
 	void setFields(unsigned int width, unsigned int height, GLfloat xWindowPos, GLfloat yWindowPos, bool preserveAspectRatioOnResize, float animationDuration);

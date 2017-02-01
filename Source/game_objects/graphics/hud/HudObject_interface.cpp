@@ -1,7 +1,5 @@
 #include "HudObject_interface.h"
 
-#include "../../../Game.h"
-
 #include <cstring>
 #include <glm/glm.hpp>
 
@@ -113,12 +111,12 @@ void HudObject_interface::zoom(GLfloat newWidth_windowCoords, GLfloat newHeight_
 
 template<typename numeric_type> GLfloat HudObject_interface::pixelsToWindowCoordWidth(numeric_type pixels)
 {
-	return 2 * (GLfloat)pixels / m_game->getWindow().getWidth();
+	return 2 * (GLfloat)pixels / m_graphicsObjectManager.getWindow().getWidth();
 }
 
 template<typename numeric_type> GLfloat HudObject_interface::pixelsToWindowCoordHeight(numeric_type pixels)
 {
-	return 2 * (GLfloat)pixels / m_game->getWindow().getHeight();
+	return 2 * (GLfloat)pixels / m_graphicsObjectManager.getWindow().getHeight();
 }
 
 void HudObject_interface::_setWidth(GLfloat width_windowCoords, bool preserveAspectRatio, GLfloat vertexData[8])

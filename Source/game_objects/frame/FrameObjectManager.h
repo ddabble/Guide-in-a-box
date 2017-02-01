@@ -8,12 +8,17 @@ class FrameObject_interface;
 
 class FrameObjectManager
 {
+	friend class GameObjectManager;
+
 private:
 	std::vector<FrameObject_interface*> m_objects;
 
-public:
-	FrameObjectManager(const Game* game, EventHandler& eventHandler);
+	const Game& m_game;
+
+private:
+	FrameObjectManager(const Game& game, EventHandler& eventHandler);
 	~FrameObjectManager();
 
-	void frameUpdate(const Game* game);
+public:
+	void frameUpdate();
 };

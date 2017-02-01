@@ -1,6 +1,8 @@
 #include "FrameObjectManager.h"
 
-FrameObjectManager::FrameObjectManager(const Game* game, EventHandler& eventHandler)
+#include "FrameObject_interface.h"
+
+FrameObjectManager::FrameObjectManager(const Game& game, EventHandler& eventHandler) : m_game(game)
 {
 
 }
@@ -11,7 +13,7 @@ FrameObjectManager::~FrameObjectManager()
 	//	delete m_objects[i];
 }
 
-void FrameObjectManager::frameUpdate(const Game* game)
+void FrameObjectManager::frameUpdate()
 {
 	//for (auto& object : m_objects)
 	//	object->frameUpdate(game);

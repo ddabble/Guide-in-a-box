@@ -5,5 +5,7 @@
 class MouseButtonHook_interface
 {
 public:
-	virtual void mouseButtonCallback(InputManager& input) = 0;
+	virtual void mouseButtonCallback(const InputManager& input) = 0;
+
+	virtual ~MouseButtonHook_interface() {}
 };

@@ -2,6 +2,8 @@
 
 #include "../../../../Game.h"
 
+#include "../../../../gl/gl.h"
+
 #include <iostream>
 #include <stb_image.h>
 
@@ -139,7 +141,7 @@ public:
 
 	glm::mat4 resizeMatrix;
 
-	Arrow(const Game* game, Point arrowStartPoint, Point arrowEndPoint, int lineWidth = 10)
+	Arrow(const GraphicsObjectManager& graphicsObjectManager, Point arrowStartPoint, Point arrowEndPoint, int lineWidth = 10)
 	{
 		compileProgram();
 		glUseProgram(m_program);
@@ -226,7 +228,7 @@ public:
 			r1.x, r1.y,
 			r2.x, r2.y
 		};
-		Window window = game->getWindow();
+		Window window = graphicsObjectManager.getWindow();
 		for (int i = 0; i < sizeof(vertexData) / sizeof(GLfloat); i += 2)
 		{
 			vertexData[i] = window.pixelCoordsToWindowCoords_x(vertexData[i]);
@@ -245,7 +247,7 @@ public:
 		//glEnable(GL_MULTISAMPLE);
 	}
 
-	void graphicsUpdate(const Game* game)
+	void graphicsUpdate(const GraphicsObjectManager& graphicsObjectManager)
 	{
 		glUseProgram(m_program);
 

@@ -1,9 +1,11 @@
 #pragma once
 
-class Game;
+#include "GraphicsObjectManager.h"
 
 class GraphicsObject_interface
 {
 public:
-	virtual void graphicsUpdate(const Game* game) = 0;
+	virtual void graphicsUpdate(const GraphicsObjectManager& graphicsObjectManager) = 0;
+
+	virtual ~GraphicsObject_interface() {}
 };

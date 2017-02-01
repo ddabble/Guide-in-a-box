@@ -5,5 +5,7 @@
 class ScrollHook_interface
 {
 public:
-	virtual void scrollCallback(float xOffset, float yOffset, InputManager& input) = 0;
+	virtual void scrollCallback(float xOffset, float yOffset, const InputManager& input) = 0;
+
+	virtual ~ScrollHook_interface() {}
 };

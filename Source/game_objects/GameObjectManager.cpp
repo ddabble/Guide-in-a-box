@@ -4,22 +4,22 @@
 
 #include "../event/EventHandler.h"
 
-GameObjectManager::GameObjectManager(const Game* game, EventHandler& eventHandler) : m_frameObjectManager(game, eventHandler), m_graphicsObjectManager(game, eventHandler), m_physicsObjectManager(game, eventHandler)
+GameObjectManager::GameObjectManager(const Game& game, EventHandler& eventHandler) : m_frameObjectManager(game, eventHandler), m_graphicsObjectManager(game, eventHandler), m_physicsObjectManager(game, eventHandler)
 {
 
 }
 
-void GameObjectManager::frameUpdate(const Game* game)
+void GameObjectManager::frameUpdate()
 {
-	m_frameObjectManager.frameUpdate(game);
+	m_frameObjectManager.frameUpdate();
 }
 
-void GameObjectManager::graphicsUpdate(const Game* game)
+void GameObjectManager::graphicsUpdate()
 {
-	m_graphicsObjectManager.graphicsUpdate(game);
+	m_graphicsObjectManager.graphicsUpdate();
 }
 
-void GameObjectManager::physicsUpdate(const Game* game)
+void GameObjectManager::physicsUpdate()
 {
-	m_physicsObjectManager.physicsUpdate(game);
+	m_physicsObjectManager.physicsUpdate();
 }
