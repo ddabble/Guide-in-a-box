@@ -11,7 +11,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-class Arrow
+#include "../../../../event/types/FramebufferSizeHook_interface.h"
+
+class Arrow : public FramebufferSizeHook_interface
 {
 private:
 	GLuint m_program;
@@ -108,24 +110,25 @@ public:
 		float x;
 		float y;
 	};
+
 	typedef Point Vector;
 
 	Point rotatePointWithVector(Point point, Vector vector, float vectorLength = -1.0f)
 	{
 		/*
-		vector1 = (x1, y1), vector2 = (x2, y2), rotatedVector = (x', y')
-
-		Complex multiplication:
-		  (x1 + y1*i) * (x2 + y2*i)
-		= x1*x2 + x1*y2*i + x2*y1*i + y1*y2*i^2
-		= (x1*x2 - y1*y2) + (x1*y2 + x2*y1)*i
-
-		x' = x1*x2 - y1*y2
-		y' = x1*y2 + x2*y1
-
-		|rotatedVector| = |vector1| * |vector2|
-		|vector1| = |rotatedVector| / |vector2|
-		*/
+		 * vector1 = (x1, y1), vector2 = (x2, y2), rotatedVector = (x', y')
+		 *
+		 * Complex multiplication:
+		 *   (x1 + y1*i) * (x2 + y2*i)
+		 * = x1*x2 + x1*y2*i + x2*y1*i + y1*y2*i^2
+		 * = (x1*x2 - y1*y2) + (x1*y2 + x2*y1)*i
+		 *
+		 * x' = x1*x2 - y1*y2
+		 * y' = x1*y2 + x2*y1
+		 *
+		 * |rotatedVector| = |vector1| * |vector2|
+		 * |vector1| = |rotatedVector| / |vector2|
+		 */
 
 		if (vectorLength == -1.0f)
 			vectorLength = glm::sqrt(vector.x * vector.x + vector.y * vector.y);
@@ -139,10 +142,10 @@ public:
 		return rotatedPoint;
 	}
 
-	glm::mat4 resizeMatrix;
-
-	Arrow(const GraphicsObjectManager& graphicsObjectManager, Point arrowStartPoint, Point arrowEndPoint, int lineWidth = 10)
+	Arrow(const GraphicsObjectManager& graphicsObjectManager, EventHandler& eventHandler, Point arrowStartPoint, Point arrowEndPoint, int lineWidth = 10)
 	{
+		eventHandler.addFramebufferSizeHook(this);
+
 		compileProgram();
 		glUseProgram(m_program);
 
@@ -240,11 +243,16 @@ public:
 		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
 		glEnableVertexAttribArray(0);
 
-		resizeMatrix = glm::mat4(1.0f);
 		resizeUniformIndex = glGetUniformLocation(m_program, "resize");
-		glUniformMatrix4fv(resizeUniformIndex, 1, GL_FALSE, glm::value_ptr(resizeMatrix));
+		glUniformMatrix4fv(resizeUniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getResizeMatrix()));
 
 		//glEnable(GL_MULTISAMPLE);
+	}
+
+	void framebufferSizeCallback(int lastWidth, int lastHeight, int newWidth, int newHeight, const GraphicsObjectManager& graphicsObjectManager) override
+	{
+		glUseProgram(m_program);
+		glUniformMatrix4fv(resizeUniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getResizeMatrix()));
 	}
 
 	void graphicsUpdate(const GraphicsObjectManager& graphicsObjectManager)
@@ -255,32 +263,6 @@ public:
 		//glBindTexture(GL_TEXTURE_2D, m_textureObject);
 
 		glBindVertexArray(m_vertexArrayObject);
-
-		/*
-		pixelPos = Xp, windowPos = Xw, windowWidth = width
-
-		Xp = (Xw + 1)/2 * width
-
-		On window resize:
-		pixelPosBefore/After = Xp0/1, windowPosBefore/After = Xw0/1, windowWidthBefore/After = width0/1
-
-		Xp0 = Xp1
-		(Xw0 + 1)/2 * width0 = (Xw1 + 1)/2 * width1
-		(Xw0 + 1) * width0/width1 = (Xw1 + 1)
-		Xw1 = (Xw0 + 1) * width0/width1 - 1
-		Xw1 = Xw0 * (width0/width1) + (width0/width1 - 1)
-		*/
-
-		// TODO: Make resizeMatrix available from Game
-
-		float widthRatio = (float)Window::INITIAL_WINDOW_WIDTH / game->getWindow().getWidth();
-		float heightRatio = (float)Window::INITIAL_WINDOW_HEIGHT / game->getWindow().getHeight();
-
-		resizeMatrix = glm::translate(glm::mat4(1.0f), { widthRatio - 1, heightRatio - 1, 0.0f });
-		resizeMatrix = glm::scale(resizeMatrix,        { widthRatio,     heightRatio,     1.0f });
-
-		// TODO: Set this uniform on window resize instead
-		glUniformMatrix4fv(resizeUniformIndex, 1, GL_FALSE, glm::value_ptr(resizeMatrix));
 
 		constexpr GLint firsts[] = { 0, 4, 8, 12 };
 		constexpr GLint counts[] = { 4, 4, 4, 4 };

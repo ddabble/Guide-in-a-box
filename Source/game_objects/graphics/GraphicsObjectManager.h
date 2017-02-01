@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <glm/glm.hpp>
 
 class Game;
 class EventHandler;
@@ -14,6 +15,8 @@ class GraphicsObjectManager
 private:
 	std::vector<GraphicsObject_interface*> m_objects;
 
+	glm::mat4 m_resizeMatrix;
+
 	const Game& m_game;
 	const Window& m_window;
 
@@ -25,6 +28,8 @@ public:
 	void graphicsUpdate();
 
 public:
+	const glm::mat4& getResizeMatrix() const { return m_resizeMatrix; }
+
 	const Game& getGame() const { return m_game; }
 
 	const Window& getWindow() const { return m_window; }
