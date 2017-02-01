@@ -5,5 +5,7 @@
 class CursorPosHook_interface
 {
 public:
-	virtual void cursorPosCallback(InputManager& input) = 0;
+	virtual void cursorPosCallback(const InputManager& input) = 0;
+
+	virtual ~CursorPosHook_interface() {}
 };

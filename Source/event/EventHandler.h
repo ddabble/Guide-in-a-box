@@ -7,7 +7,6 @@
 #include "types/MouseButtonHook_interface.h"
 #include "types/ScrollHook_interface.h"
 
-class Game;
 struct GLFWwindow;
 
 class EventHandler
@@ -17,16 +16,20 @@ class EventHandler
 private:
 	static std::vector<EventHandler*> eventHandlers;
 
-	Game* m_game;
+	Game& m_game;
 
 	std::vector<FramebufferSizeHook_interface*> m_framebufferSizeHooks;
 	std::vector<CursorPosHook_interface*> m_cursorPosHooks;
 	std::vector<MouseButtonHook_interface*> m_mouseButtonHooks;
 	std::vector<ScrollHook_interface*> m_scrollHooks;
 
-	EventHandler(Game* game);
+	EventHandler(Game& game);
 
 public:
+	/*
+	Functions below have to be passed pointers to heap ("new").
+	Deletion of the pointers must be handled from the caller's side.
+	*/
 	void addFramebufferSizeHook(FramebufferSizeHook_interface* hook) { m_framebufferSizeHooks.push_back(hook); }
 	void addCursorPosHook(CursorPosHook_interface* hook) { m_cursorPosHooks.push_back(hook); }
 	void addMouseButtonHook(MouseButtonHook_interface* hook) { m_mouseButtonHooks.push_back(hook); }

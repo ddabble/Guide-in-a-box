@@ -6,8 +6,6 @@
 
 #include <glm/glm.hpp>
 
-class Game;
-
 class Map : public HudObject_Animated_interface, CursorPosHook_interface, ScrollHook_interface
 {
 private:
@@ -46,10 +44,10 @@ private:
 	ZoomLevel m_zoomLevel;
 
 public:
-	Map(GLuint program, const Game* game, EventHandler& eventHandler);
+	Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager, EventHandler& eventHandler);
 
-	void cursorPosCallback(InputManager& input) override;
-	void scrollCallback(float xOffset, float yOffset, InputManager& input) override;
+	void cursorPosCallback(const InputManager& input) override;
+	void scrollCallback(float xOffset, float yOffset, const InputManager& input) override;
 
-	void graphicsUpdate(GLuint program, const Game* game) override;
+	void graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager) override;
 };

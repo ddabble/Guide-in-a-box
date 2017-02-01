@@ -1,6 +1,8 @@
 #include "PhysicsObjectManager.h"
 
-PhysicsObjectManager::PhysicsObjectManager(const Game* game, EventHandler& eventHandler)
+#include "PhysicsObject_interface.h"
+
+PhysicsObjectManager::PhysicsObjectManager(const Game& game, EventHandler& eventHandler) : m_game(game)
 {
 
 }
@@ -11,7 +13,7 @@ PhysicsObjectManager::~PhysicsObjectManager()
 	//	delete m_objects[i];
 }
 
-void PhysicsObjectManager::physicsUpdate(const Game* game)
+void PhysicsObjectManager::physicsUpdate()
 {
 	//for (auto& object : m_objects)
 	//	object->physicsUpdate(game);

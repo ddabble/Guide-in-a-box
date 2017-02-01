@@ -1,12 +1,8 @@
 #include "Map.h"
 
-#include "../../../../Game.h"
-
-#include <GLFW/glfw3.h>
-
 #include "../../../../texture/ImageDecompression.h"
 
-Map::Map(GLuint program, const Game* game, EventHandler& eventHandler) : HudObject_Animated_interface(game)
+Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager, EventHandler& eventHandler) : HudObject_Animated_interface(graphicsObjectManager)
 {
 	eventHandler.addCursorPosHook(this);
 	eventHandler.addScrollHook(this);
@@ -48,7 +44,7 @@ Map::Map(GLuint program, const Game* game, EventHandler& eventHandler) : HudObje
 	this->setFields(width, height, 0, 0, true, 1.0f / 4);
 }
 
-void Map::cursorPosCallback(InputManager& input)
+void Map::cursorPosCallback(const InputManager& input)
 {
 	if (input.getMouse().m_isLeftMouseButtonDown)
 	{
@@ -57,7 +53,7 @@ void Map::cursorPosCallback(InputManager& input)
 	}
 }
 
-void Map::scrollCallback(float xOffset, float yOffset, InputManager& input)
+void Map::scrollCallback(float xOffset, float yOffset, const InputManager& input)
 {
 	CursorPos cursorPos = input.getMouse().getCursorPos();
 
@@ -65,13 +61,13 @@ void Map::scrollCallback(float xOffset, float yOffset, InputManager& input)
 	if (oldZoomLevel == m_zoomLevel.offsetLevel((int)yOffset))
 		return;
 
-	Window window = m_game->getWindow();
+	Window window = m_graphicsObjectManager.getWindow();
 	zoom(int(m_pixelWidth * m_zoomLevel.getPercentage()), -1, true, (GLfloat)cursorPos.xPos / window.getWidth(), (GLfloat)cursorPos.yPos / window.getHeight());
 }
 
-void Map::graphicsUpdate(GLuint program, const Game* game)
+void Map::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
 {
-	HudObject_Animated_interface::graphicsUpdate(program, game);
+	HudObject_Animated_interface::graphicsUpdate(program, graphicsObjectManager);
 
 	glUniform2fv(m_vertexDataIndex, 8, m_vertexData);
 

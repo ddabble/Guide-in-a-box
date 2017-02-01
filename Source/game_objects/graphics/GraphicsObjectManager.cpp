@@ -1,5 +1,7 @@
 #include "GraphicsObjectManager.h"
 
+#include "../../Game.h"
+#include "GraphicsObject_interface.h"
 #include "hud/HudManager.h"
 
 
@@ -7,7 +9,7 @@
 Arrow* arrow1;
 Arrow* arrow2;
 
-GraphicsObjectManager::GraphicsObjectManager(const Game* game, EventHandler& eventHandler)
+GraphicsObjectManager::GraphicsObjectManager(const Game& game, EventHandler& eventHandler) : m_game(game), m_window(game.getWindow())
 {
 	//glGenerateMipmap(GL_TEXTURE_2D);
 
@@ -22,10 +24,10 @@ GraphicsObjectManager::GraphicsObjectManager(const Game* game, EventHandler& eve
 
 	glClearColor(0.3f, 0.3f, 0.3f, 1);
 
-	m_objects.push_back(new HudManager(game, eventHandler));
+	m_objects.push_back(new HudManager(*this, eventHandler));
 
-	arrow1 = new Arrow(game, { 320, 192 }, { 960, 384 });
-	arrow2 = new Arrow(game, { 120, 192 }, { 460, 384 });
+	arrow1 = new Arrow(*this, { 320, 192 }, { 960, 384 });
+	arrow2 = new Arrow(*this, { 120, 192 }, { 460, 384 });
 }
 
 GraphicsObjectManager::~GraphicsObjectManager()
@@ -37,15 +39,15 @@ GraphicsObjectManager::~GraphicsObjectManager()
 	delete arrow2;
 }
 
-void GraphicsObjectManager::graphicsUpdate(const Game* game)
+void GraphicsObjectManager::graphicsUpdate()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	for (auto& object : m_objects)
-		object->graphicsUpdate(game);
+		object->graphicsUpdate(*this);
 
-	arrow1->graphicsUpdate(game);
-	arrow2->graphicsUpdate(game);
+	arrow1->graphicsUpdate(*this);
+	arrow2->graphicsUpdate(*this);
 
 	// Setup
 	//glEnable(GL_CULL_FACE);

@@ -9,11 +9,12 @@
 #define GLFW_DLL
 #include <GLFW/glfw3.h>
 
-Game::Game() : m_window("RS Daily Routine Helper"), m_eventHandler(this), m_gameObjectManager(this, m_eventHandler), m_input(this)
+Game::Game() : m_window("RS Daily Routine Helper"), m_eventHandler(*this), m_gameObjectManager(*this, m_eventHandler), m_input(*this)
 {
 	m_physicsThread = std::thread(physics, this);
 }
 
+// Argument has to be pointer type, not reference type, because compilation error..
 void Game::physics(Game* game)
 {
 	game->runPhysics();
@@ -62,15 +63,15 @@ void Game::runPhysics()
 
 void Game::frameUpdate()
 {
-	m_gameObjectManager.frameUpdate(this);
+	m_gameObjectManager.frameUpdate();
 }
 
 void Game::graphicsUpdate()
 {
-	m_gameObjectManager.graphicsUpdate(this);
+	m_gameObjectManager.graphicsUpdate();
 }
 
 void Game::physicsUpdate()
 {
-	m_gameObjectManager.physicsUpdate(this);
+	m_gameObjectManager.physicsUpdate();
 }

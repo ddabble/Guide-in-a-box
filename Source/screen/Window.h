@@ -22,7 +22,7 @@ private:
 	Window(char* windowName);
 
 public:
-	GLFWwindow* getGLFWwindow() { return m_window; }
+	GLFWwindow* getGLFWwindow() const { return m_window; }
 
 	int getWidth() const { return m_windowWidth; }
 	int getHeight() const { return m_windowHeight; }

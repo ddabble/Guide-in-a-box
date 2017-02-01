@@ -3,7 +3,7 @@
 #include <cstring>
 #include <GLFW/glfw3.h>
 
-void HudObject_Animated_interface::graphicsUpdate(GLuint program, const Game* game)
+void HudObject_Animated_interface::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
 {
 	if (!m_isAnimating)
 		return;

@@ -8,12 +8,17 @@ class PhysicsObject_interface;
 
 class PhysicsObjectManager
 {
+	friend class GameObjectManager;
+
 private:
 	std::vector<PhysicsObject_interface*> m_objects;
 
-public:
-	PhysicsObjectManager(const Game* game, EventHandler& eventHandler);
+	const Game& m_game;
+
+private:
+	PhysicsObjectManager(const Game& game, EventHandler& eventHandler);
 	~PhysicsObjectManager();
 
-	void physicsUpdate(const Game* game);
+public:
+	void physicsUpdate();
 };

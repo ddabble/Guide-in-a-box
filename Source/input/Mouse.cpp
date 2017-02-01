@@ -1,19 +1,18 @@
 #include "Mouse.h"
 
-#include "../Game.h"
+#include "../screen/Window.h"
 
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
-Mouse::Mouse(const Game* game)
+Mouse::Mouse(const Window& window)
 {
-	Window window = game->getWindow();
 	double xPos, yPos;
 	glfwGetCursorPos(window.getGLFWwindow(), &xPos, &yPos);
 	m_cursorPos = { (int)glm::floor(xPos), window.getHeight() - (int)glm::floor(yPos) - 1, 0, 0 };
 }
 
-void Mouse::updateCursorPos(double xPos, double yPos, Window window)
+void Mouse::updateCursorPos(double xPos, double yPos, const Window& window)
 {
 	int xPos_i = (int)glm::floor(xPos);
 	int yPos_i = window.getHeight() - (int)glm::floor(yPos) - 1;

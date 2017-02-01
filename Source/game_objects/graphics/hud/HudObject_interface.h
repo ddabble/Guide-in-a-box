@@ -2,12 +2,13 @@
 
 #include "../../../gl/gl.h"
 
-class Game;
+#include "../../../Game.h"
+#include "../GraphicsObjectManager.h"
 
 class HudObject_interface
 {
 protected:
-	const Game* m_game;
+	const GraphicsObjectManager& m_graphicsObjectManager;
 
 	unsigned int m_pixelWidth;
 	unsigned int m_pixelHeight;
@@ -17,13 +18,16 @@ protected:
 	bool m_preserveAspectRatioOnResize;
 
 public:
-	virtual void graphicsUpdate(GLuint program, const Game* game) = 0;
+	virtual void graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager) = 0;
 
 	/* Should be called whenever the framebuffer is resized. */
 	virtual void onFramebufferResize(int lastWidth, int lastHeight, int newWidth, int newHeight);
 
+public:
+	virtual ~HudObject_interface() {}
+
 protected:
-	HudObject_interface(const Game* game) : m_game(game) {}
+	HudObject_interface(const GraphicsObjectManager& graphicsObjectManager) : m_graphicsObjectManager(graphicsObjectManager) {}
 
 	/*
 	width and height are the image's dimensions measured in pixels.
