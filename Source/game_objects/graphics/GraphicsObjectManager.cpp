@@ -1,5 +1,7 @@
 #include "GraphicsObjectManager.h"
 
+#include <glm/gtc/matrix_transform.hpp>
+
 #include "../../Game.h"
 #include "GraphicsObject_interface.h"
 #include "hud/HudManager.h"
@@ -9,7 +11,7 @@
 Arrow* arrow1;
 Arrow* arrow2;
 
-GraphicsObjectManager::GraphicsObjectManager(const Game& game, EventHandler& eventHandler) : m_game(game), m_window(game.getWindow())
+GraphicsObjectManager::GraphicsObjectManager(const Game& game, EventHandler& eventHandler) : m_resizeMatrix(glm::mat4(1.0f)), m_game(game), m_window(game.getWindow())
 {
 	//glGenerateMipmap(GL_TEXTURE_2D);
 
@@ -26,14 +28,13 @@ GraphicsObjectManager::GraphicsObjectManager(const Game& game, EventHandler& eve
 
 	m_objects.push_back(new HudManager(*this, eventHandler));
 
-	arrow1 = new Arrow(*this, { 320, 192 }, { 960, 384 });
-	arrow2 = new Arrow(*this, { 120, 192 }, { 460, 384 });
+	arrow1 = new Arrow(*this, eventHandler, { 320, 192 }, { 960, 384 });
+	arrow2 = new Arrow(*this, eventHandler, { 120, 192 }, { 460, 384 });
 }
 
 GraphicsObjectManager::~GraphicsObjectManager()
 {
-	for (int i = 0; i < m_objects.size(); i++)
-		delete m_objects[i];
+	for (auto object : m_objects) delete object;
 
 	delete arrow1;
 	delete arrow2;
@@ -41,9 +42,30 @@ GraphicsObjectManager::~GraphicsObjectManager()
 
 void GraphicsObjectManager::graphicsUpdate()
 {
+	/*
+	 * pixelPos = Xp, windowPos = Xw, windowWidth = width
+	 *
+	 * Xp = (Xw + 1)/2 * width
+	 *
+	 * On window resize:
+	 * pixelPosBefore/After = Xp0/1, windowPosBefore/After = Xw0/1, windowWidthBefore/After = width0/1
+	 *
+	 * Xp0 = Xp1
+	 * (Xw0 + 1)/2 * width0 = (Xw1 + 1)/2 * width1
+	 * (Xw0 + 1) * width0/width1 = (Xw1 + 1)
+	 * Xw1 = (Xw0 + 1) * width0/width1 - 1
+	 * Xw1 = Xw0 * (width0/width1) + (width0/width1 - 1)
+	 */
+
+	float widthRatio = (float)Window::INITIAL_WINDOW_WIDTH / m_window.getWidth();
+	float heightRatio = (float)Window::INITIAL_WINDOW_HEIGHT / m_window.getHeight();
+
+	m_resizeMatrix = glm::translate(glm::mat4(1.0f), { widthRatio - 1, heightRatio - 1, 0.0f });
+	m_resizeMatrix = glm::scale(m_resizeMatrix,      { widthRatio,     heightRatio,     1.0f });
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	for (auto& object : m_objects)
+	for (auto object : m_objects)
 		object->graphicsUpdate(*this);
 
 	arrow1->graphicsUpdate(*this);

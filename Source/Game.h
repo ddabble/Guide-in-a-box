@@ -11,7 +11,7 @@ struct GLFWwindow;
 
 class Game
 {
-	friend int main(int, char**);
+	friend void main(int, char**);
 	friend class EventHandler;
 
 protected:

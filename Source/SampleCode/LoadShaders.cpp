@@ -13,7 +13,7 @@ static const GLchar* ReadShader(const char* filename)
 #ifdef _DEBUG
 		std::cerr << "Unable to open file '" << filename << "'" << std::endl;
 #endif // _DEBUG
-		return NULL;
+		return nullptr;
 	}
 
 	fseek(infile, 0, SEEK_END);
@@ -32,7 +32,7 @@ static const GLchar* ReadShader(const char* filename)
 
 GLuint LoadShaders(ShaderInfo* shaders)
 {
-	if (shaders == NULL)
+	if (shaders == nullptr)
 		return 0;
 
 	GLuint program = glCreateProgram();
@@ -45,7 +45,7 @@ GLuint LoadShaders(ShaderInfo* shaders)
 		entry->shader = shader;
 
 		const GLchar* source = ReadShader(entry->filename);
-		if (source == NULL)
+		if (source == nullptr)
 		{
 			for (entry = shaders; entry->type != GL_NONE; ++entry)
 			{

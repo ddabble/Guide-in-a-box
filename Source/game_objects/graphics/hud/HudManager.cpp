@@ -14,8 +14,7 @@ HudManager::HudManager(const GraphicsObjectManager& graphicsObjectManager, Event
 
 HudManager::~HudManager()
 {
-	for (int i = 0; i < m_objects.size(); i++)
-		delete m_objects[i];
+	for (auto object : m_objects) delete object;
 }
 
 void HudManager::buildProgram()
@@ -24,7 +23,7 @@ void HudManager::buildProgram()
 	{
 		{ GL_VERTEX_SHADER, "../../Source/triangles.vert" },
 		{ GL_FRAGMENT_SHADER, "../../Source/triangles.frag" },
-		{ GL_NONE, NULL }
+		{ GL_NONE, nullptr }
 	};
 
 	m_program = LoadShaders(shaders);
@@ -46,12 +45,12 @@ void HudManager::graphicsUpdate(const GraphicsObjectManager& graphicsObjectManag
 	glUseProgram(m_program);
 	glActiveTexture(GL_TEXTURE0);
 
-	for (auto& object : m_objects)
+	for (auto object : m_objects)
 		object->graphicsUpdate(m_program, graphicsObjectManager);
 }
 
 void HudManager::framebufferSizeCallback(int lastWidth, int lastHeight, int newWidth, int newHeight, const GraphicsObjectManager& graphicsObjectManager)
 {
-	for (auto& object : m_objects)
+	for (auto object : m_objects)
 		object->onFramebufferResize(lastWidth, lastHeight, newWidth, newHeight);
 }

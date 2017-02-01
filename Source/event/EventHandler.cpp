@@ -2,7 +2,9 @@
 
 #include <iostream>
 
+// Must be included before the GLFW header
 #include "../gl/gl.h"
+
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
@@ -36,14 +38,14 @@ void EventHandler::framebufferSize(GLFWwindow* window, int newWidth, int newHeig
 {
 	glViewport(0, 0, newWidth, newHeight);
 
-	int& width = m_game.m_window.m_windowWidth;
-	int& height = m_game.m_window.m_windowHeight;
+	int* width = &(m_game.m_window.m_windowWidth);
+	int* height = &(m_game.m_window.m_windowHeight);
 
-	for (auto& hook : m_framebufferSizeHooks)
-		hook->framebufferSizeCallback(width, height, newWidth, newHeight, m_game.m_gameObjectManager.m_graphicsObjectManager);
+	for (auto hook : m_framebufferSizeHooks)
+		hook->framebufferSizeCallback(*width, *height, newWidth, newHeight, m_game.m_gameObjectManager.m_graphicsObjectManager);
 
-	width = newWidth;
-	height = newHeight;
+	*width = newWidth;
+	*height = newHeight;
 }
 
 void EventHandler::windowRefreshCallback(GLFWwindow* window)
@@ -79,11 +81,11 @@ void EventHandler::cursorPositionCallback(GLFWwindow* window, double xPos, doubl
 }
 void EventHandler::cursorPosition(GLFWwindow* window, double xPos, double yPos)
 {
-	InputManager& input = m_game.m_input;
-	input.m_mouse.updateCursorPos(xPos, yPos, m_game.m_window);
+	InputManager* input = &(m_game.m_input);
+	input->m_mouse.updateCursorPos(xPos, yPos, m_game.m_window);
 
-	for (auto& hook : m_cursorPosHooks)
-		hook->cursorPosCallback(input);
+	for (auto hook : m_cursorPosHooks)
+		hook->cursorPosCallback(*input);
 }
 
 void EventHandler::mouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
@@ -93,18 +95,18 @@ void EventHandler::mouseButtonCallback(GLFWwindow* window, int button, int actio
 }
 void EventHandler::mouseButton(GLFWwindow* window, int button, int action, int mods)
 {
-	InputManager& input = m_game.m_input;
+	InputManager* input = &(m_game.m_input);
 
-	for (auto& hook : m_mouseButtonHooks)
-		hook->mouseButtonCallback(input);
+	for (auto hook : m_mouseButtonHooks)
+		hook->mouseButtonCallback(*input);
 
 	// TODO:
 	if (button == GLFW_MOUSE_BUTTON_LEFT)
 	{
 		if (action == GLFW_PRESS)
-			input.m_mouse.m_isLeftMouseButtonDown = true;
+			input->m_mouse.m_isLeftMouseButtonDown = true;
 		else
-			input.m_mouse.m_isLeftMouseButtonDown = false;
+			input->m_mouse.m_isLeftMouseButtonDown = false;
 	}
 }
 
@@ -115,8 +117,6 @@ void EventHandler::scrollCallback(GLFWwindow* window, double xOffset, double yOf
 }
 void EventHandler::scroll(GLFWwindow* window, double xOffset, double yOffset)
 {
-	InputManager& input = m_game.m_input;
-
-	for (auto& hook : m_scrollHooks)
-		hook->scrollCallback((float)xOffset, (float)yOffset, input);
+	for (auto hook : m_scrollHooks)
+		hook->scrollCallback((float)xOffset, (float)yOffset, m_game.m_input);
 }
