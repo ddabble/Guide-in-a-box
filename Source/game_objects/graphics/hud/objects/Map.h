@@ -44,7 +44,7 @@ private:
 	ZoomLevel m_zoomLevel;
 
 public:
-	Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager, EventHandler& eventHandler);
+	Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager);
 
 	void cursorPosCallback(const InputManager& input) override;
 	void scrollCallback(float xOffset, float yOffset, const InputManager& input) override;

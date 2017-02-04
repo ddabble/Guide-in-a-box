@@ -5,11 +5,11 @@
 
 #include "objects/Map.h"
 
-HudManager::HudManager(const GraphicsObjectManager& graphicsObjectManager, EventHandler& eventHandler)
+HudManager::HudManager(const GraphicsObjectManager& graphicsObjectManager)
 {
-	eventHandler.addFramebufferSizeHook(this);
+	EventHandler::addFramebufferSizeHook(this);
 	buildProgram();
-	registerHudObjects(graphicsObjectManager, eventHandler);
+	registerHudObjects(graphicsObjectManager);
 }
 
 HudManager::~HudManager()
@@ -29,7 +29,7 @@ void HudManager::buildProgram()
 	m_program = LoadShaders(shaders);
 }
 
-void HudManager::registerHudObjects(const GraphicsObjectManager& graphicsObjectManager, EventHandler& eventHandler)
+void HudManager::registerHudObjects(const GraphicsObjectManager& graphicsObjectManager)
 {
 	glUseProgram(m_program);
 	glActiveTexture(GL_TEXTURE0);
@@ -37,7 +37,7 @@ void HudManager::registerHudObjects(const GraphicsObjectManager& graphicsObjectM
 	GLint uniform = glGetUniformLocation(m_program, "tex");
 	glUniform1i(uniform, 0);
 
-	m_objects.push_back(new Map(m_program, graphicsObjectManager, eventHandler));
+	m_objects.push_back(new Map(m_program, graphicsObjectManager));
 }
 
 void HudManager::graphicsUpdate(const GraphicsObjectManager& graphicsObjectManager)

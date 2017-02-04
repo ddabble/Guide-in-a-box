@@ -11,7 +11,7 @@
 Arrow* arrow1;
 Arrow* arrow2;
 
-GraphicsObjectManager::GraphicsObjectManager(const Game& game, EventHandler& eventHandler) : m_resizeMatrix(glm::mat4(1.0f)), m_game(game), m_window(game.getWindow())
+GraphicsObjectManager::GraphicsObjectManager(const Game& game) : m_resizeMatrix(glm::mat4(1.0f)), m_game(game), m_window(game.getWindow())
 {
 	//glGenerateMipmap(GL_TEXTURE_2D);
 
@@ -26,10 +26,10 @@ GraphicsObjectManager::GraphicsObjectManager(const Game& game, EventHandler& eve
 
 	glClearColor(0.3f, 0.3f, 0.3f, 1);
 
-	m_objects.push_back(new HudManager(*this, eventHandler));
+	m_objects.push_back(new HudManager(*this));
 
-	arrow1 = new Arrow(*this, eventHandler, { 320, 192 }, { 960, 384 });
-	arrow2 = new Arrow(*this, eventHandler, { 120, 192 }, { 460, 384 });
+	arrow1 = new Arrow(*this, { 320, 192 }, { 960, 384 });
+	arrow2 = new Arrow(*this, { 120, 192 }, { 460, 384 });
 }
 
 GraphicsObjectManager::~GraphicsObjectManager()

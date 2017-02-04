@@ -10,13 +10,17 @@
 
 #include "../Game.h"
 
-std::vector<EventHandler*> EventHandler::eventHandlers;
+Game* EventHandler::m_game;
 
-EventHandler::EventHandler(Game& game) : m_game(game)
+std::vector<FramebufferSizeHook_interface*> EventHandler::m_framebufferSizeHooks;
+std::vector<CursorPosHook_interface*> EventHandler::m_cursorPosHooks;
+std::vector<MouseButtonHook_interface*> EventHandler::m_mouseButtonHooks;
+std::vector<ScrollHook_interface*> EventHandler::m_scrollHooks;
+
+void EventHandler::init(Game& game)
 {
+	m_game = &game;
 	registerCallbacks(game.m_window.m_window);
-
-	eventHandlers.push_back(this);
 }
 
 void EventHandler::registerCallbacks(GLFWwindow* window)
@@ -31,18 +35,13 @@ void EventHandler::registerCallbacks(GLFWwindow* window)
 
 void EventHandler::framebufferSizeCallback(GLFWwindow* window, int newWidth, int newHeight)
 {
-	for (EventHandler* eventHandler : eventHandlers)
-		eventHandler->framebufferSize(window, newWidth, newHeight);
-}
-void EventHandler::framebufferSize(GLFWwindow* window, int newWidth, int newHeight)
-{
 	glViewport(0, 0, newWidth, newHeight);
 
-	int* width = &(m_game.m_window.m_windowWidth);
-	int* height = &(m_game.m_window.m_windowHeight);
+	int* width = &(m_game->m_window.m_windowWidth);
+	int* height = &(m_game->m_window.m_windowHeight);
 
 	for (auto hook : m_framebufferSizeHooks)
-		hook->framebufferSizeCallback(*width, *height, newWidth, newHeight, m_game.m_gameObjectManager.m_graphicsObjectManager);
+		hook->framebufferSizeCallback(*width, *height, newWidth, newHeight, m_game->m_gameObjectManager.m_graphicsObjectManager);
 
 	*width = newWidth;
 	*height = newHeight;
@@ -50,39 +49,24 @@ void EventHandler::framebufferSize(GLFWwindow* window, int newWidth, int newHeig
 
 void EventHandler::windowRefreshCallback(GLFWwindow* window)
 {
-	for (EventHandler* eventHandler : eventHandlers)
-		eventHandler->windowRefresh(window);
-}
-void EventHandler::windowRefresh(GLFWwindow* window)
-{
-	m_game.frameUpdate();
-	m_game.graphicsUpdate();
+	m_game->frameUpdate();
+	m_game->graphicsUpdate();
 
 	glfwSwapBuffers(window);
 }
 
 void EventHandler::windowPosCallback(GLFWwindow* window, int xPos, int yPos)
 {
-	for (EventHandler* eventHandler : eventHandlers)
-		eventHandler->windowPos(window, xPos, yPos);
-}
-void EventHandler::windowPos(GLFWwindow* window, int xPos, int yPos)
-{
-	m_game.frameUpdate();
-	m_game.graphicsUpdate();
+	m_game->frameUpdate();
+	m_game->graphicsUpdate();
 
 	glfwSwapBuffers(window);
 }
 
 void EventHandler::cursorPositionCallback(GLFWwindow* window, double xPos, double yPos)
 {
-	for (EventHandler* eventHandler : eventHandlers)
-		eventHandler->cursorPosition(window, xPos, yPos);
-}
-void EventHandler::cursorPosition(GLFWwindow* window, double xPos, double yPos)
-{
-	InputManager* input = &(m_game.m_input);
-	input->m_mouse.updateCursorPos(xPos, yPos, m_game.m_window);
+	InputManager* input = &(m_game->m_input);
+	input->m_mouse.updateCursorPos(xPos, yPos, m_game->m_window);
 
 	for (auto hook : m_cursorPosHooks)
 		hook->cursorPosCallback(*input);
@@ -90,12 +74,7 @@ void EventHandler::cursorPosition(GLFWwindow* window, double xPos, double yPos)
 
 void EventHandler::mouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
 {
-	for (EventHandler* eventHandler : eventHandlers)
-		eventHandler->mouseButton(window, button, action, mods);
-}
-void EventHandler::mouseButton(GLFWwindow* window, int button, int action, int mods)
-{
-	InputManager* input = &(m_game.m_input);
+	InputManager* input = &(m_game->m_input);
 
 	for (auto hook : m_mouseButtonHooks)
 		hook->mouseButtonCallback(*input);
@@ -112,11 +91,6 @@ void EventHandler::mouseButton(GLFWwindow* window, int button, int action, int m
 
 void EventHandler::scrollCallback(GLFWwindow* window, double xOffset, double yOffset)
 {
-	for (EventHandler* eventHandler : eventHandlers)
-		eventHandler->scroll(window, xOffset, yOffset);
-}
-void EventHandler::scroll(GLFWwindow* window, double xOffset, double yOffset)
-{
 	for (auto hook : m_scrollHooks)
-		hook->scrollCallback((float)xOffset, (float)yOffset, m_game.m_input);
+		hook->scrollCallback((float)xOffset, (float)yOffset, m_game->m_input);
 }

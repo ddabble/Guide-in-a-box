@@ -142,9 +142,9 @@ public:
 		return rotatedPoint;
 	}
 
-	Arrow(const GraphicsObjectManager& graphicsObjectManager, EventHandler& eventHandler, Point arrowStartPoint, Point arrowEndPoint, int lineWidth = 10)
+	Arrow(const GraphicsObjectManager& graphicsObjectManager, Point arrowStartPoint, Point arrowEndPoint, int lineWidth = 10)
 	{
-		eventHandler.addFramebufferSizeHook(this);
+		EventHandler::addFramebufferSizeHook(this);
 
 		compileProgram();
 		glUseProgram(m_program);

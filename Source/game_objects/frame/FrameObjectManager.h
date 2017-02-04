@@ -16,7 +16,7 @@ private:
 	const Game& m_game;
 
 private:
-	FrameObjectManager(const Game& game, EventHandler& eventHandler);
+	FrameObjectManager(const Game& game);
 	~FrameObjectManager();
 
 public:

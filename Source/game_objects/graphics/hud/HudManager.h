@@ -21,10 +21,10 @@ private:
 	std::vector<HudObject_interface*> m_objects;
 
 	void buildProgram();
-	void registerHudObjects(const GraphicsObjectManager& graphicsObjectManager, EventHandler& eventHandler);
+	void registerHudObjects(const GraphicsObjectManager& graphicsObjectManager);
 
 private:
-	HudManager(const GraphicsObjectManager& graphicsObjectManager, EventHandler& eventHandler);
+	HudManager(const GraphicsObjectManager& graphicsObjectManager);
 	~HudManager();
 
 public:

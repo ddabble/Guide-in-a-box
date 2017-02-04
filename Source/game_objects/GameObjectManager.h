@@ -15,7 +15,7 @@ private:
 	PhysicsObjectManager m_physicsObjectManager;
 
 private:
-	GameObjectManager(const Game& game, EventHandler& eventHandler);
+	GameObjectManager(const Game& game);
 
 public:
 	void frameUpdate();

@@ -16,7 +16,7 @@ private:
 	const Game& m_game;
 
 private:
-	PhysicsObjectManager(const Game& game, EventHandler& eventHandler);
+	PhysicsObjectManager(const Game& game);
 	~PhysicsObjectManager();
 
 public:
