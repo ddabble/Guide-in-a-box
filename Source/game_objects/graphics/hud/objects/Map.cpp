@@ -2,10 +2,10 @@
 
 #include "../../../../texture/ImageDecompression.h"
 
-Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager, EventHandler& eventHandler) : HudObject_Animated_interface(graphicsObjectManager)
+Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : HudObject_Animated_interface(graphicsObjectManager)
 {
-	eventHandler.addCursorPosHook(this);
-	eventHandler.addScrollHook(this);
+	EventHandler::addCursorPosHook(this);
+	EventHandler::addScrollHook(this);
 
 	int width, height;
 	GLenum format;

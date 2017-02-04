@@ -3,7 +3,7 @@
 #include "../../Game.h"
 #include "FrameObject_interface.h"
 
-FrameObjectManager::FrameObjectManager(const Game& game, EventHandler& eventHandler) : m_game(game)
+FrameObjectManager::FrameObjectManager(const Game& game) : m_game(game)
 {
 
 }

@@ -3,7 +3,7 @@
 #include "../../Game.h"
 #include "PhysicsObject_interface.h"
 
-PhysicsObjectManager::PhysicsObjectManager(const Game& game, EventHandler& eventHandler) : m_game(game)
+PhysicsObjectManager::PhysicsObjectManager(const Game& game) : m_game(game)
 {
 
 }

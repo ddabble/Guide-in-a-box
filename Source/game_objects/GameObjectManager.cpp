@@ -4,7 +4,7 @@
 
 #include "../event/EventHandler.h"
 
-GameObjectManager::GameObjectManager(const Game& game, EventHandler& eventHandler) : m_frameObjectManager(game, eventHandler), m_graphicsObjectManager(game, eventHandler), m_physicsObjectManager(game, eventHandler)
+GameObjectManager::GameObjectManager(const Game& game) : m_frameObjectManager(game), m_graphicsObjectManager(game), m_physicsObjectManager(game)
 {
 
 }

@@ -9,6 +9,7 @@
 
 struct GLFWwindow;
 
+// TODO: Remove semi-static state here as well?
 class Game
 {
 	friend void main(int, char**);
@@ -16,8 +17,6 @@ class Game
 
 protected:
 	Window m_window;
-
-	EventHandler m_eventHandler;
 
 	GameObjectManager m_gameObjectManager;
 

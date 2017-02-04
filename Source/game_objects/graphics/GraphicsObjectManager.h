@@ -21,7 +21,7 @@ private:
 	const Window& m_window;
 
 private:
-	GraphicsObjectManager(const Game& game, EventHandler& eventHandler);
+	GraphicsObjectManager(const Game& game);
 	~GraphicsObjectManager();
 
 public:

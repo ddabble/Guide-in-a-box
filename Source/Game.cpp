@@ -9,8 +9,9 @@
 #define GLFW_DLL
 #include <GLFW/glfw3.h>
 
-Game::Game() : m_window("RS Daily Routine Helper"), m_eventHandler(*this), m_gameObjectManager(*this, m_eventHandler), m_input(*this)
+Game::Game() : m_window("RS Daily Routine Helper"), m_gameObjectManager(*this), m_input(*this)
 {
+	EventHandler::init(*this);
 	m_physicsThread = std::thread(physics, this);
 }
 
