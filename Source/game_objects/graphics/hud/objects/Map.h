@@ -45,6 +45,7 @@ private:
 
 public:
 	Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager);
+	~Map();
 
 	void cursorPosCallback(const InputManager& input) override;
 	void scrollCallback(float xOffset, float yOffset, const InputManager& input) override;

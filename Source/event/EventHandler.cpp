@@ -1,6 +1,7 @@
 #include "EventHandler.h"
 
 #include <iostream>
+#include <algorithm>
 
 // Must be included before the GLFW header
 #include "../gl/gl.h"
@@ -21,6 +22,26 @@ void EventHandler::init(Game& game)
 {
 	m_game = &game;
 	registerCallbacks(game.m_window.m_window);
+}
+
+void EventHandler::removeFramebufferSizeHook(FramebufferSizeHook_interface* hook)
+{
+	m_framebufferSizeHooks.erase(std::remove(m_framebufferSizeHooks.begin(), m_framebufferSizeHooks.end(), hook), m_framebufferSizeHooks.end());
+}
+
+void EventHandler::removeCursorPosHook(CursorPosHook_interface* hook)
+{
+	m_cursorPosHooks.erase(std::remove(m_cursorPosHooks.begin(), m_cursorPosHooks.end(), hook), m_cursorPosHooks.end());
+}
+
+void EventHandler::removeMouseButtonHook(MouseButtonHook_interface* hook)
+{
+	m_mouseButtonHooks.erase(std::remove(m_mouseButtonHooks.begin(), m_mouseButtonHooks.end(), hook), m_mouseButtonHooks.end());
+}
+
+void EventHandler::removeScrollHook(ScrollHook_interface* hook)
+{
+	m_scrollHooks.erase(std::remove(m_scrollHooks.begin(), m_scrollHooks.end(), hook), m_scrollHooks.end());
 }
 
 void EventHandler::registerCallbacks(GLFWwindow* window)

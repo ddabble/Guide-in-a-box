@@ -38,6 +38,14 @@ public:
 	static void addMouseButtonHook(MouseButtonHook_interface* hook) { m_mouseButtonHooks.push_back(hook); }
 	static void addScrollHook(ScrollHook_interface* hook) { m_scrollHooks.push_back(hook); }
 
+	/*
+	The respective function below must be called before the deletion of the pointer to a hook.
+	*/
+	static void removeFramebufferSizeHook(FramebufferSizeHook_interface* hook);
+	static void removeCursorPosHook(CursorPosHook_interface* hook);
+	static void removeMouseButtonHook(MouseButtonHook_interface* hook);
+	static void removeScrollHook(ScrollHook_interface* hook);
+
 private:
 	/*
 	Must be called after the GLFWwindow has been initialized.
