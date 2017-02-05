@@ -166,6 +166,7 @@
     <ClCompile Include="..\..\Source\game_objects\graphics\hud\HudManager.cpp" />
     <ClCompile Include="..\..\Source\game_objects\graphics\hud\HudObject_interface.cpp" />
     <ClCompile Include="..\..\Source\game_objects\graphics\hud\HudObject_Animated_interface.cpp" />
+    <ClCompile Include="..\..\Source\game_objects\graphics\hud\objects\Arrow.cpp" />
     <ClCompile Include="..\..\Source\game_objects\graphics\hud\objects\Map.cpp" />
     <ClCompile Include="..\..\Source\game_objects\physics\PhysicsObjectManager.cpp" />
     <ClCompile Include="..\..\Source\input\InputManager.cpp" />
@@ -179,8 +180,10 @@
     <ClCompile Include="..\..\Source\triangles.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Source\triangles.frag" />
-    <None Include="..\..\Source\triangles.vert" />
+    <None Include="..\..\Source\shaders\hud\arrow.frag" />
+    <None Include="..\..\Source\shaders\hud\arrow.vert" />
+    <None Include="..\..\Source\shaders\hud\hud_object.frag" />
+    <None Include="..\..\Source\shaders\hud\hud_object.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\Drawing.h" />

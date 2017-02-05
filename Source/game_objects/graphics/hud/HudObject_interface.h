@@ -5,6 +5,7 @@
 #include "../../../Game.h"
 #include "../GraphicsObjectManager.h"
 
+// TODO: Rename to just HudObject, seeing that it's more of an abstract class..?
 class HudObject_interface
 {
 protected:
