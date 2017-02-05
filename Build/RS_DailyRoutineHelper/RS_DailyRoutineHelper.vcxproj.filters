@@ -52,6 +52,12 @@
     <Filter Include="Source Files\gl">
       <UniqueIdentifier>{211b9054-3314-40d6-ba29-75275da05cda}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\shaders">
+      <UniqueIdentifier>{0a6fe46f-eee1-4113-81eb-24ad650fe7d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\shaders\hud">
+      <UniqueIdentifier>{f23bf2c9-3bc5-42eb-ab93-2b2918308f6b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\triangles.cpp">
@@ -111,13 +117,22 @@
     <ClCompile Include="..\..\Source\game_objects\physics\PhysicsObjectManager.cpp">
       <Filter>Source Files\game_objects\physics</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\game_objects\graphics\hud\objects\Arrow.cpp">
+      <Filter>Source Files\game_objects\graphics\hud\objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Source\triangles.vert">
-      <Filter>Source Files</Filter>
+    <None Include="..\..\Source\shaders\hud\arrow.vert">
+      <Filter>Source Files\shaders\hud</Filter>
     </None>
-    <None Include="..\..\Source\triangles.frag">
-      <Filter>Source Files</Filter>
+    <None Include="..\..\Source\shaders\hud\arrow.frag">
+      <Filter>Source Files\shaders\hud</Filter>
+    </None>
+    <None Include="..\..\Source\shaders\hud\hud_object.frag">
+      <Filter>Source Files\shaders\hud</Filter>
+    </None>
+    <None Include="..\..\Source\shaders\hud\hud_object.vert">
+      <Filter>Source Files\shaders\hud</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

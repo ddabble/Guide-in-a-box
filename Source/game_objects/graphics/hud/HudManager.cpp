@@ -23,8 +23,8 @@ void HudManager::buildProgram()
 {
 	ShaderInfo shaders[] =
 	{
-		{ GL_VERTEX_SHADER, "../../Source/triangles.vert" },
-		{ GL_FRAGMENT_SHADER, "../../Source/triangles.frag" },
+		{ GL_VERTEX_SHADER, "../../Source/shaders/hud/hud_object.vert" },
+		{ GL_FRAGMENT_SHADER, "../../Source/shaders/hud/hud_object.frag" },
 		{ GL_NONE, nullptr }
 	};
 

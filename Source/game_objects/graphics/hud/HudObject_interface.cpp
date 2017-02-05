@@ -36,10 +36,11 @@ HudObject_interface::HudObject_interface(GLuint program, const GraphicsObjectMan
 
 void HudObject_interface::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
 {
+	// TODO: Change object's position with matrices instead
 	glUniform2fv(m_vertexDataUniformIndex, 8, m_vertexData);
 
 	glBindVertexArray(m_vertexArrayObject);
-	// TODO: glDrawElements instead?
+
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 }
 
