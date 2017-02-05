@@ -2,7 +2,7 @@
 
 #include "../../../../texture/ImageDecompression.h"
 
-Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : HudObject_Animated_interface(graphicsObjectManager)
+Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : HudObject_Animated_interface(program, graphicsObjectManager)
 {
 	EventHandler::addCursorPosHook(this);
 	EventHandler::addScrollHook(this);
@@ -18,26 +18,10 @@ Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : H
 	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, format, GL_UNSIGNED_BYTE, imageData);
 	freeImageData(imageData);
 
-	glGenVertexArrays(1, &m_vertexArrayObject);
-	glBindVertexArray(m_vertexArrayObject);
-
-	constexpr GLint vertexIndices[] = { 0, 1, 2, 3 };
-
-	GLuint buf;
-	glGenBuffers(1, &buf);
-	glBindBuffer(GL_ARRAY_BUFFER, buf);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexIndices), vertexIndices, GL_STATIC_DRAW);
-
-	// Notice the "I" and the lack of a "normalized" argument
-	glVertexAttribIPointer(0, 1, GL_INT, 0, BUFFER_OFFSET(0));
-	glEnableVertexAttribArray(0);
-
 	//glGenerateMipmap(GL_TEXTURE_2D);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-	m_vertexDataIndex = glGetUniformLocation(program, "vertexData");
 
 	m_zoomLevel = ZoomLevel();
 
@@ -73,13 +57,8 @@ void Map::scrollCallback(float xOffset, float yOffset, const InputManager& input
 
 void Map::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
 {
-	HudObject_Animated_interface::graphicsUpdate(program, graphicsObjectManager);
-
-	glUniform2fv(m_vertexDataIndex, 8, m_vertexData);
-
 	glBindTexture(GL_TEXTURE_2D, m_textureObject);
 
-	glBindVertexArray(m_vertexArrayObject);
-	// TODO: glDrawElements instead?
-	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+	HudObject_Animated_interface::graphicsUpdate(program, graphicsObjectManager);
+	HudObject_interface::graphicsUpdate(program, graphicsObjectManager);
 }

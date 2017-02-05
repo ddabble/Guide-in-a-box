@@ -54,5 +54,5 @@ void HudManager::graphicsUpdate(const GraphicsObjectManager& graphicsObjectManag
 void HudManager::framebufferSizeCallback(int lastWidth, int lastHeight, int newWidth, int newHeight, const GraphicsObjectManager& graphicsObjectManager)
 {
 	for (auto object : m_objects)
-		object->onFramebufferResize(lastWidth, lastHeight, newWidth, newHeight);
+		object->onFramebufferResize(lastWidth, lastHeight, newWidth, newHeight, m_program);
 }

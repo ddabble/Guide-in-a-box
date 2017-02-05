@@ -13,22 +13,28 @@ protected:
 	unsigned int m_pixelWidth;
 	unsigned int m_pixelHeight;
 
-	GLfloat m_vertexData[4 * 2 + 4 * 2];
-
 	bool m_preserveAspectRatioOnResize;
 
-public:
-	virtual void graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager) = 0;
+	GLuint m_vertexArrayObject;
 
-	/* Should be called whenever the framebuffer is resized. */
-	virtual void onFramebufferResize(int lastWidth, int lastHeight, int newWidth, int newHeight);
+	GLfloat m_vertexData[4 * 2 + 4 * 2];
+	GLint m_vertexDataUniformIndex;
+
+	GLint m_resizeUniformIndex;
+
+protected:
+	HudObject_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager);
 
 public:
 	virtual ~HudObject_interface() {}
 
-protected:
-	HudObject_interface(const GraphicsObjectManager& graphicsObjectManager) : m_graphicsObjectManager(graphicsObjectManager) {}
+public:
+	virtual void graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager);
 
+	/* Should be called whenever the framebuffer is resized. */
+	virtual void onFramebufferResize(int lastWidth, int lastHeight, int newWidth, int newHeight, GLuint program);
+
+protected:
 	/*
 	width and height are the image's dimensions measured in pixels.
 	xPixelPos and yPixelPos are the coordinates of the image's lower left corner.

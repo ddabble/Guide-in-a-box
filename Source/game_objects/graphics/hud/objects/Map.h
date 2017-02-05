@@ -35,11 +35,7 @@ private:
 	};
 
 private:
-	GLuint m_vertexArrayObject;
-
 	GLuint m_textureObject;
-
-	GLint m_vertexDataIndex;
 
 	ZoomLevel m_zoomLevel;
 
