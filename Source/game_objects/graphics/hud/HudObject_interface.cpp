@@ -2,6 +2,7 @@
 
 #include <cstring>
 #include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 static constexpr GLfloat VERTEX_TEMPLATE[] =
 {
@@ -11,22 +12,44 @@ static constexpr GLfloat VERTEX_TEMPLATE[] =
 	0, 1
 };
 
-void HudObject_interface::onFramebufferResize(int lastWidth, int lastHeight, int newWidth, int newHeight)
+HudObject_interface::HudObject_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : m_graphicsObjectManager(graphicsObjectManager)
+{
+	glGenVertexArrays(1, &m_vertexArrayObject);
+	glBindVertexArray(m_vertexArrayObject);
+
+	constexpr GLint vertexIndices[] = { 0, 1, 2, 3 };
+
+	GLuint buf;
+	glGenBuffers(1, &buf);
+	glBindBuffer(GL_ARRAY_BUFFER, buf);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexIndices), vertexIndices, GL_STATIC_DRAW);
+
+	// Notice the "I" and the lack of a "normalized" argument
+	glVertexAttribIPointer(0, 1, GL_INT, 0, BUFFER_OFFSET(0));
+	glEnableVertexAttribArray(0);
+
+	m_vertexDataUniformIndex = glGetUniformLocation(program, "vertexData");
+
+	m_resizeUniformIndex = glGetUniformLocation(program, "resize");
+	glUniformMatrix4fv(m_resizeUniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getResizeMatrix()));
+}
+
+void HudObject_interface::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
+{
+	glUniform2fv(m_vertexDataUniformIndex, 8, m_vertexData);
+
+	glBindVertexArray(m_vertexArrayObject);
+	// TODO: glDrawElements instead?
+	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+}
+
+void HudObject_interface::onFramebufferResize(int lastWidth, int lastHeight, int newWidth, int newHeight, GLuint program)
 {
 	if (!m_preserveAspectRatioOnResize)
 		return;
 
-	GLfloat newXWindowPos = (lastWidth * (m_vertexData[0] + 1)) / newWidth - 1;
-	GLfloat newYWindowPos = (lastHeight * (m_vertexData[1] + 1)) / newHeight - 1;
-
-	GLfloat imageWindowWidth = (lastWidth * getWindowCoordWidth()) / newWidth;
-	GLfloat imageWindowHeight = (lastHeight * getWindowCoordHeight()) / newHeight;
-
-	for (int i = 0; i < 8; i += 2)
-	{
-		m_vertexData[i] = newXWindowPos + VERTEX_TEMPLATE[i] * imageWindowWidth;
-		m_vertexData[i + 1] = newYWindowPos + VERTEX_TEMPLATE[i + 1] * imageWindowHeight;
-	}
+	glUseProgram(program);
+	glUniformMatrix4fv(m_resizeUniformIndex, 1, GL_FALSE, glm::value_ptr(m_graphicsObjectManager.getResizeMatrix()));
 }
 
 void HudObject_interface::setFields(unsigned int width, unsigned int height, int xPixelPos, int yPixelPos, bool preserveAspectRatioOnResize)

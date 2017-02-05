@@ -20,7 +20,7 @@ public:
 	virtual ~HudObject_Animated_interface() {}
 
 protected:
-	HudObject_Animated_interface(const GraphicsObjectManager& graphicsObjectManager) : HudObject_interface(graphicsObjectManager) {}
+	HudObject_Animated_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : HudObject_interface(program, graphicsObjectManager) {}
 
 	void setFields(unsigned int width, unsigned int height, int xPixelPos, int yPixelPos, bool preserveAspectRatioOnResize, float animationDuration);
 	void setFields(unsigned int width, unsigned int height, GLfloat xWindowPos, GLfloat yWindowPos, bool preserveAspectRatioOnResize, float animationDuration);
