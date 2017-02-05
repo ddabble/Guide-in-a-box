@@ -14,6 +14,8 @@ HudManager::HudManager(const GraphicsObjectManager& graphicsObjectManager)
 
 HudManager::~HudManager()
 {
+	EventHandler::removeFramebufferSizeHook(this);
+
 	for (auto object : m_objects) delete object;
 }
 

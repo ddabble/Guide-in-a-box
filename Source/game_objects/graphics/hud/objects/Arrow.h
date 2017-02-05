@@ -249,6 +249,11 @@ public:
 		//glEnable(GL_MULTISAMPLE);
 	}
 
+	~Arrow()
+	{
+		EventHandler::removeFramebufferSizeHook(this);
+	}
+
 	void framebufferSizeCallback(int lastWidth, int lastHeight, int newWidth, int newHeight, const GraphicsObjectManager& graphicsObjectManager) override
 	{
 		glUseProgram(m_program);

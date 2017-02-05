@@ -44,6 +44,12 @@ Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : H
 	this->setFields(width, height, 0, 0, true, 1.0f / 4);
 }
 
+Map::~Map()
+{
+	EventHandler::removeCursorPosHook(this);
+	EventHandler::removeScrollHook(this);
+}
+
 void Map::cursorPosCallback(const InputManager& input)
 {
 	if (input.getMouse().m_isLeftMouseButtonDown)
