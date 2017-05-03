@@ -1,4 +1,4 @@
-#include "HudObject_interface.h"
+#include "HUDobject_interface.h"
 
 #include <cstring>
 #include <glm/glm.hpp>
@@ -12,7 +12,7 @@ static constexpr GLfloat VERTEX_TEMPLATE[] =
 	0, 1
 };
 
-HudObject_interface::HudObject_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : m_graphicsObjectManager(graphicsObjectManager)
+HUDobject_interface::HUDobject_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : m_graphicsObjectManager(graphicsObjectManager)
 {
 	glGenVertexArrays(1, &m_vertexArrayObject);
 	glBindVertexArray(m_vertexArrayObject);
@@ -34,7 +34,7 @@ HudObject_interface::HudObject_interface(GLuint program, const GraphicsObjectMan
 	glUniformMatrix4fv(m_resizeUniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getResizeMatrix()));
 }
 
-void HudObject_interface::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
+void HUDobject_interface::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
 {
 	// TODO: Change object's position with matrices instead
 	glUniform2fv(m_vertexDataUniformIndex, 8, m_vertexData);
@@ -44,7 +44,7 @@ void HudObject_interface::graphicsUpdate(GLuint program, const GraphicsObjectMan
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 }
 
-void HudObject_interface::onFramebufferResize(int lastWidth, int lastHeight, int newWidth, int newHeight, GLuint program)
+void HUDobject_interface::onFramebufferResize(int lastWidth, int lastHeight, int newWidth, int newHeight, GLuint program)
 {
 	if (!m_preserveAspectRatioOnResize)
 		return;
@@ -53,12 +53,12 @@ void HudObject_interface::onFramebufferResize(int lastWidth, int lastHeight, int
 	glUniformMatrix4fv(m_resizeUniformIndex, 1, GL_FALSE, glm::value_ptr(m_graphicsObjectManager.getResizeMatrix()));
 }
 
-void HudObject_interface::setFields(unsigned int width, unsigned int height, int xPixelPos, int yPixelPos, bool preserveAspectRatioOnResize)
+void HUDobject_interface::setFields(unsigned int width, unsigned int height, int xPixelPos, int yPixelPos, bool preserveAspectRatioOnResize)
 {
-	HudObject_interface::setFields(width, height, pixelsToWindowCoordWidth(xPixelPos) - 1, pixelsToWindowCoordHeight(yPixelPos) - 1, preserveAspectRatioOnResize);
+	HUDobject_interface::setFields(width, height, pixelsToWindowCoordWidth(xPixelPos) - 1, pixelsToWindowCoordHeight(yPixelPos) - 1, preserveAspectRatioOnResize);
 }
 
-void HudObject_interface::setFields(unsigned int width, unsigned int height, GLfloat xPos, GLfloat yPos, bool preserveAspectRatioOnResize)
+void HUDobject_interface::setFields(unsigned int width, unsigned int height, GLfloat xPos, GLfloat yPos, bool preserveAspectRatioOnResize)
 {
 	GLfloat widthRatio = pixelsToWindowCoordWidth(width);
 	GLfloat heightRatio = pixelsToWindowCoordHeight(height);
@@ -83,67 +83,67 @@ void HudObject_interface::setFields(unsigned int width, unsigned int height, GLf
 	m_preserveAspectRatioOnResize = preserveAspectRatioOnResize;
 }
 
-void HudObject_interface::setWidth(int width_pixels, bool preserveAspectRatio)
+void HUDobject_interface::setWidth(int width_pixels, bool preserveAspectRatio)
 {
 	_setWidth(pixelsToWindowCoordWidth(width_pixels), preserveAspectRatio, m_vertexData);
 }
 
-void HudObject_interface::setHeight(int height_pixels, bool preserveAspectRatio)
+void HUDobject_interface::setHeight(int height_pixels, bool preserveAspectRatio)
 {
 	_setHeight(pixelsToWindowCoordHeight(height_pixels), preserveAspectRatio, m_vertexData);
 }
 
-void HudObject_interface::setWidth(GLfloat width_windowCoords, bool preserveAspectRatio)
+void HUDobject_interface::setWidth(GLfloat width_windowCoords, bool preserveAspectRatio)
 {
 	_setWidth(width_windowCoords, preserveAspectRatio, m_vertexData);
 }
 
-void HudObject_interface::setHeight(GLfloat height_windowCoords, bool preserveAspectRatio)
+void HUDobject_interface::setHeight(GLfloat height_windowCoords, bool preserveAspectRatio)
 {
 	_setHeight(height_windowCoords, preserveAspectRatio, m_vertexData);
 }
 
-void HudObject_interface::move(int xDirection_pixels, int yDirection_pixels)
+void HUDobject_interface::move(int xDirection_pixels, int yDirection_pixels)
 {
 	_move(pixelsToWindowCoordWidth(xDirection_pixels), pixelsToWindowCoordHeight(yDirection_pixels), m_vertexData);
 }
 
-void HudObject_interface::move(GLfloat xDirection_windowCoords, GLfloat yDirection_windowCoords)
+void HUDobject_interface::move(GLfloat xDirection_windowCoords, GLfloat yDirection_windowCoords)
 {
 	_move(xDirection_windowCoords, yDirection_windowCoords, m_vertexData);
 }
 
-void HudObject_interface::moveTo(int xPixelPos, int yPixelPos)
+void HUDobject_interface::moveTo(int xPixelPos, int yPixelPos)
 {
 	_moveTo(pixelsToWindowCoordWidth(xPixelPos) - 1, pixelsToWindowCoordHeight(yPixelPos) - 1, m_vertexData);
 }
 
-void HudObject_interface::moveTo(GLfloat xWindowPos, GLfloat yWindowPos)
+void HUDobject_interface::moveTo(GLfloat xWindowPos, GLfloat yWindowPos)
 {
 	_moveTo(xWindowPos, yWindowPos, m_vertexData);
 }
 
-void HudObject_interface::zoom(int newWidth_pixels, int newHeight_pixels, GLfloat focusX, GLfloat focusY)
+void HUDobject_interface::zoom(int newWidth_pixels, int newHeight_pixels, GLfloat focusX, GLfloat focusY)
 {
 	_zoom(pixelsToWindowCoordWidth(newWidth_pixels), pixelsToWindowCoordHeight(newHeight_pixels), focusX, focusY, m_vertexData);
 }
 
-void HudObject_interface::zoom(GLfloat newWidth_windowCoords, GLfloat newHeight_windowCoords, GLfloat focusX, GLfloat focusY)
+void HUDobject_interface::zoom(GLfloat newWidth_windowCoords, GLfloat newHeight_windowCoords, GLfloat focusX, GLfloat focusY)
 {
 	_zoom(newWidth_windowCoords, newHeight_windowCoords, focusX, focusY, m_vertexData);
 }
 
-template<typename numeric_type> GLfloat HudObject_interface::pixelsToWindowCoordWidth(numeric_type pixels)
+template<typename numeric_type> GLfloat HUDobject_interface::pixelsToWindowCoordWidth(numeric_type pixels)
 {
 	return 2 * (GLfloat)pixels / m_graphicsObjectManager.getWindow().getWidth();
 }
 
-template<typename numeric_type> GLfloat HudObject_interface::pixelsToWindowCoordHeight(numeric_type pixels)
+template<typename numeric_type> GLfloat HUDobject_interface::pixelsToWindowCoordHeight(numeric_type pixels)
 {
 	return 2 * (GLfloat)pixels / m_graphicsObjectManager.getWindow().getHeight();
 }
 
-void HudObject_interface::_setWidth(GLfloat width_windowCoords, bool preserveAspectRatio, GLfloat vertexData[8])
+void HUDobject_interface::_setWidth(GLfloat width_windowCoords, bool preserveAspectRatio, GLfloat vertexData[8])
 {
 	if (preserveAspectRatio)
 	{
@@ -158,7 +158,7 @@ void HudObject_interface::_setWidth(GLfloat width_windowCoords, bool preserveAsp
 	vertexData[4] = vertexData[0] + width_windowCoords;
 }
 
-void HudObject_interface::_setHeight(GLfloat height_windowCoords, bool preserveAspectRatio, GLfloat vertexData[8])
+void HUDobject_interface::_setHeight(GLfloat height_windowCoords, bool preserveAspectRatio, GLfloat vertexData[8])
 {
 	if (preserveAspectRatio)
 	{
@@ -173,7 +173,7 @@ void HudObject_interface::_setHeight(GLfloat height_windowCoords, bool preserveA
 	vertexData[7] = vertexData[1] + height_windowCoords;
 }
 
-void HudObject_interface::_move(GLfloat xDirection, GLfloat yDirection, GLfloat vertexData[8])
+void HUDobject_interface::_move(GLfloat xDirection, GLfloat yDirection, GLfloat vertexData[8])
 {
 	for (int i = 0; i < 8; i += 2)
 	{
@@ -182,7 +182,7 @@ void HudObject_interface::_move(GLfloat xDirection, GLfloat yDirection, GLfloat 
 	}
 }
 
-void HudObject_interface::_moveTo(GLfloat xPos, GLfloat yPos, GLfloat vertexData[8])
+void HUDobject_interface::_moveTo(GLfloat xPos, GLfloat yPos, GLfloat vertexData[8])
 {
 	GLfloat windowWidth = getWindowCoordWidth();
 	GLfloat windowHeight = getWindowCoordHeight();
@@ -194,7 +194,7 @@ void HudObject_interface::_moveTo(GLfloat xPos, GLfloat yPos, GLfloat vertexData
 	}
 }
 
-void HudObject_interface::_zoom(GLfloat newWidth, GLfloat newHeight, GLfloat focusX, GLfloat focusY, GLfloat vertexData[8])
+void HUDobject_interface::_zoom(GLfloat newWidth, GLfloat newHeight, GLfloat focusX, GLfloat focusY, GLfloat vertexData[8])
 {
 	focusX = glm::clamp(focusX, 0.0f, 1.0f);
 	focusY = glm::clamp(focusY, 0.0f, 1.0f);

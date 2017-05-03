@@ -46,8 +46,8 @@ Arrow::Arrow(const GraphicsObjectManager& graphicsObjectManager, Point arrowStar
 
 	ShaderInfo shaders[] =
 	{
-		{ GL_VERTEX_SHADER, "../../Source/shaders/hud/arrow.vert" },
-		{ GL_FRAGMENT_SHADER, "../../Source/shaders/hud/arrow.frag" },
+		{ GL_VERTEX_SHADER, "../../Source/shaders/HUD/arrow.vert" },
+		{ GL_FRAGMENT_SHADER, "../../Source/shaders/HUD/arrow.frag" },
 		{ GL_NONE, nullptr }
 	};
 

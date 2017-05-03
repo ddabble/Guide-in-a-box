@@ -1,8 +1,8 @@
 #pragma once
 
-#include "HudObject_interface.h"
+#include "HUDobject_interface.h"
 
-class HudObject_Animated_interface : public HudObject_interface
+class HUDobject_Animated_interface : public HUDobject_interface
 {
 protected:
 	GLfloat m_vertexDataAnimationOrigin[4 * 2];
@@ -17,10 +17,10 @@ public:
 	virtual void graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager) override;
 
 public:
-	virtual ~HudObject_Animated_interface() {}
+	virtual ~HUDobject_Animated_interface() {}
 
 protected:
-	HudObject_Animated_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : HudObject_interface(program, graphicsObjectManager) {}
+	HUDobject_Animated_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : HUDobject_interface(program, graphicsObjectManager) {}
 
 	void setFields(unsigned int width, unsigned int height, int xPixelPos, int yPixelPos, bool preserveAspectRatioOnResize, float animationDuration);
 	void setFields(unsigned int width, unsigned int height, GLfloat xWindowPos, GLfloat yWindowPos, bool preserveAspectRatioOnResize, float animationDuration);

@@ -43,10 +43,10 @@
     <Filter Include="Source Files\game_objects\physics">
       <UniqueIdentifier>{726ad45d-80dd-4fb3-867f-034494a6d764}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\game_objects\graphics\hud">
+    <Filter Include="Source Files\game_objects\graphics\HUD">
       <UniqueIdentifier>{f8ba4283-579f-4538-aaf1-ca0db8ee9d7c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\game_objects\graphics\hud\objects">
+    <Filter Include="Source Files\game_objects\graphics\HUD\objects">
       <UniqueIdentifier>{1796c927-c102-49fb-956f-38258f9c03a2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\gl">
@@ -55,7 +55,7 @@
     <Filter Include="Source Files\shaders">
       <UniqueIdentifier>{0a6fe46f-eee1-4113-81eb-24ad650fe7d7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\shaders\hud">
+    <Filter Include="Source Files\shaders\HUD">
       <UniqueIdentifier>{f23bf2c9-3bc5-42eb-ab93-2b2918308f6b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -96,17 +96,8 @@
     <ClCompile Include="..\..\Source\game_objects\GameObjectManager.cpp">
       <Filter>Source Files\game_objects</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\game_objects\graphics\hud\HudManager.cpp">
-      <Filter>Source Files\game_objects\graphics\hud</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\game_objects\graphics\hud\objects\Map.cpp">
-      <Filter>Source Files\game_objects\graphics\hud\objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\game_objects\graphics\hud\HudObject_interface.cpp">
-      <Filter>Source Files\game_objects\graphics\hud</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\game_objects\graphics\hud\HudObject_Animated_interface.cpp">
-      <Filter>Source Files\game_objects\graphics\hud</Filter>
+    <ClCompile Include="..\..\Source\game_objects\graphics\HUD\objects\Map.cpp">
+      <Filter>Source Files\game_objects\graphics\HUD\objects</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\game_objects\graphics\GraphicsObjectManager.cpp">
       <Filter>Source Files\game_objects\graphics</Filter>
@@ -117,22 +108,31 @@
     <ClCompile Include="..\..\Source\game_objects\physics\PhysicsObjectManager.cpp">
       <Filter>Source Files\game_objects\physics</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\game_objects\graphics\hud\objects\Arrow.cpp">
-      <Filter>Source Files\game_objects\graphics\hud\objects</Filter>
+    <ClCompile Include="..\..\Source\game_objects\graphics\HUD\objects\Arrow.cpp">
+      <Filter>Source Files\game_objects\graphics\HUD\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\game_objects\graphics\HUD\HUDmanager.cpp">
+      <Filter>Source Files\game_objects\graphics\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\game_objects\graphics\HUD\HUDobject_Animated_interface.cpp">
+      <Filter>Source Files\game_objects\graphics\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\game_objects\graphics\HUD\HUDobject_interface.cpp">
+      <Filter>Source Files\game_objects\graphics\HUD</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Source\shaders\hud\arrow.vert">
-      <Filter>Source Files\shaders\hud</Filter>
+    <None Include="..\..\Source\shaders\HUD\arrow.vert">
+      <Filter>Source Files\shaders\HUD</Filter>
     </None>
-    <None Include="..\..\Source\shaders\hud\arrow.frag">
-      <Filter>Source Files\shaders\hud</Filter>
+    <None Include="..\..\Source\shaders\HUD\arrow.frag">
+      <Filter>Source Files\shaders\HUD</Filter>
     </None>
-    <None Include="..\..\Source\shaders\hud\hud_object.frag">
-      <Filter>Source Files\shaders\hud</Filter>
+    <None Include="..\..\Source\shaders\HUD\HUD_object.frag">
+      <Filter>Source Files\shaders\HUD</Filter>
     </None>
-    <None Include="..\..\Source\shaders\hud\hud_object.vert">
-      <Filter>Source Files\shaders\hud</Filter>
+    <None Include="..\..\Source\shaders\HUD\HUD_object.vert">
+      <Filter>Source Files\shaders\HUD</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -178,17 +178,11 @@
     <ClInclude Include="..\..\Source\game_objects\graphics\GraphicsObject_interface.h">
       <Filter>Source Files\game_objects\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\game_objects\graphics\hud\HudManager.h">
-      <Filter>Source Files\game_objects\graphics\hud</Filter>
+    <ClInclude Include="..\..\Source\game_objects\graphics\HUD\objects\Arrow.h">
+      <Filter>Source Files\game_objects\graphics\HUD\objects</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\game_objects\graphics\hud\HudObject_interface.h">
-      <Filter>Source Files\game_objects\graphics\hud</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\game_objects\graphics\hud\objects\Arrow.h">
-      <Filter>Source Files\game_objects\graphics\hud\objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\game_objects\graphics\hud\objects\Map.h">
-      <Filter>Source Files\game_objects\graphics\hud\objects</Filter>
+    <ClInclude Include="..\..\Source\game_objects\graphics\HUD\objects\Map.h">
+      <Filter>Source Files\game_objects\graphics\HUD\objects</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\event\types\CursorPosHook_interface.h">
       <Filter>Source Files\event\types</Filter>
@@ -202,9 +196,6 @@
     <ClInclude Include="..\..\Source\event\types\ScrollHook_interface.h">
       <Filter>Source Files\event\types</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\game_objects\graphics\hud\HudObject_Animated_interface.h">
-      <Filter>Source Files\game_objects\graphics\hud</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\game_objects\graphics\GraphicsObjectManager.h">
       <Filter>Source Files\game_objects\graphics</Filter>
     </ClInclude>
@@ -213,6 +204,15 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\game_objects\physics\PhysicsObjectManager.h">
       <Filter>Source Files\game_objects\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\game_objects\graphics\HUD\HUDmanager.h">
+      <Filter>Source Files\game_objects\graphics\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\game_objects\graphics\HUD\HUDobject_Animated_interface.h">
+      <Filter>Source Files\game_objects\graphics\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\game_objects\graphics\HUD\HUDobject_interface.h">
+      <Filter>Source Files\game_objects\graphics\HUD</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -163,11 +163,11 @@
     <ClCompile Include="..\..\Source\game_objects\frame\FrameObjectManager.cpp" />
     <ClCompile Include="..\..\Source\game_objects\GameObjectManager.cpp" />
     <ClCompile Include="..\..\Source\game_objects\graphics\GraphicsObjectManager.cpp" />
-    <ClCompile Include="..\..\Source\game_objects\graphics\hud\HudManager.cpp" />
-    <ClCompile Include="..\..\Source\game_objects\graphics\hud\HudObject_interface.cpp" />
-    <ClCompile Include="..\..\Source\game_objects\graphics\hud\HudObject_Animated_interface.cpp" />
-    <ClCompile Include="..\..\Source\game_objects\graphics\hud\objects\Arrow.cpp" />
-    <ClCompile Include="..\..\Source\game_objects\graphics\hud\objects\Map.cpp" />
+    <ClCompile Include="..\..\Source\game_objects\graphics\HUD\HUDmanager.cpp" />
+    <ClCompile Include="..\..\Source\game_objects\graphics\HUD\HUDobject_interface.cpp" />
+    <ClCompile Include="..\..\Source\game_objects\graphics\HUD\HUDobject_Animated_interface.cpp" />
+    <ClCompile Include="..\..\Source\game_objects\graphics\HUD\objects\Arrow.cpp" />
+    <ClCompile Include="..\..\Source\game_objects\graphics\HUD\objects\Map.cpp" />
     <ClCompile Include="..\..\Source\game_objects\physics\PhysicsObjectManager.cpp" />
     <ClCompile Include="..\..\Source\input\InputManager.cpp" />
     <ClCompile Include="..\..\Source\input\Keyboard.cpp" />
@@ -180,10 +180,10 @@
     <ClCompile Include="..\..\Source\triangles.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Source\shaders\hud\arrow.frag" />
-    <None Include="..\..\Source\shaders\hud\arrow.vert" />
-    <None Include="..\..\Source\shaders\hud\hud_object.frag" />
-    <None Include="..\..\Source\shaders\hud\hud_object.vert" />
+    <None Include="..\..\Source\shaders\HUD\arrow.frag" />
+    <None Include="..\..\Source\shaders\HUD\arrow.vert" />
+    <None Include="..\..\Source\shaders\HUD\HUD_object.frag" />
+    <None Include="..\..\Source\shaders\HUD\HUD_object.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\Drawing.h" />
@@ -197,11 +197,11 @@
     <ClInclude Include="..\..\Source\game_objects\GameObjectManager.h" />
     <ClInclude Include="..\..\Source\game_objects\graphics\GraphicsObjectManager.h" />
     <ClInclude Include="..\..\Source\game_objects\graphics\GraphicsObject_interface.h" />
-    <ClInclude Include="..\..\Source\game_objects\graphics\hud\HudManager.h" />
-    <ClInclude Include="..\..\Source\game_objects\graphics\hud\HudObject_interface.h" />
-    <ClInclude Include="..\..\Source\game_objects\graphics\hud\HudObject_Animated_interface.h" />
-    <ClInclude Include="..\..\Source\game_objects\graphics\hud\objects\Arrow.h" />
-    <ClInclude Include="..\..\Source\game_objects\graphics\hud\objects\Map.h" />
+    <ClInclude Include="..\..\Source\game_objects\graphics\HUD\HUDmanager.h" />
+    <ClInclude Include="..\..\Source\game_objects\graphics\HUD\HUDobject_interface.h" />
+    <ClInclude Include="..\..\Source\game_objects\graphics\HUD\HUDobject_Animated_interface.h" />
+    <ClInclude Include="..\..\Source\game_objects\graphics\HUD\objects\Arrow.h" />
+    <ClInclude Include="..\..\Source\game_objects\graphics\HUD\objects\Map.h" />
     <ClInclude Include="..\..\Source\game_objects\physics\PhysicsObjectManager.h" />
     <ClInclude Include="..\..\Source\game_objects\physics\PhysicsObject_interface.h" />
     <ClInclude Include="..\..\Source\gl\gl.h" />

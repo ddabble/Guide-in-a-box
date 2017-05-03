@@ -1,37 +1,37 @@
-#include "HudManager.h"
+#include "HUDmanager.h"
 
 #include "../../../event/EventHandler.h"
 #include "../../../SampleCode/LoadShaders.h"
 
 #include "objects/Map.h"
 
-HudManager::HudManager(const GraphicsObjectManager& graphicsObjectManager)
+HUDmanager::HUDmanager(const GraphicsObjectManager& graphicsObjectManager)
 {
 	EventHandler::addFramebufferSizeHook(this);
 	buildProgram();
 	registerHudObjects(graphicsObjectManager);
 }
 
-HudManager::~HudManager()
+HUDmanager::~HUDmanager()
 {
 	EventHandler::removeFramebufferSizeHook(this);
 
 	for (auto object : m_objects) delete object;
 }
 
-void HudManager::buildProgram()
+void HUDmanager::buildProgram()
 {
 	ShaderInfo shaders[] =
 	{
-		{ GL_VERTEX_SHADER, "../../Source/shaders/hud/hud_object.vert" },
-		{ GL_FRAGMENT_SHADER, "../../Source/shaders/hud/hud_object.frag" },
+		{ GL_VERTEX_SHADER, "../../Source/shaders/HUD/HUD_object.vert" },
+		{ GL_FRAGMENT_SHADER, "../../Source/shaders/HUD/HUD_object.frag" },
 		{ GL_NONE, nullptr }
 	};
 
 	m_program = LoadShaders(shaders);
 }
 
-void HudManager::registerHudObjects(const GraphicsObjectManager& graphicsObjectManager)
+void HUDmanager::registerHudObjects(const GraphicsObjectManager& graphicsObjectManager)
 {
 	glUseProgram(m_program);
 	glActiveTexture(GL_TEXTURE0);
@@ -42,7 +42,7 @@ void HudManager::registerHudObjects(const GraphicsObjectManager& graphicsObjectM
 	m_objects.push_back(new Map(m_program, graphicsObjectManager));
 }
 
-void HudManager::graphicsUpdate(const GraphicsObjectManager& graphicsObjectManager)
+void HUDmanager::graphicsUpdate(const GraphicsObjectManager& graphicsObjectManager)
 {
 	glUseProgram(m_program);
 	glActiveTexture(GL_TEXTURE0);
@@ -51,7 +51,7 @@ void HudManager::graphicsUpdate(const GraphicsObjectManager& graphicsObjectManag
 		object->graphicsUpdate(m_program, graphicsObjectManager);
 }
 
-void HudManager::framebufferSizeCallback(int lastWidth, int lastHeight, int newWidth, int newHeight, const GraphicsObjectManager& graphicsObjectManager)
+void HUDmanager::framebufferSizeCallback(int lastWidth, int lastHeight, int newWidth, int newHeight, const GraphicsObjectManager& graphicsObjectManager)
 {
 	for (auto object : m_objects)
 		object->onFramebufferResize(lastWidth, lastHeight, newWidth, newHeight, m_program);
