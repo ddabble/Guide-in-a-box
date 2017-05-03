@@ -4,10 +4,10 @@
 
 #include "../../Game.h"
 #include "GraphicsObject_interface.h"
-#include "hud/HudManager.h"
+#include "HUD/HUDmanager.h"
 
 
-#include "hud/objects/Arrow.h"
+#include "HUD/objects/Arrow.h"
 Arrow* arrow1;
 Arrow* arrow2;
 
@@ -26,7 +26,7 @@ GraphicsObjectManager::GraphicsObjectManager(const Game& game) : m_resizeMatrix(
 
 	glClearColor(0.3f, 0.3f, 0.3f, 1);
 
-	m_objects.push_back(new HudManager(*this));
+	m_objects.push_back(new HUDmanager(*this));
 
 	arrow1 = new Arrow(*this, { 320, 192 }, { 960, 384 });
 	arrow2 = new Arrow(*this, { 120, 192 }, { 460, 384 });

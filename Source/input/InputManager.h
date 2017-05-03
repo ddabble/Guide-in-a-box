@@ -3,7 +3,7 @@
 #include "Mouse.h"
 #include "Keyboard.h"
 
-// TODO: Rename class? - Doesn't "manage" in the same way HudManager does..
+// TODO: Rename class? - Doesn't "manage" in the same way HUDmanager does..
 class InputManager
 {
 	friend class Game;

@@ -5,8 +5,8 @@
 #include "../../../Game.h"
 #include "../GraphicsObjectManager.h"
 
-// TODO: Rename to just HudObject, seeing that it's more of an abstract class..?
-class HudObject_interface
+// TODO: Rename to just HUDobject, seeing that it's more of an abstract class..?
+class HUDobject_interface
 {
 protected:
 	const GraphicsObjectManager& m_graphicsObjectManager;
@@ -24,10 +24,10 @@ protected:
 	GLint m_resizeUniformIndex;
 
 protected:
-	HudObject_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager);
+	HUDobject_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager);
 
 public:
-	virtual ~HudObject_interface() {}
+	virtual ~HUDobject_interface() {}
 
 public:
 	virtual void graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager);
