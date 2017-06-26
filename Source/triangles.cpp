@@ -1,4 +1,4 @@
-#include "gl/gl.h"
+#include "util/graphics/gl.h"
 #include "SampleCode/LoadShaders.h"
 
 void triangles()

@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "../../../gl/gl.h"
+#include "../../../util/graphics/gl.h"
 
 #include "../GraphicsObject_interface.h"
 #include "../../../event/types/FramebufferSizeHook_interface.h"

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../gl/gl.h"
+#include "../util/graphics/gl.h"
 
 unsigned char* extractImageFrom7zFile(char* file, int* width, int* height, GLenum* format);
 

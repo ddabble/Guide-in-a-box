@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../../gl/gl.h"
+#include "../../../util/graphics/gl.h"
 
 #include "../../../Game.h"
 #include "../GraphicsObjectManager.h"
