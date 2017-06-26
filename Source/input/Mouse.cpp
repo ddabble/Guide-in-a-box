@@ -1,6 +1,6 @@
 #include "Mouse.h"
 
-// Must be included before the GLFW header (contains gl/gl.h)
+// Must be included before the GLFW header (contains util/graphics/gl.h)
 #include "../screen/Window.h"
 
 #include <GLFW/glfw3.h>

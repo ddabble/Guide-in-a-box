@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "../../../../gl/gl.h"
+#include "../../../../util/graphics/gl.h"
 
 #include "../../../../event/types/FramebufferSizeHook_interface.h"
 

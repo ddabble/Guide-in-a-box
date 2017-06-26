@@ -4,7 +4,7 @@
 //#include <glload/gl_load.h>
 
 //// Must be included before the GLFW header
-//#include "gl/gl.h"
+//#include "util/graphics/gl.h"
 
 #define GLFW_DLL
 #include <GLFW/glfw3.h>

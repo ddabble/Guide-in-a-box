@@ -204,7 +204,7 @@
     <ClInclude Include="..\..\Source\game_objects\graphics\HUD\objects\Map.h" />
     <ClInclude Include="..\..\Source\game_objects\physics\PhysicsObjectManager.h" />
     <ClInclude Include="..\..\Source\game_objects\physics\PhysicsObject_interface.h" />
-    <ClInclude Include="..\..\Source\gl\gl.h" />
+    <ClInclude Include="..\..\Source\util\graphics\gl.h" />
     <ClInclude Include="..\..\Source\input\InputManager.h" />
     <ClInclude Include="..\..\Source\input\Keyboard.h" />
     <ClInclude Include="..\..\Source\input\Mouse.h" />

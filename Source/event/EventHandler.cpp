@@ -4,7 +4,7 @@
 #include <algorithm>
 
 // Must be included before the GLFW header
-#include "../gl/gl.h"
+#include "../util/graphics/gl.h"
 
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>

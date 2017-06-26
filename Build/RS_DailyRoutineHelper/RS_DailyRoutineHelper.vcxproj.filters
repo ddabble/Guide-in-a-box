@@ -49,14 +49,17 @@
     <Filter Include="Source Files\game_objects\graphics\HUD\objects">
       <UniqueIdentifier>{1796c927-c102-49fb-956f-38258f9c03a2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\gl">
-      <UniqueIdentifier>{211b9054-3314-40d6-ba29-75275da05cda}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\shaders">
       <UniqueIdentifier>{0a6fe46f-eee1-4113-81eb-24ad650fe7d7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\shaders\HUD">
       <UniqueIdentifier>{f23bf2c9-3bc5-42eb-ab93-2b2918308f6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\util">
+      <UniqueIdentifier>{d38a961f-4462-461b-8924-884617c22490}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\util\graphics">
+      <UniqueIdentifier>{eabcef2e-9baa-4d9b-8bbb-7e98751472f5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -145,9 +148,6 @@
     <ClInclude Include="..\..\Source\event\EventHandler.h">
       <Filter>Source Files\event</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\gl\gl.h">
-      <Filter>Source Files\gl</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\input\Mouse.h">
       <Filter>Source Files\input</Filter>
     </ClInclude>
@@ -213,6 +213,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\game_objects\graphics\HUD\HUDobject_interface.h">
       <Filter>Source Files\game_objects\graphics\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\util\graphics\gl.h">
+      <Filter>Source Files\util\graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
