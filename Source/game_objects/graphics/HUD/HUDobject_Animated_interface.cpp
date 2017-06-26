@@ -18,8 +18,16 @@ void HUDobject_Animated_interface::graphicsUpdate(GLuint program, const Graphics
 			m_vertexData[i] = m_vertexDataAnimationOrigin[i] + (m_vertexDataAnimationDestination[i] - m_vertexDataAnimationOrigin[i]) * progressPercentage;
 			m_vertexData[i + 1] = m_vertexDataAnimationOrigin[i + 1] + (m_vertexDataAnimationDestination[i + 1] - m_vertexDataAnimationOrigin[i + 1]) * progressPercentage;
 		}
-	} else
+	} else if (m_isAnimating)
+	{
+		for (int i = 0; i < 8; i += 2)
+		{
+			m_vertexData[i] = m_vertexDataAnimationDestination[i];
+			m_vertexData[i + 1] = m_vertexDataAnimationDestination[i + 1];
+		}
+
 		m_isAnimating = false;
+	}
 }
 
 void HUDobject_Animated_interface::setFields(unsigned int width, unsigned int height, int xPixelPos, int yPixelPos, bool preserveAspectRatioOnResize, float animationDuration)

@@ -15,7 +15,7 @@ class GraphicsObjectManager
 private:
 	std::vector<GraphicsObject_interface*> m_objects;
 
-	glm::mat4 m_resizeMatrix;
+	glm::mat4 m_projectionMatrix;
 
 	const Game& m_game;
 	const Window& m_window;
@@ -28,7 +28,7 @@ public:
 	void graphicsUpdate();
 
 public:
-	const glm::mat4& getResizeMatrix() const { return m_resizeMatrix; }
+	const glm::mat4& getResizeMatrix() const { return m_projectionMatrix; }
 
 	const Game& getGame() const { return m_game; }
 

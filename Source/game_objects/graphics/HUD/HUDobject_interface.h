@@ -19,9 +19,9 @@ protected:
 	GLuint m_vertexArrayObject;
 
 	GLfloat m_vertexData[4 * 2 + 4 * 2];
-	GLint m_vertexDataUniformIndex;
+	GLint m_vertexData_uniformIndex;
 
-	GLint m_resizeUniformIndex;
+	GLint m_projection_uniformIndex;
 
 protected:
 	HUDobject_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager);

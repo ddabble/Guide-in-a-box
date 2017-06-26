@@ -11,7 +11,7 @@
 
 #include "../../../../SampleCode/LoadShaders.h"
 
-Point rotatePointWithVector(Point point, Vector vector, float vectorLength = -1.0f)
+constexpr Point rotatePointWithVector(Point point, Vector vector, float precomputedVectorLength)
 {
 	/*
 	 * vector1 = (x1, y1), vector2 = (x2, y2), rotatedVector = (x', y')
@@ -28,16 +28,19 @@ Point rotatePointWithVector(Point point, Vector vector, float vectorLength = -1.
 	 * |vector1| = |rotatedVector| / |vector2|
 	 */
 
-	if (vectorLength == -1.0f)
-		vectorLength = glm::sqrt(vector.x * vector.x + vector.y * vector.y);
-
 	Point rotatedPoint =
 	{
-		(point.x * vector.x - point.y * vector.y) / vectorLength,
-		(point.x * vector.y + vector.x * point.y) / vectorLength
+		(point.x * vector.x - point.y * vector.y) / precomputedVectorLength,
+		(point.x * vector.y + vector.x * point.y) / precomputedVectorLength
 	};
 
 	return rotatedPoint;
+}
+
+Point rotatePointWithVector(Point point, Vector vector)
+{
+	const float vectorLength = glm::sqrt(vector.x * vector.x + vector.y * vector.y);
+	return rotatePointWithVector(point, vector, vectorLength);
 }
 
 Arrow::Arrow(const GraphicsObjectManager& graphicsObjectManager, Point arrowStartPoint, Point arrowEndPoint, int lineWidth)
@@ -148,8 +151,8 @@ Arrow::Arrow(const GraphicsObjectManager& graphicsObjectManager, Point arrowStar
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
 	glEnableVertexAttribArray(0);
 
-	resizeUniformIndex = glGetUniformLocation(m_program, "resize");
-	glUniformMatrix4fv(resizeUniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getResizeMatrix()));
+	m_projection_uniformIndex = glGetUniformLocation(m_program, "projection");
+	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getResizeMatrix()));
 
 	//glEnable(GL_MULTISAMPLE);
 }
@@ -176,5 +179,5 @@ void Arrow::graphicsUpdate(const GraphicsObjectManager& graphicsObjectManager)
 void Arrow::framebufferSizeCallback(int lastWidth, int lastHeight, int newWidth, int newHeight, const GraphicsObjectManager& graphicsObjectManager)
 {
 	glUseProgram(m_program);
-	glUniformMatrix4fv(resizeUniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getResizeMatrix()));
+	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getResizeMatrix()));
 }

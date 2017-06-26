@@ -17,7 +17,7 @@ private:
 	GLuint m_program;
 	GLuint m_vertexArrayObject;
 
-	GLint resizeUniformIndex;
+	GLint m_projection_uniformIndex;
 
 public:
 	Arrow(const GraphicsObjectManager& graphicsObjectManager, Point arrowStartPoint, Point arrowEndPoint, int lineWidth = 10);
