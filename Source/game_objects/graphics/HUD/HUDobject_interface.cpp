@@ -28,16 +28,16 @@ HUDobject_interface::HUDobject_interface(GLuint program, const GraphicsObjectMan
 	glVertexAttribIPointer(0, 1, GL_INT, 0, BUFFER_OFFSET(0));
 	glEnableVertexAttribArray(0);
 
-	m_vertexDataUniformIndex = glGetUniformLocation(program, "vertexData");
+	m_vertexData_uniformIndex = glGetUniformLocation(program, "vertexData");
 
-	m_resizeUniformIndex = glGetUniformLocation(program, "resize");
-	glUniformMatrix4fv(m_resizeUniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getResizeMatrix()));
+	m_projection_uniformIndex = glGetUniformLocation(program, "projection");
+	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getResizeMatrix()));
 }
 
 void HUDobject_interface::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
 {
 	// TODO: Change object's position with matrices instead
-	glUniform2fv(m_vertexDataUniformIndex, 8, m_vertexData);
+	glUniform2fv(m_vertexData_uniformIndex, 8, m_vertexData);
 
 	glBindVertexArray(m_vertexArrayObject);
 
@@ -50,7 +50,7 @@ void HUDobject_interface::onFramebufferResize(int lastWidth, int lastHeight, int
 		return;
 
 	glUseProgram(program);
-	glUniformMatrix4fv(m_resizeUniformIndex, 1, GL_FALSE, glm::value_ptr(m_graphicsObjectManager.getResizeMatrix()));
+	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(m_graphicsObjectManager.getResizeMatrix()));
 }
 
 void HUDobject_interface::setFields(unsigned int width, unsigned int height, int xPixelPos, int yPixelPos, bool preserveAspectRatioOnResize)

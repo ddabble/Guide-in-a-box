@@ -10,8 +10,9 @@
 #include "HUD/objects/Arrow.h"
 Arrow* arrow1;
 Arrow* arrow2;
+Arrow* arrow3;
 
-GraphicsObjectManager::GraphicsObjectManager(const Game& game) : m_resizeMatrix(glm::mat4(1.0f)), m_game(game), m_window(game.getWindow())
+GraphicsObjectManager::GraphicsObjectManager(const Game& game) : m_projectionMatrix(glm::mat4(1.0f)), m_game(game), m_window(game.getWindow())
 {
 	//glGenerateMipmap(GL_TEXTURE_2D);
 
@@ -28,8 +29,9 @@ GraphicsObjectManager::GraphicsObjectManager(const Game& game) : m_resizeMatrix(
 
 	m_objects.push_back(new HUDmanager(*this));
 
-	arrow1 = new Arrow(*this, { 320, 192 }, { 960, 384 });
-	arrow2 = new Arrow(*this, { 120, 192 }, { 460, 384 });
+	arrow1 = new Arrow(*this, { 200, 100 }, { 999, 100 });
+	arrow2 = new Arrow(*this, { 100, 200 }, { 100, 650 });
+	arrow3 = new Arrow(*this, { 200, 200 }, { 500, 500 });
 }
 
 GraphicsObjectManager::~GraphicsObjectManager()
@@ -38,6 +40,7 @@ GraphicsObjectManager::~GraphicsObjectManager()
 
 	delete arrow1;
 	delete arrow2;
+	delete arrow3;
 }
 
 void GraphicsObjectManager::graphicsUpdate()
@@ -57,11 +60,12 @@ void GraphicsObjectManager::graphicsUpdate()
 	 * Xw1 = Xw0 * (width0/width1) + (width0/width1 - 1)
 	 */
 
+	// TODO: don't do this every frame
 	float widthRatio = (float)Window::INITIAL_WINDOW_WIDTH / m_window.getWidth();
 	float heightRatio = (float)Window::INITIAL_WINDOW_HEIGHT / m_window.getHeight();
 
-	m_resizeMatrix = glm::translate(glm::mat4(1.0f), { widthRatio - 1, heightRatio - 1, 0.0f });
-	m_resizeMatrix = glm::scale(m_resizeMatrix,      { widthRatio,     heightRatio,     1.0f });
+	m_projectionMatrix = glm::translate(glm::mat4(1.0f), { widthRatio - 1, heightRatio - 1, 0.0f });
+	m_projectionMatrix = glm::scale(m_projectionMatrix,  { widthRatio,     heightRatio,     1.0f });
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -70,6 +74,7 @@ void GraphicsObjectManager::graphicsUpdate()
 
 	arrow1->graphicsUpdate(*this);
 	arrow2->graphicsUpdate(*this);
+	arrow3->graphicsUpdate(*this);
 
 	// Setup
 	//glEnable(GL_CULL_FACE);
