@@ -1,15 +1,15 @@
 #include "HUDmanager.h"
 
 #include "../../../event/EventHandler.h"
-#include "../../../SampleCode/LoadShaders.h"
+#include "../../../util/graphics/GLSLshaders.h"
 
 #include "objects/Map.h"
 
 HUDmanager::HUDmanager(const GraphicsObjectManager& graphicsObjectManager)
 {
 	EventHandler::addFramebufferSizeHook(this);
-	buildProgram();
-	registerHudObjects(graphicsObjectManager);
+	m_program = glsl::loadShaders("../../Source/shaders/HUD/HUD_object.glsl");
+	registerHUDobjects(graphicsObjectManager);
 }
 
 HUDmanager::~HUDmanager()
@@ -19,19 +19,7 @@ HUDmanager::~HUDmanager()
 	for (auto object : m_objects) delete object;
 }
 
-void HUDmanager::buildProgram()
-{
-	ShaderInfo shaders[] =
-	{
-		{ GL_VERTEX_SHADER, "../../Source/shaders/HUD/HUD_object.vert" },
-		{ GL_FRAGMENT_SHADER, "../../Source/shaders/HUD/HUD_object.frag" },
-		{ GL_NONE, nullptr }
-	};
-
-	m_program = LoadShaders(shaders);
-}
-
-void HUDmanager::registerHudObjects(const GraphicsObjectManager& graphicsObjectManager)
+void HUDmanager::registerHUDobjects(const GraphicsObjectManager& graphicsObjectManager)
 {
 	glUseProgram(m_program);
 	glActiveTexture(GL_TEXTURE0);

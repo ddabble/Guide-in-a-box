@@ -9,7 +9,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "../../../../SampleCode/LoadShaders.h"
+#include "../../../../util/graphics/GLSLshaders.h"
 
 constexpr Point rotatePointWithVector(Point point, Vector vector, float precomputedVectorLength)
 {
@@ -47,14 +47,7 @@ Arrow::Arrow(const GraphicsObjectManager& graphicsObjectManager, Point arrowStar
 {
 	EventHandler::addFramebufferSizeHook(this);
 
-	ShaderInfo shaders[] =
-	{
-		{ GL_VERTEX_SHADER, "../../Source/shaders/HUD/arrow.vert" },
-		{ GL_FRAGMENT_SHADER, "../../Source/shaders/HUD/arrow.frag" },
-		{ GL_NONE, nullptr }
-	};
-
-	m_program = LoadShaders(shaders);
+	m_program = glsl::loadShaders("../../Source/shaders/HUD/arrow.glsl");
 	glUseProgram(m_program);
 
 	//glActiveTexture(GL_TEXTURE0 + 1);
