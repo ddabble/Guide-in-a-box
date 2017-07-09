@@ -20,8 +20,7 @@ private:
 
 	std::vector<HUDobject_interface*> m_objects;
 
-	void buildProgram();
-	void registerHudObjects(const GraphicsObjectManager& graphicsObjectManager);
+	void registerHUDobjects(const GraphicsObjectManager& graphicsObjectManager);
 
 private:
 	HUDmanager(const GraphicsObjectManager& graphicsObjectManager);

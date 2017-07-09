@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\SampleCode">
-      <UniqueIdentifier>{e6834429-5061-4a4d-9d25-6ded6867f60e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\screen">
       <UniqueIdentifier>{be45daf2-ca8d-4a51-a805-3055fde3acf7}</UniqueIdentifier>
     </Filter>
@@ -63,15 +60,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\triangles.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Drawing.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\SampleCode\LoadShaders.cpp">
-      <Filter>Source Files\SampleCode</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -131,28 +119,14 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Source\shaders\HUD\arrow.vert">
-      <Filter>Source Files\shaders\HUD</Filter>
-    </None>
-    <None Include="..\..\Source\shaders\HUD\arrow.frag">
     <None Include="..\..\Source\shaders\HUD\HUD_object.glsl">
       <Filter>Source Files\shaders\HUD</Filter>
     </None>
-    <None Include="..\..\Source\shaders\HUD\HUD_object.frag">
-      <Filter>Source Files\shaders\HUD</Filter>
-    </None>
-    <None Include="..\..\Source\shaders\HUD\HUD_object.vert">
     <None Include="..\..\Source\shaders\HUD\arrow.glsl">
       <Filter>Source Files\shaders\HUD</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\Drawing.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\SampleCode\LoadShaders.h">
-      <Filter>Source Files\SampleCode</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\event\EventHandler.h">
       <Filter>Source Files\event</Filter>
     </ClInclude>

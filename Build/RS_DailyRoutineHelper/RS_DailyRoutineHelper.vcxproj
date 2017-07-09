@@ -158,7 +158,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\Drawing.cpp" />
     <ClCompile Include="..\..\Source\event\EventHandler.cpp" />
     <ClCompile Include="..\..\Source\game_objects\frame\FrameObjectManager.cpp" />
     <ClCompile Include="..\..\Source\game_objects\GameObjectManager.cpp" />
@@ -174,23 +173,16 @@
     <ClCompile Include="..\..\Source\input\Mouse.cpp" />
     <ClCompile Include="..\..\Source\Game.cpp" />
     <ClCompile Include="..\..\Source\main.cpp" />
-    <ClCompile Include="..\..\Source\SampleCode\LoadShaders.cpp" />
     <ClCompile Include="..\..\Source\screen\Window.cpp" />
     <ClCompile Include="..\..\Source\texture\ImageDecompression.cpp" />
-    <ClCompile Include="..\..\Source\triangles.cpp" />
     <ClCompile Include="..\..\Source\util\graphics\GLSLshaders.cpp" />
     <ClCompile Include="..\..\Source\util\util.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Source\shaders\HUD\arrow.frag" />
-    <None Include="..\..\Source\shaders\HUD\arrow.vert" />
-    <None Include="..\..\Source\shaders\HUD\HUD_object.frag" />
-    <None Include="..\..\Source\shaders\HUD\HUD_object.vert" />
     <None Include="..\..\Source\shaders\HUD\arrow.glsl" />
     <None Include="..\..\Source\shaders\HUD\HUD_object.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\Drawing.h" />
     <ClInclude Include="..\..\Source\event\EventHandler.h" />
     <ClInclude Include="..\..\Source\event\types\CursorPosHook_interface.h" />
     <ClInclude Include="..\..\Source\event\types\FramebufferSizeHook_interface.h" />
@@ -212,7 +204,6 @@
     <ClInclude Include="..\..\Source\input\Keyboard.h" />
     <ClInclude Include="..\..\Source\input\Mouse.h" />
     <ClInclude Include="..\..\Source\Game.h" />
-    <ClInclude Include="..\..\Source\SampleCode\LoadShaders.h" />
     <ClInclude Include="..\..\Source\screen\Window.h" />
     <ClInclude Include="..\..\Source\texture\ImageDecompression.h" />
     <ClInclude Include="..\..\Source\util\graphics\gl.h" />
