@@ -178,12 +178,16 @@
     <ClCompile Include="..\..\Source\screen\Window.cpp" />
     <ClCompile Include="..\..\Source\texture\ImageDecompression.cpp" />
     <ClCompile Include="..\..\Source\triangles.cpp" />
+    <ClCompile Include="..\..\Source\util\graphics\GLSLshaders.cpp" />
+    <ClCompile Include="..\..\Source\util\util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Source\shaders\HUD\arrow.frag" />
     <None Include="..\..\Source\shaders\HUD\arrow.vert" />
     <None Include="..\..\Source\shaders\HUD\HUD_object.frag" />
     <None Include="..\..\Source\shaders\HUD\HUD_object.vert" />
+    <None Include="..\..\Source\shaders\HUD\arrow.glsl" />
+    <None Include="..\..\Source\shaders\HUD\HUD_object.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\Drawing.h" />
@@ -204,7 +208,6 @@
     <ClInclude Include="..\..\Source\game_objects\graphics\HUD\objects\Map.h" />
     <ClInclude Include="..\..\Source\game_objects\physics\PhysicsObjectManager.h" />
     <ClInclude Include="..\..\Source\game_objects\physics\PhysicsObject_interface.h" />
-    <ClInclude Include="..\..\Source\util\graphics\gl.h" />
     <ClInclude Include="..\..\Source\input\InputManager.h" />
     <ClInclude Include="..\..\Source\input\Keyboard.h" />
     <ClInclude Include="..\..\Source\input\Mouse.h" />
@@ -212,6 +215,9 @@
     <ClInclude Include="..\..\Source\SampleCode\LoadShaders.h" />
     <ClInclude Include="..\..\Source\screen\Window.h" />
     <ClInclude Include="..\..\Source\texture\ImageDecompression.h" />
+    <ClInclude Include="..\..\Source\util\graphics\gl.h" />
+    <ClInclude Include="..\..\Source\util\graphics\GLSLshaders.h" />
+    <ClInclude Include="..\..\Source\util\util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

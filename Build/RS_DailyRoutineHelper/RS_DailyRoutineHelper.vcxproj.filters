@@ -123,18 +123,26 @@
     <ClCompile Include="..\..\Source\game_objects\graphics\HUD\HUDobject_interface.cpp">
       <Filter>Source Files\game_objects\graphics\HUD</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\util\graphics\GLSLshaders.cpp">
+      <Filter>Source Files\util\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\util\util.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Source\shaders\HUD\arrow.vert">
       <Filter>Source Files\shaders\HUD</Filter>
     </None>
     <None Include="..\..\Source\shaders\HUD\arrow.frag">
+    <None Include="..\..\Source\shaders\HUD\HUD_object.glsl">
       <Filter>Source Files\shaders\HUD</Filter>
     </None>
     <None Include="..\..\Source\shaders\HUD\HUD_object.frag">
       <Filter>Source Files\shaders\HUD</Filter>
     </None>
     <None Include="..\..\Source\shaders\HUD\HUD_object.vert">
+    <None Include="..\..\Source\shaders\HUD\arrow.glsl">
       <Filter>Source Files\shaders\HUD</Filter>
     </None>
   </ItemGroup>
@@ -213,6 +221,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\game_objects\graphics\HUD\HUDobject_interface.h">
       <Filter>Source Files\game_objects\graphics\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\util\graphics\GLSLshaders.h">
+      <Filter>Source Files\util\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\util\util.h">
+      <Filter>Source Files\util</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\util\graphics\gl.h">
       <Filter>Source Files\util\graphics</Filter>
