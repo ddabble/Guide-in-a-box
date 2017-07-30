@@ -6,6 +6,7 @@
 
 #include <glm/glm.hpp>
 
+// TODO: Make Map observable
 class Map : public HUDobject_Animated_interface, CursorPosHook_interface, ScrollHook_interface
 {
 private:
@@ -42,6 +43,9 @@ private:
 public:
 	Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager);
 	~Map();
+
+	math::Point getLowerLeftCornerPos() const { return { m_vertexData[0], m_vertexData[1] }; }
+	math::Point getUpperRightCornerPos() const { return { m_vertexData[4], m_vertexData[5] }; }
 
 	void cursorPosCallback(const InputManager& input) override;
 	void scrollCallback(float xOffset, float yOffset, const InputManager& input) override;
