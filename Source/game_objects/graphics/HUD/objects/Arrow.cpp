@@ -58,9 +58,22 @@ Arrow::Arrow(const GraphicsObjectManager& graphicsObjectManager, Point arrowStar
 	glGenVertexArrays(1, &m_vertexArrayObject);
 	glBindVertexArray(m_vertexArrayObject);
 
-	GLuint buf;
-	glGenBuffers(1, &buf);
-	glBindBuffer(GL_ARRAY_BUFFER, buf);
+	glGenBuffers(1, &m_vertexBufferObject);
+
+	makeVertices(arrowStartPoint, arrowEndPoint, lineWidth);
+
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+	glEnableVertexAttribArray(0);
+
+	m_projection_uniformIndex = glGetUniformLocation(m_program, "projection");
+	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getResizeMatrix()));
+
+	//glEnable(GL_MULTISAMPLE);
+}
+
+void Arrow::makeVertices(Point arrowStartPoint, Point arrowEndPoint, int lineWidth)
+{
+	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferObject);
 
 	const Vector rotationVector = { arrowEndPoint.x - arrowStartPoint.x, arrowEndPoint.y - arrowStartPoint.y };
 	const float length = glm::sqrt(rotationVector.x * rotationVector.x + rotationVector.y * rotationVector.y);
@@ -140,14 +153,6 @@ Arrow::Arrow(const GraphicsObjectManager& graphicsObjectManager, Point arrowStar
 	}
 
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
-
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
-	glEnableVertexAttribArray(0);
-
-	m_projection_uniformIndex = glGetUniformLocation(m_program, "projection");
-	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getResizeMatrix()));
-
-	//glEnable(GL_MULTISAMPLE);
 }
 
 Arrow::~Arrow()
