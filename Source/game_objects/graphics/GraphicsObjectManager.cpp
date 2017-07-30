@@ -6,12 +6,6 @@
 #include "GraphicsObject_interface.h"
 #include "HUD/HUDmanager.h"
 
-
-#include "HUD/objects/Arrow.h"
-Arrow* arrow1;
-Arrow* arrow2;
-Arrow* arrow3;
-
 GraphicsObjectManager::GraphicsObjectManager(const Game& game) : m_projectionMatrix(glm::mat4(1.0f)), m_game(game), m_window(game.getWindow())
 {
 	//glGenerateMipmap(GL_TEXTURE_2D);
@@ -28,19 +22,12 @@ GraphicsObjectManager::GraphicsObjectManager(const Game& game) : m_projectionMat
 	glClearColor(0.3f, 0.3f, 0.3f, 1);
 
 	m_objects.push_back(new HUDmanager(*this));
-
-	arrow1 = new Arrow(*this, { 200, 100 }, { 999, 100 });
-	arrow2 = new Arrow(*this, { 100, 200 }, { 100, 650 });
-	arrow3 = new Arrow(*this, { 200, 200 }, { 500, 500 });
 }
 
 GraphicsObjectManager::~GraphicsObjectManager()
 {
 	for (auto object : m_objects) delete object;
 
-	delete arrow1;
-	delete arrow2;
-	delete arrow3;
 }
 
 void GraphicsObjectManager::graphicsUpdate()
@@ -71,10 +58,6 @@ void GraphicsObjectManager::graphicsUpdate()
 
 	for (auto object : m_objects)
 		object->graphicsUpdate(*this);
-
-	arrow1->graphicsUpdate(*this);
-	arrow2->graphicsUpdate(*this);
-	arrow3->graphicsUpdate(*this);
 
 	// Setup
 	//glEnable(GL_CULL_FACE);
