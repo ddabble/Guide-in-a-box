@@ -16,8 +16,12 @@ class Arrow : public FramebufferSizeHook_interface
 private:
 	GLuint m_program;
 	GLuint m_vertexArrayObject;
+	GLuint m_vertexBufferObject;
 
 	GLint m_projection_uniformIndex;
+
+private:
+	void makeVertices(Point arrowStartPoint, Point arrowEndPoint, int lineWidth);
 
 public:
 	Arrow(const GraphicsObjectManager& graphicsObjectManager, Point arrowStartPoint, Point arrowEndPoint, int lineWidth = 10);
