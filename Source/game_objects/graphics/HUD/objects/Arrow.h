@@ -10,6 +10,7 @@ struct Point
 	float y;
 };
 typedef Point Vector;
+class Map;
 
 class Arrow : public FramebufferSizeHook_interface
 {
@@ -21,10 +22,10 @@ private:
 	GLint m_projection_uniformIndex;
 
 private:
-	void makeVertices(Point arrowStartPoint, Point arrowEndPoint, int lineWidth);
+	void makeVertices(Point startPoint, Point endPoint, float lineWidth);
 
 public:
-	Arrow(const GraphicsObjectManager& graphicsObjectManager, Point arrowStartPoint, Point arrowEndPoint, int lineWidth = 10);
+	Arrow(const GraphicsObjectManager& graphicsObjectManager, const Map& map, Point mapStartPoint, Point mapEndPoint, float lineWidth = 0.025f);
 	~Arrow();
 
 	void graphicsUpdate(const GraphicsObjectManager& graphicsObjectManager);
