@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include "../../../../util/graphics/gl.h"
-#include "../../../../util/math.h"
+#include <glm/glm.hpp>
 
+#include "../../../../util/graphics/gl.h"
 #include "../../../../event/types/FramebufferSizeHook_interface.h"
 
 class Map;
@@ -17,10 +17,10 @@ private:
 	GLint m_projection_uniformIndex;
 
 private:
-	void makeVertices(math::Point startPoint, math::Point endPoint, float lineWidth);
+	void makeVertices(glm::vec2 startPoint, glm::vec2 endPoint, float lineWidth);
 
 public:
-	Arrow(const GraphicsObjectManager& graphicsObjectManager, const Map& map, math::Point mapStartPoint, math::Point mapEndPoint, float lineWidth = 0.025f);
+	Arrow(const GraphicsObjectManager& graphicsObjectManager, const Map& map, glm::vec2 mapStartPoint, glm::vec2 mapEndPoint, float lineWidth = 0.025f);
 	~Arrow();
 
 	void graphicsUpdate(const GraphicsObjectManager& graphicsObjectManager);

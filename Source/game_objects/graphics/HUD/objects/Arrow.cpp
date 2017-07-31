@@ -5,14 +5,13 @@
 #include <iostream>
 #include <stb_image.h>
 
-#include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 #include "Map.h"
 #include "../../../../util/graphics/GLSLshaders.h"
 
-constexpr math::Point rotatePointWithVector(const math::Point point, const math::Vector vector, const float precomputedVectorLength)
+glm::vec2 rotatePointWithVector(const glm::vec2 point, const glm::vec2 vector, const float precomputedVectorLength)
 {
 	/*
 	 * vector1 = (x1, y1), vector2 = (x2, y2), rotatedVector = (x', y')
@@ -29,7 +28,7 @@ constexpr math::Point rotatePointWithVector(const math::Point point, const math:
 	 * |vector1| = |rotatedVector| / |vector2|
 	 */
 
-	const math::Point rotatedPoint =
+	const glm::vec2 rotatedPoint =
 	{
 		(point.x * vector.x - point.y * vector.y) / precomputedVectorLength,
 		(point.x * vector.y + vector.x * point.y) / precomputedVectorLength
@@ -38,13 +37,13 @@ constexpr math::Point rotatePointWithVector(const math::Point point, const math:
 	return rotatedPoint;
 }
 
-math::Point rotatePointWithVector(const math::Point point, const math::Vector vector)
+glm::vec2 rotatePointWithVector(const glm::vec2 point, const glm::vec2 vector)
 {
 	const float vectorLength = glm::sqrt(vector.x * vector.x + vector.y * vector.y);
 	return rotatePointWithVector(point, vector, vectorLength);
 }
 
-Arrow::Arrow(const GraphicsObjectManager& graphicsObjectManager, const Map& map, const math::Point mapStartPoint, const math::Point mapEndPoint, const float lineWidth)
+Arrow::Arrow(const GraphicsObjectManager& graphicsObjectManager, const Map& map, const glm::vec2 mapStartPoint, const glm::vec2 mapEndPoint, const float lineWidth)
 {
 	EventHandler::addFramebufferSizeHook(this);
 
@@ -61,8 +60,8 @@ Arrow::Arrow(const GraphicsObjectManager& graphicsObjectManager, const Map& map,
 
 	glGenBuffers(1, &m_vertexBufferObject);
 
-	const math::Point lowerLeft = map.getLowerLeftCornerPos();
-	const math::Point diff = map.getUpperRightCornerPos() - lowerLeft;
+	const glm::vec2 lowerLeft = map.getLowerLeftCornerPos();
+	const glm::vec2 diff = map.getUpperRightCornerPos() - lowerLeft;
 
 	makeVertices(lowerLeft + diff * mapStartPoint,
 				 lowerLeft + diff * mapEndPoint, lineWidth);
@@ -76,11 +75,11 @@ Arrow::Arrow(const GraphicsObjectManager& graphicsObjectManager, const Map& map,
 	//glEnable(GL_MULTISAMPLE);
 }
 
-void Arrow::makeVertices(const math::Point startPoint, const math::Point endPoint, const float lineWidth)
+void Arrow::makeVertices(const glm::vec2 startPoint, const glm::vec2 endPoint, const float lineWidth)
 {
 	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferObject);
 
-	const math::Vector rotationVector = endPoint - startPoint;
+	const glm::vec2 rotationVector = endPoint - startPoint;
 	const float length = glm::sqrt(rotationVector.x * rotationVector.x + rotationVector.y * rotationVector.y);
 
 	const float diagonal = glm::sqrt(2.0f * lineWidth * lineWidth);
@@ -102,18 +101,18 @@ void Arrow::makeVertices(const math::Point startPoint, const math::Point endPoin
 	 */
 
 	// Relative to startPoint:
-	math::Point s1 = rotatePointWithVector({ 0, lineWidth / 2.0f },                                 rotationVector, length);
-	math::Point s2 = rotatePointWithVector({ 0, -lineWidth / 2.0f },                                rotationVector, length);
+	glm::vec2 s1 = rotatePointWithVector({ 0, lineWidth / 2.0f },                                 rotationVector, length);
+	glm::vec2 s2 = rotatePointWithVector({ 0, -lineWidth / 2.0f },                                rotationVector, length);
 
 	// Relative to endPoint:
-	math::Point m1 = rotatePointWithVector({ -lineWidth / 2.0f - diagonal, lineWidth / 2.0f },      rotationVector, length);
-	math::Point m2 = rotatePointWithVector({ -lineWidth / 2.0f - diagonal, -lineWidth / 2.0f },     rotationVector, length);
-	math::Point m3 = rotatePointWithVector({ -diagonal, 0 },                                        rotationVector, length);
-	//                                 TODO: + 1 pixel is apparently needed to make the lines look perfectly straight
-	math::Point l1 = rotatePointWithVector({ -(lineWidth * 2.0f) - diagonal, (lineWidth * 2.0f) },  rotationVector, length);
-	math::Point r1 = rotatePointWithVector({ -(lineWidth * 2.0f) - diagonal, -(lineWidth * 2.0f) }, rotationVector, length);
-	math::Point l2 = rotatePointWithVector({ -(lineWidth * 2.0f), (lineWidth * 2.0f) },             rotationVector, length);
-	math::Point r2 = rotatePointWithVector({ -(lineWidth * 2.0f), -(lineWidth * 2.0f) },            rotationVector, length);
+	glm::vec2 m1 = rotatePointWithVector({ -lineWidth / 2.0f - diagonal, lineWidth / 2.0f },      rotationVector, length);
+	glm::vec2 m2 = rotatePointWithVector({ -lineWidth / 2.0f - diagonal, -lineWidth / 2.0f },     rotationVector, length);
+	glm::vec2 m3 = rotatePointWithVector({ -diagonal, 0 },                                        rotationVector, length);
+	//                               TODO: + 1 pixel is apparently needed to make the lines look perfectly straight
+	glm::vec2 l1 = rotatePointWithVector({ -(lineWidth * 2.0f) - diagonal, (lineWidth * 2.0f) },  rotationVector, length);
+	glm::vec2 r1 = rotatePointWithVector({ -(lineWidth * 2.0f) - diagonal, -(lineWidth * 2.0f) }, rotationVector, length);
+	glm::vec2 l2 = rotatePointWithVector({ -(lineWidth * 2.0f), (lineWidth * 2.0f) },             rotationVector, length);
+	glm::vec2 r2 = rotatePointWithVector({ -(lineWidth * 2.0f), -(lineWidth * 2.0f) },            rotationVector, length);
 
 	s1 += startPoint;
 	s2 += startPoint;
