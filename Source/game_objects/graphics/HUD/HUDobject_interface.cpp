@@ -31,7 +31,7 @@ HUDobject_interface::HUDobject_interface(GLuint program, const GraphicsObjectMan
 	m_vertexData_uniformIndex = glGetUniformLocation(program, "vertexData");
 
 	m_projection_uniformIndex = glGetUniformLocation(program, "projection");
-	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getResizeMatrix()));
+	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getProjectionMatrix()));
 }
 
 void HUDobject_interface::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
@@ -50,7 +50,7 @@ void HUDobject_interface::onFramebufferResize(int lastWidth, int lastHeight, int
 		return;
 
 	glUseProgram(program);
-	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(m_graphicsObjectManager.getResizeMatrix()));
+	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(m_graphicsObjectManager.getProjectionMatrix()));
 }
 
 void HUDobject_interface::setFields(unsigned int width, unsigned int height, int xPixelPos, int yPixelPos, bool preserveAspectRatioOnResize)

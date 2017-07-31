@@ -17,6 +17,9 @@ private:
 private:
 	GameObjectManager(const Game& game);
 
+	/* Should be called whenever the framebuffer is resized. */
+	void updateFramebufferSize(int newWidth, int newHeight) { m_graphicsObjectManager.updateFramebufferSize(newWidth, newHeight); }
+
 public:
 	void frameUpdate();
 	void graphicsUpdate();
