@@ -6,8 +6,10 @@
 #include "GraphicsObject_interface.h"
 #include "HUD/HUDmanager.h"
 
-GraphicsObjectManager::GraphicsObjectManager(const Game& game) : m_projectionMatrix(glm::mat4(1.0f)), m_game(game), m_window(game.getWindow())
+GraphicsObjectManager::GraphicsObjectManager(const Game& game) : m_game(game), m_window(game.getWindow())
 {
+	m_projectionMatrix = glm::ortho(0.0f, (float)m_window.getWidth(), 0.0f, (float)m_window.getHeight());
+
 	//glGenerateMipmap(GL_TEXTURE_2D);
 
 	// Magnification/minification mipmapping
@@ -27,33 +29,15 @@ GraphicsObjectManager::GraphicsObjectManager(const Game& game) : m_projectionMat
 GraphicsObjectManager::~GraphicsObjectManager()
 {
 	for (auto object : m_objects) delete object;
+}
 
+void GraphicsObjectManager::updateFramebufferSize(int newWidth, int newHeight)
+{
+	m_projectionMatrix = glm::ortho(0.0f, (float)newWidth, 0.0f, (float)newHeight);
 }
 
 void GraphicsObjectManager::graphicsUpdate()
 {
-	/*
-	 * pixelPos = Xp, windowPos = Xw, windowWidth = width
-	 *
-	 * Xp = (Xw + 1)/2 * width
-	 *
-	 * On window resize:
-	 * pixelPosBefore/After = Xp0/1, windowPosBefore/After = Xw0/1, windowWidthBefore/After = width0/1
-	 *
-	 * Xp0 = Xp1
-	 * (Xw0 + 1)/2 * width0 = (Xw1 + 1)/2 * width1
-	 * (Xw0 + 1) * width0/width1 = (Xw1 + 1)
-	 * Xw1 = (Xw0 + 1) * width0/width1 - 1
-	 * Xw1 = Xw0 * (width0/width1) + (width0/width1 - 1)
-	 */
-
-	// TODO: don't do this every frame
-	float widthRatio = (float)Window::INITIAL_WINDOW_WIDTH / m_window.getWidth();
-	float heightRatio = (float)Window::INITIAL_WINDOW_HEIGHT / m_window.getHeight();
-
-	m_projectionMatrix = glm::translate(glm::mat4(1.0f), { widthRatio - 1, heightRatio - 1, 0.0f });
-	m_projectionMatrix = glm::scale(m_projectionMatrix,  { widthRatio,     heightRatio,     1.0f });
-
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	for (auto object : m_objects)
