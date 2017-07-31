@@ -11,9 +11,6 @@ class HUDobject_interface
 protected:
 	const GraphicsObjectManager& m_graphicsObjectManager;
 
-	unsigned int m_pixelWidth;
-	unsigned int m_pixelHeight;
-
 	bool m_preserveAspectRatioOnResize;
 
 	GLuint m_vertexArrayObject;
@@ -38,42 +35,26 @@ public:
 protected:
 	/*
 	width and height are the image's dimensions measured in pixels.
-	xPixelPos and yPixelPos are the coordinates of the image's lower left corner.
+	xPos and yPos are the coordinates of the image's lower left corner.
 	*/
-	virtual void setFields(unsigned int width, unsigned int height, int xPixelPos, int yPixelPos, bool preserveAspectRatioOnResize);
-	/*
-	width and height are the image's dimensions measured in pixels.
-	xWindowPos and yWindowPos are the coordinates of the image's lower left corner.
-	*/
-	virtual void setFields(unsigned int width, unsigned int height, GLfloat xWindowPos, GLfloat yWindowPos, bool preserveAspectRatioOnResize);
+	virtual void setFields(unsigned int width, unsigned int height, int xPos, int yPos, bool preserveAspectRatioOnResize);
 
-	GLfloat getWindowCoordWidth() { return m_vertexData[2] - m_vertexData[0]; }
-	GLfloat getWindowCoordHeight() { return m_vertexData[5] - m_vertexData[3]; }
+	GLint getWidth() { return m_vertexData[2] - m_vertexData[0]; }
+	GLint getHeight() { return m_vertexData[5] - m_vertexData[3]; }
 
-	virtual void setWidth(int width_pixels, bool preserveAspectRatio);
-	virtual void setHeight(int height_pixels, bool preserveAspectRatio);
+	virtual void setWidth(int width, bool preserveAspectRatio);
+	virtual void setHeight(int height, bool preserveAspectRatio);
 
-	virtual void setWidth(GLfloat width_windowCoords, bool preserveAspectRatio);
-	virtual void setHeight(GLfloat height_windowCoords, bool preserveAspectRatio);
+	virtual void move(int xDirection, int yDirection);
 
-	virtual void move(int xDirection_pixels, int yDirection_pixels);
-	virtual void move(GLfloat xDirection_windowCoords, GLfloat yDirection_windowCoords);
-
-	/* xPixelPos and yPixelPos are the coordinates of the image's lower left corner. */
-	virtual void moveTo(int xPixelPos, int yPixelPos);
-	/* xWindowPos and yWindowPos are the coordinates of the image's lower left corner. */
-	virtual void moveTo(GLfloat xWindowPos, GLfloat yWindowPos);
+	/* xPos and yPos are the coordinates of the image's lower left corner. */
+	virtual void moveTo(int xPos, int yPos);
 
 	/*
-	Set newWidth_pixels or newHeight_pixels to -1 to make the image maintain its aspect ratio during the zoom.
+	Set newWidth or newHeight to -1 to make the image maintain its aspect ratio during the zoom.
 	focusX and focusY are relative to the window's lower left corner, and are clamped between 0 and 1.
 	*/
-	virtual void zoom(int newWidth_pixels, int newHeight_pixels, GLfloat focusX = 0.5f, GLfloat focusY = 0.5f);
-	/*
-	Set newWidth_windowCoords or newHeight_windowCoords to -1 to make the image maintain its aspect ratio during the zoom.
-	focusX and focusY are relative to the window's lower left corner, and are clamped between 0 and 1.
-	*/
-	virtual void zoom(GLfloat newWidth_windowCoords, GLfloat newHeight_windowCoords, GLfloat focusX = 0.5f, GLfloat focusY = 0.5f);
+	virtual void zoom(int newWidth, int newHeight, GLfloat focusX = 0.5f, GLfloat focusY = 0.5f);
 
 	/* focusX and focusY are relative to the texture's lower left corner, and are clamped between 0 and 1. */
 	void setTextureZoom(GLfloat ratio, GLfloat focusX, GLfloat focusY);
@@ -89,12 +70,9 @@ protected:
 	*/
 	void moveTextureTo(GLfloat xPos, GLfloat yPos);
 
-	template<typename numeric_type> GLfloat pixelsToWindowCoordWidth(numeric_type pixels);
-	template<typename numeric_type> GLfloat pixelsToWindowCoordHeight(numeric_type pixels);
-
 protected:
-	void _setWidth(GLfloat width_windowCoords, bool preserveAspectRatio, GLfloat vertexData[8]);
-	void _setHeight(GLfloat height_windowCoords, bool preserveAspectRatio, GLfloat vertexData[8]);
+	void _setWidth(GLfloat width, bool preserveAspectRatio, GLfloat vertexData[8]);
+	void _setHeight(GLfloat height, bool preserveAspectRatio, GLfloat vertexData[8]);
 
 	void _move(GLfloat xDirection, GLfloat yDirection, GLfloat vertexData[8]);
 	void _moveTo(GLfloat xPos, GLfloat yPos, GLfloat vertexData[8]);

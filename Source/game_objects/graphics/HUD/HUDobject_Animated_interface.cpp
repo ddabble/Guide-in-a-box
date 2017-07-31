@@ -30,29 +30,13 @@ void HUDobject_Animated_interface::graphicsUpdate(GLuint program, const Graphics
 	}
 }
 
-void HUDobject_Animated_interface::setFields(unsigned int width, unsigned int height, int xPixelPos, int yPixelPos, bool preserveAspectRatioOnResize, float animationDuration)
+void HUDobject_Animated_interface::setFields(unsigned int width, unsigned int height, int xPos, int yPos, bool preserveAspectRatioOnResize, float animationDuration)
 {
 	m_animationDuration = animationDuration;
-	HUDobject_interface::setFields(width, height, xPixelPos, yPixelPos, preserveAspectRatioOnResize);
+	HUDobject_interface::setFields(width, height, xPos, yPos, preserveAspectRatioOnResize);
 }
 
-void HUDobject_Animated_interface::setFields(unsigned int width, unsigned int height, GLfloat xWindowPos, GLfloat yWindowPos, bool preserveAspectRatioOnResize, float animationDuration)
-{
-	m_animationDuration = animationDuration;
-	HUDobject_interface::setFields(width, height, xWindowPos, yWindowPos, preserveAspectRatioOnResize);
-}
-
-void HUDobject_Animated_interface::setWidth(int width_pixels, bool preserveAspectRatio, bool animate)
-{
-	setWidth(pixelsToWindowCoordWidth(width_pixels), preserveAspectRatio, animate);
-}
-
-void HUDobject_Animated_interface::setHeight(int height_pixels, bool preserveAspectRatio, bool animate)
-{
-	setHeight(pixelsToWindowCoordWidth(height_pixels), preserveAspectRatio, animate);
-}
-
-void HUDobject_Animated_interface::setWidth(GLfloat width_windowCoords, bool preserveAspectRatio, bool animate)
+void HUDobject_Animated_interface::setWidth(int width, bool preserveAspectRatio, bool animate)
 {
 	if (animate)
 	{
@@ -61,18 +45,18 @@ void HUDobject_Animated_interface::setWidth(GLfloat width_windowCoords, bool pre
 		std::memcpy(m_vertexDataAnimationOrigin, m_vertexData, sizeof(m_vertexDataAnimationOrigin));
 		std::memcpy(m_vertexDataAnimationDestination, m_vertexData, sizeof(m_vertexDataAnimationDestination));
 
-		_setWidth(width_windowCoords, preserveAspectRatio, m_vertexDataAnimationDestination);
+		_setWidth(width, preserveAspectRatio, m_vertexDataAnimationDestination);
 
 		m_isAnimating = true;
 	} else if (m_isAnimating)
 	{
-		_setWidth(width_windowCoords, preserveAspectRatio, m_vertexDataAnimationOrigin);
-		_setWidth(width_windowCoords, preserveAspectRatio, m_vertexDataAnimationDestination);
+		_setWidth(width, preserveAspectRatio, m_vertexDataAnimationOrigin);
+		_setWidth(width, preserveAspectRatio, m_vertexDataAnimationDestination);
 	} else
-		_setWidth(width_windowCoords, preserveAspectRatio, m_vertexData);
+		_setWidth(width, preserveAspectRatio, m_vertexData);
 }
 
-void HUDobject_Animated_interface::setHeight(GLfloat height_windowCoords, bool preserveAspectRatio, bool animate)
+void HUDobject_Animated_interface::setHeight(int height, bool preserveAspectRatio, bool animate)
 {
 	if (animate)
 	{
@@ -81,23 +65,18 @@ void HUDobject_Animated_interface::setHeight(GLfloat height_windowCoords, bool p
 		std::memcpy(m_vertexDataAnimationOrigin, m_vertexData, sizeof(m_vertexDataAnimationOrigin));
 		std::memcpy(m_vertexDataAnimationDestination, m_vertexData, sizeof(m_vertexDataAnimationDestination));
 
-		_setHeight(height_windowCoords, preserveAspectRatio, m_vertexDataAnimationDestination);
+		_setHeight(height, preserveAspectRatio, m_vertexDataAnimationDestination);
 
 		m_isAnimating = true;
 	} else if (m_isAnimating)
 	{
-		_setHeight(height_windowCoords, preserveAspectRatio, m_vertexDataAnimationOrigin);
-		_setHeight(height_windowCoords, preserveAspectRatio, m_vertexDataAnimationDestination);
+		_setHeight(height, preserveAspectRatio, m_vertexDataAnimationOrigin);
+		_setHeight(height, preserveAspectRatio, m_vertexDataAnimationDestination);
 	} else
-		_setHeight(height_windowCoords, preserveAspectRatio, m_vertexData);
+		_setHeight(height, preserveAspectRatio, m_vertexData);
 }
 
-void HUDobject_Animated_interface::move(int xDirection_pixels, int yDirection_pixels, bool animate)
-{
-	move(pixelsToWindowCoordWidth(xDirection_pixels), pixelsToWindowCoordHeight(yDirection_pixels), animate);
-}
-
-void HUDobject_Animated_interface::move(GLfloat xDirection_windowCoords, GLfloat yDirection_windowCoords, bool animate)
+void HUDobject_Animated_interface::move(int xDirection, int yDirection, bool animate)
 {
 	if (animate)
 	{
@@ -106,23 +85,18 @@ void HUDobject_Animated_interface::move(GLfloat xDirection_windowCoords, GLfloat
 		std::memcpy(m_vertexDataAnimationOrigin, m_vertexData, sizeof(m_vertexDataAnimationOrigin));
 		std::memcpy(m_vertexDataAnimationDestination, m_vertexData, sizeof(m_vertexDataAnimationDestination));
 
-		_move(xDirection_windowCoords, yDirection_windowCoords, m_vertexDataAnimationDestination);
+		_move(xDirection, yDirection, m_vertexDataAnimationDestination);
 
 		m_isAnimating = true;
 	} else if (m_isAnimating)
 	{
-		_move(xDirection_windowCoords, yDirection_windowCoords, m_vertexDataAnimationOrigin);
-		_move(xDirection_windowCoords, yDirection_windowCoords, m_vertexDataAnimationDestination);
+		_move(xDirection, yDirection, m_vertexDataAnimationOrigin);
+		_move(xDirection, yDirection, m_vertexDataAnimationDestination);
 	} else
-		_move(xDirection_windowCoords, yDirection_windowCoords, m_vertexData);
+		_move(xDirection, yDirection, m_vertexData);
 }
 
-void HUDobject_Animated_interface::moveTo(int xPixelPos, int yPixelPos, bool animate)
-{
-	moveTo(pixelsToWindowCoordWidth(xPixelPos) - 1, pixelsToWindowCoordHeight(yPixelPos) - 1, animate);
-}
-
-void HUDobject_Animated_interface::moveTo(GLfloat xWindowPos, GLfloat yWindowPos, bool animate)
+void HUDobject_Animated_interface::moveTo(int xPos, int yPos, bool animate)
 {
 	if (animate)
 	{
@@ -131,23 +105,18 @@ void HUDobject_Animated_interface::moveTo(GLfloat xWindowPos, GLfloat yWindowPos
 		std::memcpy(m_vertexDataAnimationOrigin, m_vertexData, sizeof(m_vertexDataAnimationOrigin));
 		std::memcpy(m_vertexDataAnimationDestination, m_vertexData, sizeof(m_vertexDataAnimationDestination));
 
-		_move(xWindowPos, yWindowPos, m_vertexDataAnimationDestination);
+		_move(xPos, yPos, m_vertexDataAnimationDestination);
 
 		m_isAnimating = true;
 	} else if (m_isAnimating)
 	{
-		_move(xWindowPos, yWindowPos, m_vertexDataAnimationOrigin);
-		_move(xWindowPos, yWindowPos, m_vertexDataAnimationDestination);
+		_move(xPos, yPos, m_vertexDataAnimationOrigin);
+		_move(xPos, yPos, m_vertexDataAnimationDestination);
 	} else
-		_move(xWindowPos, yWindowPos, m_vertexData);
+		_move(xPos, yPos, m_vertexData);
 }
 
-void HUDobject_Animated_interface::zoom(int newWidth_pixels, int newHeight_pixels, bool animate, GLfloat focusX, GLfloat focusY)
-{
-	zoom(pixelsToWindowCoordWidth(newWidth_pixels), pixelsToWindowCoordHeight(newHeight_pixels), animate, focusX, focusY);
-}
-
-void HUDobject_Animated_interface::zoom(GLfloat newWidth_windowCoords, GLfloat newHeight_windowCoords, bool animate, GLfloat focusX, GLfloat focusY)
+void HUDobject_Animated_interface::zoom(int newWidth, int newHeight, bool animate, GLfloat focusX, GLfloat focusY)
 {
 	if (animate)
 	{
@@ -156,13 +125,13 @@ void HUDobject_Animated_interface::zoom(GLfloat newWidth_windowCoords, GLfloat n
 		std::memcpy(m_vertexDataAnimationOrigin, m_vertexData, sizeof(m_vertexDataAnimationOrigin));
 		std::memcpy(m_vertexDataAnimationDestination, m_vertexData, sizeof(m_vertexDataAnimationDestination));
 
-		_zoom(newWidth_windowCoords, newHeight_windowCoords, focusX, focusY, m_vertexDataAnimationDestination);
+		_zoom(newWidth, newHeight, focusX, focusY, m_vertexDataAnimationDestination);
 
 		m_isAnimating = true;
 	} else if (m_isAnimating)
 	{
-		_zoom(newWidth_windowCoords, newHeight_windowCoords, focusX, focusY, m_vertexDataAnimationOrigin);
-		_zoom(newWidth_windowCoords, newHeight_windowCoords, focusX, focusY, m_vertexDataAnimationDestination);
+		_zoom(newWidth, newHeight, focusX, focusY, m_vertexDataAnimationOrigin);
+		_zoom(newWidth, newHeight, focusX, focusY, m_vertexDataAnimationDestination);
 	} else
-		_zoom(newWidth_windowCoords, newHeight_windowCoords, focusX, focusY, m_vertexData);
+		_zoom(newWidth, newHeight, focusX, focusY, m_vertexData);
 }
