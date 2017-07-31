@@ -176,7 +176,6 @@
     <ClCompile Include="..\..\Source\screen\Window.cpp" />
     <ClCompile Include="..\..\Source\texture\ImageDecompression.cpp" />
     <ClCompile Include="..\..\Source\util\graphics\GLSLshaders.cpp" />
-    <ClCompile Include="..\..\Source\util\math.cpp" />
     <ClCompile Include="..\..\Source\util\util.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -209,7 +208,6 @@
     <ClInclude Include="..\..\Source\texture\ImageDecompression.h" />
     <ClInclude Include="..\..\Source\util\graphics\gl.h" />
     <ClInclude Include="..\..\Source\util\graphics\GLSLshaders.h" />
-    <ClInclude Include="..\..\Source\util\math.h" />
     <ClInclude Include="..\..\Source\util\util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

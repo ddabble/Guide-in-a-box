@@ -44,8 +44,8 @@ public:
 	Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager);
 	~Map();
 
-	math::Point getLowerLeftCornerPos() const { return { m_vertexData[0], m_vertexData[1] }; }
-	math::Point getUpperRightCornerPos() const { return { m_vertexData[4], m_vertexData[5] }; }
+	glm::vec2 getLowerLeftCornerPos() const { return { m_vertexData[0], m_vertexData[1] }; }
+	glm::vec2 getUpperRightCornerPos() const { return { m_vertexData[4], m_vertexData[5] }; }
 
 	void cursorPosCallback(const InputManager& input) override;
 	void scrollCallback(float xOffset, float yOffset, const InputManager& input) override;
