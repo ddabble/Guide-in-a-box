@@ -53,23 +53,15 @@ void HUDobject_interface::onFramebufferResize(int lastWidth, int lastHeight, int
 	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(m_graphicsObjectManager.getProjectionMatrix()));
 }
 
-void HUDobject_interface::setFields(unsigned int width, unsigned int height, int xPixelPos, int yPixelPos, bool preserveAspectRatioOnResize)
+void HUDobject_interface::setFields(unsigned int width, unsigned int height, int xPos, int yPos, bool preserveAspectRatioOnResize)
 {
-	HUDobject_interface::setFields(width, height, pixelsToWindowCoordWidth(xPixelPos) - 1, pixelsToWindowCoordHeight(yPixelPos) - 1, preserveAspectRatioOnResize);
-}
-
-void HUDobject_interface::setFields(unsigned int width, unsigned int height, GLfloat xPos, GLfloat yPos, bool preserveAspectRatioOnResize)
-{
-	GLfloat widthRatio = pixelsToWindowCoordWidth(width);
-	GLfloat heightRatio = pixelsToWindowCoordHeight(height);
-
 	GLfloat vertexData[] =
 	{
 		// Vertices
-		xPos,			   yPos,
-		xPos + widthRatio, yPos,
-		xPos + widthRatio, yPos + heightRatio,
-		xPos,			   yPos + heightRatio,
+		xPos,         yPos,
+		xPos + width, yPos,
+		xPos + width, yPos + height,
+		xPos,         yPos + height,
 		// Texture coordinates
 		0, 0,
 		1, 0,
@@ -77,100 +69,63 @@ void HUDobject_interface::setFields(unsigned int width, unsigned int height, GLf
 		0, 1
 	};
 
-	m_pixelWidth = width;
-	m_pixelHeight = height;
 	std::memcpy(m_vertexData, vertexData, sizeof(vertexData));
 	m_preserveAspectRatioOnResize = preserveAspectRatioOnResize;
 }
 
-void HUDobject_interface::setWidth(int width_pixels, bool preserveAspectRatio)
+void HUDobject_interface::setWidth(int width, bool preserveAspectRatio)
 {
-	_setWidth(pixelsToWindowCoordWidth(width_pixels), preserveAspectRatio, m_vertexData);
+	_setWidth(width, preserveAspectRatio, m_vertexData);
 }
 
-void HUDobject_interface::setHeight(int height_pixels, bool preserveAspectRatio)
+void HUDobject_interface::setHeight(int height, bool preserveAspectRatio)
 {
-	_setHeight(pixelsToWindowCoordHeight(height_pixels), preserveAspectRatio, m_vertexData);
+	_setHeight(height, preserveAspectRatio, m_vertexData);
 }
 
-void HUDobject_interface::setWidth(GLfloat width_windowCoords, bool preserveAspectRatio)
+void HUDobject_interface::move(int xDirection, int yDirection)
 {
-	_setWidth(width_windowCoords, preserveAspectRatio, m_vertexData);
+	_move(xDirection, yDirection, m_vertexData);
 }
 
-void HUDobject_interface::setHeight(GLfloat height_windowCoords, bool preserveAspectRatio)
+void HUDobject_interface::moveTo(int xPos, int yPos)
 {
-	_setHeight(height_windowCoords, preserveAspectRatio, m_vertexData);
+	_moveTo(xPos - 1, yPos - 1, m_vertexData);
 }
 
-void HUDobject_interface::move(int xDirection_pixels, int yDirection_pixels)
+void HUDobject_interface::zoom(int newWidth, int newHeight, GLfloat focusX, GLfloat focusY)
 {
-	_move(pixelsToWindowCoordWidth(xDirection_pixels), pixelsToWindowCoordHeight(yDirection_pixels), m_vertexData);
+	_zoom(newWidth, newHeight, focusX, focusY, m_vertexData);
 }
 
-void HUDobject_interface::move(GLfloat xDirection_windowCoords, GLfloat yDirection_windowCoords)
-{
-	_move(xDirection_windowCoords, yDirection_windowCoords, m_vertexData);
-}
-
-void HUDobject_interface::moveTo(int xPixelPos, int yPixelPos)
-{
-	_moveTo(pixelsToWindowCoordWidth(xPixelPos) - 1, pixelsToWindowCoordHeight(yPixelPos) - 1, m_vertexData);
-}
-
-void HUDobject_interface::moveTo(GLfloat xWindowPos, GLfloat yWindowPos)
-{
-	_moveTo(xWindowPos, yWindowPos, m_vertexData);
-}
-
-void HUDobject_interface::zoom(int newWidth_pixels, int newHeight_pixels, GLfloat focusX, GLfloat focusY)
-{
-	_zoom(pixelsToWindowCoordWidth(newWidth_pixels), pixelsToWindowCoordHeight(newHeight_pixels), focusX, focusY, m_vertexData);
-}
-
-void HUDobject_interface::zoom(GLfloat newWidth_windowCoords, GLfloat newHeight_windowCoords, GLfloat focusX, GLfloat focusY)
-{
-	_zoom(newWidth_windowCoords, newHeight_windowCoords, focusX, focusY, m_vertexData);
-}
-
-template<typename numeric_type> GLfloat HUDobject_interface::pixelsToWindowCoordWidth(numeric_type pixels)
-{
-	return 2 * (GLfloat)pixels / m_graphicsObjectManager.getWindow().getWidth();
-}
-
-template<typename numeric_type> GLfloat HUDobject_interface::pixelsToWindowCoordHeight(numeric_type pixels)
-{
-	return 2 * (GLfloat)pixels / m_graphicsObjectManager.getWindow().getHeight();
-}
-
-void HUDobject_interface::_setWidth(GLfloat width_windowCoords, bool preserveAspectRatio, GLfloat vertexData[8])
+void HUDobject_interface::_setWidth(GLfloat width, bool preserveAspectRatio, GLfloat vertexData[8])
 {
 	if (preserveAspectRatio)
 	{
 		GLfloat aspectRatio = (vertexData[2] - vertexData[0]) / (vertexData[5] - vertexData[1]);
-		GLfloat newHeight = width_windowCoords / aspectRatio;
+		GLfloat newHeight = width / aspectRatio;
 
 		vertexData[5] = vertexData[1] + newHeight;
 		vertexData[7] = vertexData[1] + newHeight;
 	}
 
-	vertexData[2] = vertexData[0] + width_windowCoords;
-	vertexData[4] = vertexData[0] + width_windowCoords;
+	vertexData[2] = vertexData[0] + width;
+	vertexData[4] = vertexData[0] + width;
 }
 
-void HUDobject_interface::_setHeight(GLfloat height_windowCoords, bool preserveAspectRatio, GLfloat vertexData[8])
+void HUDobject_interface::_setHeight(GLfloat height, bool preserveAspectRatio, GLfloat vertexData[8])
 {
 	if (preserveAspectRatio)
 	{
 		GLfloat aspectRatio = (vertexData[2] - vertexData[0]) / (vertexData[5] - vertexData[1]);
-		GLfloat newWidth = height_windowCoords * aspectRatio;
+		GLfloat newWidth = height * aspectRatio;
 
 		vertexData[2] = vertexData[0] + newWidth;
 		vertexData[4] = vertexData[0] + newWidth;
 	}
 
-	vertexData[5] = vertexData[1] + height_windowCoords;
-	vertexData[7] = vertexData[1] + height_windowCoords;
+	vertexData[5] = vertexData[1] + height;
+	vertexData[7] = vertexData[1] + height;
 }
 
 void HUDobject_interface::_move(GLfloat xDirection, GLfloat yDirection, GLfloat vertexData[8])
@@ -184,8 +139,8 @@ void HUDobject_interface::_move(GLfloat xDirection, GLfloat yDirection, GLfloat 
 
 void HUDobject_interface::_moveTo(GLfloat xPos, GLfloat yPos, GLfloat vertexData[8])
 {
-	GLfloat windowWidth = getWindowCoordWidth();
-	GLfloat windowHeight = getWindowCoordHeight();
+	GLint windowWidth = getWidth();
+	GLint windowHeight = getHeight();
 
 	for (int i = 0; i < 8; i += 2)
 	{
@@ -199,8 +154,8 @@ void HUDobject_interface::_zoom(GLfloat newWidth, GLfloat newHeight, GLfloat foc
 	focusX = glm::clamp(focusX, 0.0f, 1.0f);
 	focusY = glm::clamp(focusY, 0.0f, 1.0f);
 
-	GLfloat oldWidth = getWindowCoordWidth();
-	GLfloat oldHeight = getWindowCoordHeight();
+	GLint oldWidth = getWidth();
+	GLint oldHeight = getHeight();
 
 	if (newWidth < 0)
 	{
