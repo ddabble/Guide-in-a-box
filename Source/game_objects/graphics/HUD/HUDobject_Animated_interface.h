@@ -22,7 +22,7 @@ public:
 protected:
 	HUDobject_Animated_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : HUDobject_interface(program, graphicsObjectManager) {}
 
-	void setFields(unsigned int width, unsigned int height, int xPos, int yPos, bool preserveAspectRatioOnResize, float animationDuration);
+	void setFields(unsigned int width, unsigned int height, int xPos, int yPos, float animationDuration);
 
 	void setWidth(int width, bool preserveAspectRatio, bool animate);
 	void setHeight(int height, bool preserveAspectRatio, bool animate);
@@ -34,7 +34,7 @@ protected:
 	void zoom(int newWidth, int newHeight, bool animate, GLfloat focusX = 0.5f, GLfloat focusY = 0.5f);
 
 private:
-	void setFields(unsigned int width, unsigned int height, int xPos, int yPos, bool preserveAspectRatioOnResize) override {}
+	void setFields(unsigned int width, unsigned int height, int xPos, int yPos) override {}
 	void setWidth(int width, bool preserveAspectRatio) override {}
 	void setHeight(int height, bool preserveAspectRatio) override {}
 	void move(int xDirection, int yDirection) override {}
