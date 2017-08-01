@@ -18,6 +18,8 @@ class HUDmanager : public GraphicsObject_interface, FramebufferSizeHook_interfac
 private:
 	GLuint m_program;
 
+	GLint m_projection_uniformIndex;
+
 	std::vector<HUDobject_interface*> m_objects;
 
 	void registerHUDobjects(const GraphicsObjectManager& graphicsObjectManager);
