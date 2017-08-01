@@ -2,7 +2,6 @@
 
 #include <cstring>
 #include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
 static constexpr GLfloat VERTEX_TEMPLATE[] =
 {
@@ -29,9 +28,6 @@ HUDobject_interface::HUDobject_interface(GLuint program, const GraphicsObjectMan
 	glEnableVertexAttribArray(0);
 
 	m_vertexData_uniformIndex = glGetUniformLocation(program, "vertexData");
-
-	m_projection_uniformIndex = glGetUniformLocation(program, "projection");
-	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getProjectionMatrix()));
 }
 
 void HUDobject_interface::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
@@ -42,15 +38,6 @@ void HUDobject_interface::graphicsUpdate(GLuint program, const GraphicsObjectMan
 	glBindVertexArray(m_vertexArrayObject);
 
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-}
-
-void HUDobject_interface::onFramebufferResize(int lastWidth, int lastHeight, int newWidth, int newHeight, GLuint program)
-{
-	if (!m_preserveAspectRatioOnResize)
-		return;
-
-	glUseProgram(program);
-	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(m_graphicsObjectManager.getProjectionMatrix()));
 }
 
 void HUDobject_interface::setFields(unsigned int width, unsigned int height, int xPos, int yPos, bool preserveAspectRatioOnResize)

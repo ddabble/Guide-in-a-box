@@ -18,8 +18,6 @@ protected:
 	GLfloat m_vertexData[4 * 2 + 4 * 2];
 	GLint m_vertexData_uniformIndex;
 
-	GLint m_projection_uniformIndex;
-
 protected:
 	HUDobject_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager);
 
@@ -28,9 +26,6 @@ public:
 
 public:
 	virtual void graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager);
-
-	/* Should be called whenever the framebuffer is resized. */
-	virtual void onFramebufferResize(int lastWidth, int lastHeight, int newWidth, int newHeight, GLuint program);
 
 protected:
 	/*
