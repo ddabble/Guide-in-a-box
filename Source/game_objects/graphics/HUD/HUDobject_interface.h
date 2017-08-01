@@ -9,13 +9,10 @@
 class HUDobject_interface
 {
 protected:
-	const GraphicsObjectManager& m_graphicsObjectManager;
-
-	bool m_preserveAspectRatioOnResize;
+	GLfloat m_vertexData[4 * 2 + 4 * 2];
 
 	GLuint m_vertexArrayObject;
 
-	GLfloat m_vertexData[4 * 2 + 4 * 2];
 	GLint m_vertexData_uniformIndex;
 
 protected:
@@ -32,7 +29,7 @@ protected:
 	width and height are the image's dimensions measured in pixels.
 	xPos and yPos are the coordinates of the image's lower left corner.
 	*/
-	virtual void setFields(unsigned int width, unsigned int height, int xPos, int yPos, bool preserveAspectRatioOnResize);
+	virtual void setFields(unsigned int width, unsigned int height, int xPos, int yPos);
 
 	GLint getWidth() { return m_vertexData[2] - m_vertexData[0]; }
 	GLint getHeight() { return m_vertexData[5] - m_vertexData[3]; }
@@ -50,20 +47,6 @@ protected:
 	focusX and focusY are relative to the window's lower left corner, and are clamped between 0 and 1.
 	*/
 	virtual void zoom(int newWidth, int newHeight, GLfloat focusX = 0.5f, GLfloat focusY = 0.5f);
-
-	/* focusX and focusY are relative to the texture's lower left corner, and are clamped between 0 and 1. */
-	void setTextureZoom(GLfloat ratio, GLfloat focusX, GLfloat focusY);
-	/*
-	Note: the resulting texture coordinates are clamped between 0 and 1.
-	This is done without skewing the texture in any direction.
-	*/
-	void moveTexture(GLfloat xDirection, GLfloat yDirection);
-	/*
-	xPos and yPos are the coordinates of the texture's lower left corner.
-	Note: the resulting texture coordinates are clamped between 0 and 1.
-	This is done without skewing the texture in any direction.
-	*/
-	void moveTextureTo(GLfloat xPos, GLfloat yPos);
 
 protected:
 	void _setWidth(GLfloat width, bool preserveAspectRatio, GLfloat vertexData[8]);

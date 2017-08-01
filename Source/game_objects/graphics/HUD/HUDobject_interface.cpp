@@ -11,7 +11,7 @@ static constexpr GLfloat VERTEX_TEMPLATE[] =
 	0, 1
 };
 
-HUDobject_interface::HUDobject_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : m_graphicsObjectManager(graphicsObjectManager)
+HUDobject_interface::HUDobject_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
 {
 	glGenVertexArrays(1, &m_vertexArrayObject);
 	glBindVertexArray(m_vertexArrayObject);
@@ -40,7 +40,7 @@ void HUDobject_interface::graphicsUpdate(GLuint program, const GraphicsObjectMan
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 }
 
-void HUDobject_interface::setFields(unsigned int width, unsigned int height, int xPos, int yPos, bool preserveAspectRatioOnResize)
+void HUDobject_interface::setFields(unsigned int width, unsigned int height, int xPos, int yPos)
 {
 	GLfloat vertexData[] =
 	{
@@ -57,7 +57,6 @@ void HUDobject_interface::setFields(unsigned int width, unsigned int height, int
 	};
 
 	std::memcpy(m_vertexData, vertexData, sizeof(vertexData));
-	m_preserveAspectRatioOnResize = preserveAspectRatioOnResize;
 }
 
 void HUDobject_interface::setWidth(int width, bool preserveAspectRatio)

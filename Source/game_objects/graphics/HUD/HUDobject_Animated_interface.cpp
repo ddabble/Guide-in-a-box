@@ -30,10 +30,10 @@ void HUDobject_Animated_interface::graphicsUpdate(GLuint program, const Graphics
 	}
 }
 
-void HUDobject_Animated_interface::setFields(unsigned int width, unsigned int height, int xPos, int yPos, bool preserveAspectRatioOnResize, float animationDuration)
+void HUDobject_Animated_interface::setFields(unsigned int width, unsigned int height, int xPos, int yPos, float animationDuration)
 {
 	m_animationDuration = animationDuration;
-	HUDobject_interface::setFields(width, height, xPos, yPos, preserveAspectRatioOnResize);
+	HUDobject_interface::setFields(width, height, xPos, yPos);
 }
 
 void HUDobject_Animated_interface::setWidth(int width, bool preserveAspectRatio, bool animate)

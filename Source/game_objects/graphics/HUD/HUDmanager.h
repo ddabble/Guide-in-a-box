@@ -9,8 +9,6 @@
 
 #include "HUDobject_interface.h"
 
-class EventHandler;
-
 class HUDmanager : public GraphicsObject_interface, FramebufferSizeHook_interface
 {
 	friend class GraphicsObjectManager;
