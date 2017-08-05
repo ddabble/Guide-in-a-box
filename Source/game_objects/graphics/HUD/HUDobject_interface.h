@@ -29,30 +29,22 @@ protected:
 	width and height are the image's dimensions measured in pixels.
 	xPos and yPos are the coordinates of the image's lower left corner.
 	*/
-	virtual void setFields(unsigned int width, unsigned int height, int xPos, int yPos);
+	virtual void setFields(GLint width, GLint height, GLint xPos, GLint yPos);
 
 	GLint getWidth() { return m_vertexData[2] - m_vertexData[0]; }
 	GLint getHeight() { return m_vertexData[5] - m_vertexData[3]; }
 
-	virtual void setWidth(int width, bool preserveAspectRatio);
-	virtual void setHeight(int height, bool preserveAspectRatio);
+	virtual void setWidth(GLint width, bool preserveAspectRatio);
+	virtual void setHeight(GLint height, bool preserveAspectRatio);
 
-	virtual void move(int xDirection, int yDirection);
+	virtual void move(GLint xDirection, GLint yDirection);
 
 	/* xPos and yPos are the coordinates of the image's lower left corner. */
-	virtual void moveTo(int xPos, int yPos);
+	virtual void moveTo(GLint xPos, GLint yPos);
 
 	/*
 	Set newWidth or newHeight to -1 to make the image maintain its aspect ratio during the zoom.
 	focusX and focusY are relative to the window's lower left corner, and are clamped between 0 and 1.
 	*/
-	virtual void zoom(int newWidth, int newHeight, GLfloat focusX = 0.5f, GLfloat focusY = 0.5f);
-
-protected:
-	void _setWidth(GLfloat width, bool preserveAspectRatio, GLfloat vertexData[8]);
-	void _setHeight(GLfloat height, bool preserveAspectRatio, GLfloat vertexData[8]);
-
-	void _move(GLfloat xDirection, GLfloat yDirection, GLfloat vertexData[8]);
-	void _moveTo(GLfloat xPos, GLfloat yPos, GLfloat vertexData[8]);
-	void _zoom(GLfloat newWidth, GLfloat newHeight, GLfloat focusX, GLfloat focusY, GLfloat vertexData[8]);
+	virtual void zoom(GLint newWidth, GLint newHeight, GLfloat focusX = 0.5f, GLfloat focusY = 0.5f);
 };
