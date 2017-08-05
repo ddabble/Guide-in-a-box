@@ -25,7 +25,7 @@ Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : H
 
 	m_zoomLevel = ZoomLevel();
 
-	this->setFields(width, height, 0, 0, true, 1.0f / 4);
+	this->setFields(width, height, 0, 0, 1.0f / 4);
 }
 
 Map::~Map()

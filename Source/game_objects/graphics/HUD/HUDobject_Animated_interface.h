@@ -22,22 +22,22 @@ public:
 protected:
 	HUDobject_Animated_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : HUDobject_interface(program, graphicsObjectManager) {}
 
-	void setFields(unsigned int width, unsigned int height, int xPos, int yPos, float animationDuration);
+	void setFields(GLint width, GLint height, GLint xPos, GLint yPos, float animationDuration);
 
-	void setWidth(int width, bool preserveAspectRatio, bool animate);
-	void setHeight(int height, bool preserveAspectRatio, bool animate);
+	void setWidth(GLint width, bool preserveAspectRatio, bool animate);
+	void setHeight(GLint height, bool preserveAspectRatio, bool animate);
 
-	void move(int xDirection, int yDirection, bool animate);
+	void move(GLint xDirection, GLint yDirection, bool animate);
 
-	void moveTo(int xPos, int yPos, bool animate);
+	void moveTo(GLint xPos, GLint yPos, bool animate);
 
-	void zoom(int newWidth, int newHeight, bool animate, GLfloat focusX = 0.5f, GLfloat focusY = 0.5f);
+	void zoom(GLint newWidth, GLint newHeight, bool animate, GLfloat focusX = 0.5f, GLfloat focusY = 0.5f);
 
 private:
-	void setFields(unsigned int width, unsigned int height, int xPos, int yPos) override {}
-	void setWidth(int width, bool preserveAspectRatio) override {}
-	void setHeight(int height, bool preserveAspectRatio) override {}
-	void move(int xDirection, int yDirection) override {}
-	void moveTo(int xPos, int yPos) override {}
-	void zoom(int newWidth, int newHeight, GLfloat focusX = 0.5f, GLfloat focusY = 0.5f) override {}
+	void setFields(GLint width, GLint height, GLint xPos, GLint yPos) override {}
+	void setWidth(GLint width, bool preserveAspectRatio) override {}
+	void setHeight(GLint height, bool preserveAspectRatio) override {}
+	void move(GLint xDirection, GLint yDirection) override {}
+	void moveTo(GLint xPos, GLint yPos) override {}
+	void zoom(GLint newWidth, GLint newHeight, GLfloat focusX = 0.5f, GLfloat focusY = 0.5f) override {}
 };
