@@ -30,13 +30,13 @@ void HUDobject_Animated_interface::graphicsUpdate(GLuint program, const Graphics
 	}
 }
 
-void HUDobject_Animated_interface::setFields(GLint width, GLint height, GLint xPos, GLint yPos, float animationDuration)
+void HUDobject_Animated_interface::setCoords(GLfloat xPos, GLfloat yPos, GLfloat width, GLfloat height, float animationDuration)
 {
 	m_animationDuration = animationDuration;
-	HUDobject_interface::setFields(width, height, xPos, yPos);
+	HUDobject_interface::setCoords(xPos, yPos, width, height);
 }
 
-void HUDobject_Animated_interface::setWidth(GLint width, bool preserveAspectRatio, bool animate)
+void HUDobject_Animated_interface::setWidth(GLfloat width, bool preserveAspectRatio, bool animate)
 {
 	if (animate)
 	{
@@ -56,7 +56,7 @@ void HUDobject_Animated_interface::setWidth(GLint width, bool preserveAspectRati
 		_setWidth(width, preserveAspectRatio, m_vertexData);
 }
 
-void HUDobject_Animated_interface::setHeight(GLint height, bool preserveAspectRatio, bool animate)
+void HUDobject_Animated_interface::setHeight(GLfloat height, bool preserveAspectRatio, bool animate)
 {
 	if (animate)
 	{
@@ -76,7 +76,7 @@ void HUDobject_Animated_interface::setHeight(GLint height, bool preserveAspectRa
 		_setHeight(height, preserveAspectRatio, m_vertexData);
 }
 
-void HUDobject_Animated_interface::move(GLint xDirection, GLint yDirection, bool animate)
+void HUDobject_Animated_interface::move(GLfloat xDirection, GLfloat yDirection, bool animate)
 {
 	if (animate)
 	{
@@ -96,7 +96,7 @@ void HUDobject_Animated_interface::move(GLint xDirection, GLint yDirection, bool
 		_move(xDirection, yDirection, m_vertexData);
 }
 
-void HUDobject_Animated_interface::moveTo(GLint xPos, GLint yPos, bool animate)
+void HUDobject_Animated_interface::moveTo(GLfloat xPos, GLfloat yPos, bool animate)
 {
 	if (animate)
 	{
@@ -116,7 +116,7 @@ void HUDobject_Animated_interface::moveTo(GLint xPos, GLint yPos, bool animate)
 		_moveTo(xPos, yPos, m_vertexData);
 }
 
-void HUDobject_Animated_interface::zoom(GLint newWidth, GLint newHeight, bool animate, GLfloat focusX, GLfloat focusY)
+void HUDobject_Animated_interface::zoom(GLfloat newWidth, GLfloat newHeight, bool animate, GLfloat focusX, GLfloat focusY)
 {
 	if (animate)
 	{
