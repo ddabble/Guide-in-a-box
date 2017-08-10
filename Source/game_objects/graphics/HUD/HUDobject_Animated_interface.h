@@ -4,43 +4,45 @@
 
 class HUDobject_Animated_interface : public HUDobject_interface
 {
-protected:
-	GLfloat m_vertexDataAnimationOrigin[4 * 2];
-	GLfloat m_vertexDataAnimationDestination[4 * 2];
-
-	float m_animationDuration;
-	bool m_isAnimating = false;
 private:
 	double m_animationStartTime;
 
-public:
-	virtual void graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager) override;
+protected:
+	double m_animationEndTime;
+	bool m_isAnimating = false;
 
-public:
-	virtual ~HUDobject_Animated_interface() {}
+	GLfloat m_vertexDataAnimationOrigin[4 * 2];
+	GLfloat m_vertexDataAnimationDestination[4 * 2];
 
 protected:
 	HUDobject_Animated_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : HUDobject_interface(program, graphicsObjectManager) {}
 
 	HUDobject_Animated_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager, GLfloat xPos, GLfloat yPos, GLfloat width, GLfloat height)
 		: HUDobject_interface(program, graphicsObjectManager, xPos, yPos, width, height) {}
-	
+
+public:
+	virtual ~HUDobject_Animated_interface() {}
+
+public:
+	virtual void graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager) override;
+
+protected:
 	void setCoords(GLfloat xPos, GLfloat yPos, GLfloat width, GLfloat height, float animationDuration);
 
-	void setWidth(GLfloat width, bool preserveAspectRatio, bool animate);
-	void setHeight(GLfloat height, bool preserveAspectRatio, bool animate);
+	void setWidth(GLfloat width, bool preserveAspectRatio, float animationDuration);
+	void setHeight(GLfloat height, bool preserveAspectRatio, float animationDuration);
 
-	void move(GLfloat xDirection, GLfloat yDirection, bool animate);
+	void move(GLfloat xDirection, GLfloat yDirection, float animationDuration);
 
-	void moveTo(GLfloat xPos, GLfloat yPos, bool animate);
+	void moveTo(GLfloat xPos, GLfloat yPos, float animationDuration);
 
-	void zoom(GLfloat newWidth, GLfloat newHeight, bool animate, GLfloat focusX = 0.5f, GLfloat focusY = 0.5f);
+	void zoom(GLfloat newWidth, GLfloat newHeight, float animationDuration, GLfloat focusX = 0.5f, GLfloat focusY = 0.5f);
 
 private:
-	void setCoords(GLfloat xPos, GLfloat yPos, GLfloat width, GLfloat height) override {}
-	void setWidth(GLfloat width, bool preserveAspectRatio) override {}
-	void setHeight(GLfloat height, bool preserveAspectRatio) override {}
-	void move(GLfloat xDirection, GLfloat yDirection) override {}
-	void moveTo(GLfloat xPos, GLfloat yPos) override {}
-	void zoom(GLfloat newWidth, GLfloat newHeight, GLfloat focusX = 0.5f, GLfloat focusY = 0.5f) override {}
+	using HUDobject_interface::setCoords;
+	using HUDobject_interface::setWidth;
+	using HUDobject_interface::setHeight;
+	using HUDobject_interface::move;
+	using HUDobject_interface::moveTo;
+	using HUDobject_interface::zoom;
 };
