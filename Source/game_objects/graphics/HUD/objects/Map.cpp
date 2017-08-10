@@ -25,7 +25,7 @@ Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : H
 
 	m_zoomLevel = ZoomLevel();
 
-	this->setFields(width, height, 0, 0, 1.0f / 4);
+	this->setCoords(0.0f, 0.0f, (GLfloat)width, (GLfloat)height, 1.0f / 4.0f);
 }
 
 Map::~Map()
@@ -39,7 +39,7 @@ void Map::cursorPosCallback(const InputManager& input)
 	if (input.getMouse().m_isLeftMouseButtonDown)
 	{
 		CursorPos cursorPos = input.getMouse().getCursorPos();
-		move(cursorPos.deltaX, cursorPos.deltaY, false);
+		move((GLfloat)cursorPos.deltaX, (GLfloat)cursorPos.deltaY, false);
 	}
 }
 
@@ -51,7 +51,7 @@ void Map::scrollCallback(float xOffset, float yOffset, const InputManager& input
 	if (oldZoomLevel == m_zoomLevel.offsetLevel((int)yOffset))
 		return;
 
-	zoom(int(m_pixelWidth * m_zoomLevel.getPercentage()), -1, true, (GLfloat)cursorPos.xPos / window.getWidth(), (GLfloat)cursorPos.yPos / window.getHeight());
+	zoom(getWidth() * m_zoomLevel.getPercentage(), -1, true, (GLfloat)cursorPos.xPos, (GLfloat)cursorPos.yPos);
 }
 
 void Map::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager)

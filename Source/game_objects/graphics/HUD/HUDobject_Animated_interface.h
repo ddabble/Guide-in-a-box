@@ -22,22 +22,25 @@ public:
 protected:
 	HUDobject_Animated_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : HUDobject_interface(program, graphicsObjectManager) {}
 
-	void setFields(GLint width, GLint height, GLint xPos, GLint yPos, float animationDuration);
+	HUDobject_Animated_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager, GLfloat xPos, GLfloat yPos, GLfloat width, GLfloat height)
+		: HUDobject_interface(program, graphicsObjectManager, xPos, yPos, width, height) {}
+	
+	void setCoords(GLfloat xPos, GLfloat yPos, GLfloat width, GLfloat height, float animationDuration);
 
-	void setWidth(GLint width, bool preserveAspectRatio, bool animate);
-	void setHeight(GLint height, bool preserveAspectRatio, bool animate);
+	void setWidth(GLfloat width, bool preserveAspectRatio, bool animate);
+	void setHeight(GLfloat height, bool preserveAspectRatio, bool animate);
 
-	void move(GLint xDirection, GLint yDirection, bool animate);
+	void move(GLfloat xDirection, GLfloat yDirection, bool animate);
 
-	void moveTo(GLint xPos, GLint yPos, bool animate);
+	void moveTo(GLfloat xPos, GLfloat yPos, bool animate);
 
-	void zoom(GLint newWidth, GLint newHeight, bool animate, GLfloat focusX = 0.5f, GLfloat focusY = 0.5f);
+	void zoom(GLfloat newWidth, GLfloat newHeight, bool animate, GLfloat focusX = 0.5f, GLfloat focusY = 0.5f);
 
 private:
-	void setFields(GLint width, GLint height, GLint xPos, GLint yPos) override {}
-	void setWidth(GLint width, bool preserveAspectRatio) override {}
-	void setHeight(GLint height, bool preserveAspectRatio) override {}
-	void move(GLint xDirection, GLint yDirection) override {}
-	void moveTo(GLint xPos, GLint yPos) override {}
-	void zoom(GLint newWidth, GLint newHeight, GLfloat focusX = 0.5f, GLfloat focusY = 0.5f) override {}
+	void setCoords(GLfloat xPos, GLfloat yPos, GLfloat width, GLfloat height) override {}
+	void setWidth(GLfloat width, bool preserveAspectRatio) override {}
+	void setHeight(GLfloat height, bool preserveAspectRatio) override {}
+	void move(GLfloat xDirection, GLfloat yDirection) override {}
+	void moveTo(GLfloat xPos, GLfloat yPos) override {}
+	void zoom(GLfloat newWidth, GLfloat newHeight, GLfloat focusX = 0.5f, GLfloat focusY = 0.5f) override {}
 };
