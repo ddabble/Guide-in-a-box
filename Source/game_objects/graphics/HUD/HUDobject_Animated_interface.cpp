@@ -55,7 +55,7 @@ void HUDobject_Animated_interface::setCoords(glm::vec2 pos, GLfloat width, GLflo
 		_setCoords(pos, width, height, m_vertexData);
 }
 
-void HUDobject_Animated_interface::setWidth(GLfloat width, bool preserveAspectRatio, float animationDuration)
+void HUDobject_Animated_interface::setWidth(GLfloat width, float animationDuration)
 {
 	if (animationDuration > 0.0f)
 	{
@@ -64,23 +64,23 @@ void HUDobject_Animated_interface::setWidth(GLfloat width, bool preserveAspectRa
 		{
 			std::memcpy(m_vertexDataAnimationOrigin, m_vertexData, sizeof(m_vertexDataAnimationOrigin));
 			std::memcpy(m_vertexDataAnimationDestination, m_vertexData, sizeof(m_vertexDataAnimationDestination));
-			_setWidth(width, preserveAspectRatio, m_vertexDataAnimationDestination);
+			_setWidth(width, m_vertexDataAnimationDestination);
 
 			m_isAnimating = true;
 		} else
-			_setWidth(width, preserveAspectRatio, m_vertexDataAnimationDestination);
+			_setWidth(width, m_vertexDataAnimationDestination);
 
 		m_animationEndTime = m_animationStartTime + animationDuration;
 
 	} else if (m_isAnimating)
 	{
-		_setWidth(width, preserveAspectRatio, m_vertexDataAnimationOrigin);
-		_setWidth(width, preserveAspectRatio, m_vertexDataAnimationDestination);
+		_setWidth(width, m_vertexDataAnimationOrigin);
+		_setWidth(width, m_vertexDataAnimationDestination);
 	} else
-		_setWidth(width, preserveAspectRatio, m_vertexData);
+		_setWidth(width, m_vertexData);
 }
 
-void HUDobject_Animated_interface::setHeight(GLfloat height, bool preserveAspectRatio, float animationDuration)
+void HUDobject_Animated_interface::setHeight(GLfloat height, float animationDuration)
 {
 	if (animationDuration > 0.0f)
 	{
@@ -90,20 +90,20 @@ void HUDobject_Animated_interface::setHeight(GLfloat height, bool preserveAspect
 		{
 			std::memcpy(m_vertexDataAnimationOrigin, m_vertexData, sizeof(m_vertexDataAnimationOrigin));
 			std::memcpy(m_vertexDataAnimationDestination, m_vertexData, sizeof(m_vertexDataAnimationDestination));
-			_setHeight(height, preserveAspectRatio, m_vertexDataAnimationDestination);
+			_setHeight(height, m_vertexDataAnimationDestination);
 
 			m_isAnimating = true;
 		} else
-			_setHeight(height, preserveAspectRatio, m_vertexDataAnimationDestination);
+			_setHeight(height, m_vertexDataAnimationDestination);
 
 		m_animationEndTime = m_animationStartTime + animationDuration;
 
 	} else if (m_isAnimating)
 	{
-		_setHeight(height, preserveAspectRatio, m_vertexDataAnimationOrigin);
-		_setHeight(height, preserveAspectRatio, m_vertexDataAnimationDestination);
+		_setHeight(height, m_vertexDataAnimationOrigin);
+		_setHeight(height, m_vertexDataAnimationDestination);
 	} else
-		_setHeight(height, preserveAspectRatio, m_vertexData);
+		_setHeight(height, m_vertexData);
 }
 
 void HUDobject_Animated_interface::move(glm::vec2 direction, float animationDuration)

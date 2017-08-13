@@ -69,32 +69,14 @@ void HUDobject_interface::_setCoords(glm::vec2 pos, GLfloat width, GLfloat heigh
 	std::memcpy(vertexData, newVertexData, sizeof(newVertexData));
 }
 
-void HUDobject_interface::_setWidth(GLfloat width, bool preserveAspectRatio, GLfloat* vertexData)
+void HUDobject_interface::_setWidth(GLfloat width, GLfloat* vertexData)
 {
-	if (preserveAspectRatio)
-	{
-		GLfloat aspectRatio = _getWidth(vertexData) / _getHeight(vertexData);
-		GLfloat newHeight = width / aspectRatio;
-
-		vertexData[5] = vertexData[1] + newHeight;
-		vertexData[7] = vertexData[1] + newHeight;
-	}
-
 	vertexData[2] = vertexData[0] + width;
 	vertexData[4] = vertexData[0] + width;
 }
 
-void HUDobject_interface::_setHeight(GLfloat height, bool preserveAspectRatio, GLfloat* vertexData)
+void HUDobject_interface::_setHeight(GLfloat height, GLfloat* vertexData)
 {
-	if (preserveAspectRatio)
-	{
-		GLfloat aspectRatio = _getWidth(vertexData) / _getHeight(vertexData);
-		GLfloat newWidth = height * aspectRatio;
-
-		vertexData[2] = vertexData[0] + newWidth;
-		vertexData[4] = vertexData[0] + newWidth;
-	}
-
 	vertexData[5] = vertexData[1] + height;
 	vertexData[7] = vertexData[1] + height;
 }
