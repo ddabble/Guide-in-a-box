@@ -29,8 +29,8 @@ public:
 protected:
 	void setCoords(glm::vec2 pos, GLfloat width, GLfloat height, float animationDuration);
 
-	void setWidth(GLfloat width, bool preserveAspectRatio, float animationDuration);
-	void setHeight(GLfloat height, bool preserveAspectRatio, float animationDuration);
+	void setWidth(GLfloat width, float animationDuration);
+	void setHeight(GLfloat height, float animationDuration);
 
 	void move(glm::vec2 direction, float animationDuration);
 

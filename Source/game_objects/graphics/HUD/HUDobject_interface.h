@@ -37,8 +37,8 @@ protected:
 	virtual GLfloat getWidth() const { return _getWidth(m_vertexData); }
 	virtual GLfloat getHeight() const { return _getHeight(m_vertexData); }
 
-	virtual void setWidth(GLfloat width, bool preserveAspectRatio) { _setWidth(width, preserveAspectRatio, m_vertexData); }
-	virtual void setHeight(GLfloat height, bool preserveAspectRatio) { _setHeight(height, preserveAspectRatio, m_vertexData); }
+	virtual void setWidth(GLfloat width) { _setWidth(width, m_vertexData); }
+	virtual void setHeight(GLfloat height) { _setHeight(height, m_vertexData); }
 
 	virtual void move(glm::vec2 direction) { _move(direction, m_vertexData); }
 
@@ -57,8 +57,8 @@ protected:
 	constexpr static GLfloat _getWidth(const GLfloat vertexData[8]) { return vertexData[2] - vertexData[0]; }
 	constexpr static GLfloat _getHeight(const GLfloat vertexData[8]) { return vertexData[5] - vertexData[3]; }
 
-	static void _setWidth(GLfloat width, bool preserveAspectRatio, GLfloat vertexData[8]);
-	static void _setHeight(GLfloat height, bool preserveAspectRatio, GLfloat vertexData[8]);
+	static void _setWidth(GLfloat width, GLfloat vertexData[8]);
+	static void _setHeight(GLfloat height, GLfloat vertexData[8]);
 	static void _move(glm::vec2 direction, GLfloat vertexData[8]);
 	static void _moveTo(glm::vec2 pos, GLfloat vertexData[8]);
 	static void _zoom(GLfloat newWidth, GLfloat newHeight, glm::vec2 focus, GLfloat vertexData[8]);
