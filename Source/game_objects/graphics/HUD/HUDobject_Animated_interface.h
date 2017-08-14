@@ -39,6 +39,16 @@ protected:
 	void zoom(GLfloat newWidth, GLfloat newHeight, float animationDuration, glm::vec2 focus = { 0.5f, 0.5f });
 
 private:
+	enum animationFunction
+	{
+		SET_COORDS, SET_WIDTH, SET_HEIGHT, MOVE, MOVE_TO, ZOOM
+	};
+
+	void animate(animationFunction func, void* args[], float animationDuration);
+
+	constexpr static void invoke(animationFunction func, void* args[], GLfloat vertexData[8]);
+
+private:
 	using HUDobject_interface::setCoords;
 	using HUDobject_interface::setWidth;
 	using HUDobject_interface::setHeight;
