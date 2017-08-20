@@ -163,7 +163,7 @@
     <ClCompile Include="..\..\Source\game_objects\GameObjectManager.cpp" />
     <ClCompile Include="..\..\Source\game_objects\graphics\GraphicsObjectManager.cpp" />
     <ClCompile Include="..\..\Source\game_objects\graphics\HUD\HUDmanager.cpp" />
-    <ClCompile Include="..\..\Source\game_objects\graphics\HUD\HUDobject_interface.cpp" />
+    <ClCompile Include="..\..\Source\game_objects\graphics\HUD\HUDobject.cpp" />
     <ClCompile Include="..\..\Source\game_objects\graphics\HUD\HUDobject_Animated_interface.cpp" />
     <ClCompile Include="..\..\Source\game_objects\graphics\HUD\objects\Arrow.cpp" />
     <ClCompile Include="..\..\Source\game_objects\graphics\HUD\objects\Map.cpp" />
@@ -194,7 +194,7 @@
     <ClInclude Include="..\..\Source\game_objects\graphics\GraphicsObjectManager.h" />
     <ClInclude Include="..\..\Source\game_objects\graphics\GraphicsObject_interface.h" />
     <ClInclude Include="..\..\Source\game_objects\graphics\HUD\HUDmanager.h" />
-    <ClInclude Include="..\..\Source\game_objects\graphics\HUD\HUDobject_interface.h" />
+    <ClInclude Include="..\..\Source\game_objects\graphics\HUD\HUDobject.h" />
     <ClInclude Include="..\..\Source\game_objects\graphics\HUD\HUDobject_Animated_interface.h" />
     <ClInclude Include="..\..\Source\game_objects\graphics\HUD\objects\Arrow.h" />
     <ClInclude Include="..\..\Source\game_objects\graphics\HUD\objects\Map.h" />

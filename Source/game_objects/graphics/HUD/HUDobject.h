@@ -6,8 +6,7 @@
 #include "../../../Game.h"
 #include "../GraphicsObjectManager.h"
 
-// TODO: Rename to just HUDobject, seeing that it's more of an abstract class..?
-class HUDobject_interface
+class HUDobject
 {
 protected:
 	GLuint m_vertexArrayObject;
@@ -17,12 +16,12 @@ protected:
 
 protected:
 	/* User should call setCoords() after calling this constructor. */
-	HUDobject_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager);
+	HUDobject(GLuint program, const GraphicsObjectManager& graphicsObjectManager);
 
-	HUDobject_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager, glm::vec2 pos, GLfloat width, GLfloat height);
+	HUDobject(GLuint program, const GraphicsObjectManager& graphicsObjectManager, glm::vec2 pos, GLfloat width, GLfloat height);
 
 public:
-	virtual ~HUDobject_interface() {}
+	virtual ~HUDobject() {}
 
 public:
 	virtual void graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager);
