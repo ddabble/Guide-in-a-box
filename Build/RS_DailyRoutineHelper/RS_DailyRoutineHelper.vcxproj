@@ -165,6 +165,7 @@
     <ClCompile Include="..\..\Source\game_objects\graphics\HUD\HUDmanager.cpp" />
     <ClCompile Include="..\..\Source\game_objects\graphics\HUD\HUDobject.cpp" />
     <ClCompile Include="..\..\Source\game_objects\graphics\HUD\HUDobject_Animated_interface.cpp" />
+    <ClCompile Include="..\..\Source\game_objects\graphics\HUD\HUDobject_Dynamic.cpp" />
     <ClCompile Include="..\..\Source\game_objects\graphics\HUD\objects\Arrow.cpp" />
     <ClCompile Include="..\..\Source\game_objects\graphics\HUD\objects\Map.cpp" />
     <ClCompile Include="..\..\Source\game_objects\physics\PhysicsObjectManager.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="..\..\Source\game_objects\graphics\HUD\HUDmanager.h" />
     <ClInclude Include="..\..\Source\game_objects\graphics\HUD\HUDobject.h" />
     <ClInclude Include="..\..\Source\game_objects\graphics\HUD\HUDobject_Animated_interface.h" />
+    <ClInclude Include="..\..\Source\game_objects\graphics\HUD\HUDobject_Dynamic.h" />
     <ClInclude Include="..\..\Source\game_objects\graphics\HUD\objects\Arrow.h" />
     <ClInclude Include="..\..\Source\game_objects\graphics\HUD\objects\Map.h" />
     <ClInclude Include="..\..\Source\game_objects\physics\PhysicsObjectManager.h" />
