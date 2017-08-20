@@ -59,5 +59,5 @@ void Map::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsOb
 	glBindTexture(GL_TEXTURE_2D, m_textureObject);
 
 	HUDobject_Animated::graphicsUpdate(program, graphicsObjectManager);
-	HUDobject::graphicsUpdate(program, graphicsObjectManager);
+	HUDobject_Dynamic::graphicsUpdate(program, graphicsObjectManager);
 }
