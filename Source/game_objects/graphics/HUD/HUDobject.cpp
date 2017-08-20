@@ -1,4 +1,4 @@
-#include "HUDobject_interface.h"
+#include "HUDobject.h"
 
 #include <cstring>
 #include <glm/glm.hpp>
@@ -11,10 +11,10 @@ static constexpr GLfloat VERTEX_TEMPLATE[] =
 	0, 1
 };
 
-HUDobject_interface::HUDobject_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
-	: HUDobject_interface(program, graphicsObjectManager, { 0.0f, 0.0f }, (GLfloat)graphicsObjectManager.getWindow().getWidth(), (GLfloat)graphicsObjectManager.getWindow().getHeight()) {}
+HUDobject::HUDobject(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
+	: HUDobject(program, graphicsObjectManager, { 0.0f, 0.0f }, (GLfloat)graphicsObjectManager.getWindow().getWidth(), (GLfloat)graphicsObjectManager.getWindow().getHeight()) {}
 
-HUDobject_interface::HUDobject_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager, glm::vec2 pos, GLfloat width, GLfloat height)
+HUDobject::HUDobject(GLuint program, const GraphicsObjectManager& graphicsObjectManager, glm::vec2 pos, GLfloat width, GLfloat height)
 	: m_vertexData
 {
 	// Vertices
@@ -46,7 +46,7 @@ HUDobject_interface::HUDobject_interface(GLuint program, const GraphicsObjectMan
 	m_vertexData_uniformIndex = glGetUniformLocation(program, "vertexData");
 }
 
-void HUDobject_interface::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
+void HUDobject::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
 {
 	// TODO: Change object's position with matrices instead
 	glUniform2fv(m_vertexData_uniformIndex, 8, m_vertexData);
@@ -56,7 +56,7 @@ void HUDobject_interface::graphicsUpdate(GLuint program, const GraphicsObjectMan
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 }
 
-void HUDobject_interface::_setCoords(glm::vec2 pos, GLfloat width, GLfloat height, GLfloat* vertexData)
+void HUDobject::_setCoords(glm::vec2 pos, GLfloat width, GLfloat height, GLfloat* vertexData)
 {
 	const GLfloat newVertexData[] =
 	{
@@ -69,19 +69,19 @@ void HUDobject_interface::_setCoords(glm::vec2 pos, GLfloat width, GLfloat heigh
 	std::memcpy(vertexData, newVertexData, sizeof(newVertexData));
 }
 
-void HUDobject_interface::_setWidth(GLfloat width, GLfloat* vertexData)
+void HUDobject::_setWidth(GLfloat width, GLfloat* vertexData)
 {
 	vertexData[2] = vertexData[0] + width;
 	vertexData[4] = vertexData[0] + width;
 }
 
-void HUDobject_interface::_setHeight(GLfloat height, GLfloat* vertexData)
+void HUDobject::_setHeight(GLfloat height, GLfloat* vertexData)
 {
 	vertexData[5] = vertexData[1] + height;
 	vertexData[7] = vertexData[1] + height;
 }
 
-void HUDobject_interface::_move(glm::vec2 direction, GLfloat* vertexData)
+void HUDobject::_move(glm::vec2 direction, GLfloat* vertexData)
 {
 	for (int i = 0; i < 8; i += 2)
 	{
@@ -90,12 +90,12 @@ void HUDobject_interface::_move(glm::vec2 direction, GLfloat* vertexData)
 	}
 }
 
-void HUDobject_interface::_moveTo(glm::vec2 pos, GLfloat* vertexData)
+void HUDobject::_moveTo(glm::vec2 pos, GLfloat* vertexData)
 {
 	_setCoords(pos, _getWidth(vertexData), _getHeight(vertexData), vertexData);
 }
 
-void HUDobject_interface::_zoom(GLfloat newWidth, GLfloat newHeight, glm::vec2 focus, GLfloat* vertexData)
+void HUDobject::_zoom(GLfloat newWidth, GLfloat newHeight, glm::vec2 focus, GLfloat* vertexData)
 {
 	glm::clamp(focus, 0.0f, 1.0f);
 
