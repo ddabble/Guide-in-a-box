@@ -1,9 +1,9 @@
-#include "HUDobject_Animated_interface.h"
+#include "HUDobject_Animated.h"
 
 #include <cstring>
 #include <GLFW/glfw3.h>
 
-void HUDobject_Animated_interface::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
+void HUDobject_Animated::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
 {
 	if (!m_isAnimating)
 		return;
@@ -30,43 +30,43 @@ void HUDobject_Animated_interface::graphicsUpdate(GLuint program, const Graphics
 	}
 }
 
-void HUDobject_Animated_interface::setCoords(glm::vec2 pos, GLfloat width, GLfloat height, float animationDuration)
+void HUDobject_Animated::setCoords(glm::vec2 pos, GLfloat width, GLfloat height, float animationDuration)
 {
 	void* args[]{ &pos, &width, &height };
 	animate(SET_COORDS, args, animationDuration);
 }
 
-void HUDobject_Animated_interface::setWidth(GLfloat width, float animationDuration)
+void HUDobject_Animated::setWidth(GLfloat width, float animationDuration)
 {
 	void* args[]{ &width };
 	animate(SET_WIDTH, args, animationDuration);
 }
 
-void HUDobject_Animated_interface::setHeight(GLfloat height, float animationDuration)
+void HUDobject_Animated::setHeight(GLfloat height, float animationDuration)
 {
 	void* args[]{ &height };
 	animate(SET_HEIGHT, args, animationDuration);
 }
 
-void HUDobject_Animated_interface::move(glm::vec2 direction, float animationDuration)
+void HUDobject_Animated::move(glm::vec2 direction, float animationDuration)
 {
 	void* args[]{ &direction };
 	animate(MOVE, args, animationDuration);
 }
 
-void HUDobject_Animated_interface::moveTo(glm::vec2 pos, float animationDuration)
+void HUDobject_Animated::moveTo(glm::vec2 pos, float animationDuration)
 {
 	void* args[]{ &pos };
 	animate(MOVE_TO, args, animationDuration);
 }
 
-void HUDobject_Animated_interface::zoom(GLfloat newWidth, GLfloat newHeight, float animationDuration, glm::vec2 focus)
+void HUDobject_Animated::zoom(GLfloat newWidth, GLfloat newHeight, float animationDuration, glm::vec2 focus)
 {
 	void* args[]{ &newWidth, &newHeight, &focus };
 	animate(ZOOM, args, animationDuration);
 }
 
-void HUDobject_Animated_interface::animate(animationFunction func, void* args[], float animationDuration)
+void HUDobject_Animated::animate(animationFunction func, void* args[], float animationDuration)
 {
 	if (animationDuration > 0.0f)
 	{
@@ -91,7 +91,7 @@ void HUDobject_Animated_interface::animate(animationFunction func, void* args[],
 		invoke(func, args, m_vertexData);
 }
 
-constexpr void HUDobject_Animated_interface::invoke(animationFunction func, void* args[], GLfloat vertexData[])
+constexpr void HUDobject_Animated::invoke(animationFunction func, void* args[], GLfloat vertexData[])
 {
 	switch (func)
 	{

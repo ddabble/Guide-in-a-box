@@ -2,7 +2,7 @@
 
 #include "../../../../texture/ImageDecompression.h"
 
-Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : HUDobject_Animated_interface(program, graphicsObjectManager)
+Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : HUDobject_Animated(program, graphicsObjectManager)
 {
 	EventHandler::addCursorPosHook(this);
 	EventHandler::addScrollHook(this);
@@ -58,6 +58,6 @@ void Map::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsOb
 {
 	glBindTexture(GL_TEXTURE_2D, m_textureObject);
 
-	HUDobject_Animated_interface::graphicsUpdate(program, graphicsObjectManager);
+	HUDobject_Animated::graphicsUpdate(program, graphicsObjectManager);
 	HUDobject::graphicsUpdate(program, graphicsObjectManager);
 }
