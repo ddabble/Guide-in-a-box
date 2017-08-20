@@ -1,8 +1,8 @@
 #pragma once
 
-#include "HUDobject_interface.h"
+#include "HUDobject_Dynamic.h"
 
-class HUDobject_Animated_interface : public HUDobject_interface
+class HUDobject_Animated_interface : public HUDobject_Dynamic
 {
 private:
 	double m_animationStartTime;
@@ -15,10 +15,10 @@ protected:
 	GLfloat m_vertexDataAnimationDestination[4 * 2];
 
 protected:
-	HUDobject_Animated_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : HUDobject_interface(program, graphicsObjectManager) {}
+	HUDobject_Animated_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : HUDobject_Dynamic(program, graphicsObjectManager) {}
 
 	HUDobject_Animated_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager, glm::vec2 pos, GLfloat width, GLfloat height)
-		: HUDobject_interface(program, graphicsObjectManager, pos, width, height) {}
+		: HUDobject_Dynamic(program, graphicsObjectManager, pos, width, height) {}
 
 public:
 	virtual ~HUDobject_Animated_interface() {}
@@ -49,10 +49,10 @@ private:
 	constexpr static void invoke(animationFunction func, void* args[], GLfloat vertexData[8]);
 
 private:
-	using HUDobject_interface::setCoords;
-	using HUDobject_interface::setWidth;
-	using HUDobject_interface::setHeight;
-	using HUDobject_interface::move;
-	using HUDobject_interface::moveTo;
-	using HUDobject_interface::zoom;
+	using HUDobject_Dynamic::setCoords;
+	using HUDobject_Dynamic::setWidth;
+	using HUDobject_Dynamic::setHeight;
+	using HUDobject_Dynamic::move;
+	using HUDobject_Dynamic::moveTo;
+	using HUDobject_Dynamic::zoom;
 };
