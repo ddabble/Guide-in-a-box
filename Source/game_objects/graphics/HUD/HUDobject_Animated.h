@@ -2,7 +2,7 @@
 
 #include "HUDobject_Dynamic.h"
 
-class HUDobject_Animated_interface : public HUDobject_Dynamic
+class HUDobject_Animated : public HUDobject_Dynamic
 {
 private:
 	double m_animationStartTime;
@@ -15,13 +15,13 @@ protected:
 	GLfloat m_vertexDataAnimationDestination[4 * 2];
 
 protected:
-	HUDobject_Animated_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : HUDobject_Dynamic(program, graphicsObjectManager) {}
+	HUDobject_Animated(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : HUDobject_Dynamic(program, graphicsObjectManager) {}
 
-	HUDobject_Animated_interface(GLuint program, const GraphicsObjectManager& graphicsObjectManager, glm::vec2 pos, GLfloat width, GLfloat height)
+	HUDobject_Animated(GLuint program, const GraphicsObjectManager& graphicsObjectManager, glm::vec2 pos, GLfloat width, GLfloat height)
 		: HUDobject_Dynamic(program, graphicsObjectManager, pos, width, height) {}
 
 public:
-	virtual ~HUDobject_Animated_interface() {}
+	virtual ~HUDobject_Animated() {}
 
 public:
 	virtual void graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager) override;

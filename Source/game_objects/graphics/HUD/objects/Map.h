@@ -1,13 +1,13 @@
 #pragma once
 
-#include "../HUDobject_Animated_interface.h"
+#include "../HUDobject_Animated.h"
 #include "../../../../event/types/CursorPosHook_interface.h"
 #include "../../../../event/types/ScrollHook_interface.h"
 
 #include <glm/glm.hpp>
 
 // TODO: Make Map observable
-class Map : public HUDobject_Animated_interface, CursorPosHook_interface, ScrollHook_interface
+class Map : public HUDobject_Animated, CursorPosHook_interface, ScrollHook_interface
 {
 private:
 	class ZoomLevel
