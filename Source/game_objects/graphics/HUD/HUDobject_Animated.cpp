@@ -75,48 +75,48 @@ void HUDobject_Animated::animate(animationFunction func, void* args[], float ani
 		{
 			std::memcpy(m_vertexDataAnimationOrigin, m_vertexData, sizeof(m_vertexDataAnimationOrigin));
 			std::memcpy(m_vertexDataAnimationDestination, m_vertexData, sizeof(m_vertexDataAnimationDestination));
-			invoke(func, args, m_vertexDataAnimationDestination);
+			invoke(func, args, *this, m_vertexDataAnimationDestination);
 
 			m_isAnimating = true;
 		} else
-			invoke(func, args, m_vertexDataAnimationDestination);
+			invoke(func, args, *this, m_vertexDataAnimationDestination);
 
 		m_animationEndTime = m_animationStartTime + animationDuration;
 
 	} else if (m_isAnimating)
 	{
-		invoke(func, args, m_vertexDataAnimationOrigin);
-		invoke(func, args, m_vertexDataAnimationDestination);
+		invoke(func, args, *this, m_vertexDataAnimationOrigin);
+		invoke(func, args, *this, m_vertexDataAnimationDestination);
 	} else
-		invoke(func, args, m_vertexData);
+		invoke(func, args, *this, m_vertexData);
 }
 
-constexpr void HUDobject_Animated::invoke(animationFunction func, void* args[], GLfloat vertexData[])
+constexpr void HUDobject_Animated::invoke(animationFunction func, void* args[], HUDobject_Dynamic& obj, GLfloat vertexData[])
 {
 	switch (func)
 	{
 		case SET_COORDS:
-			_setCoords(*static_cast<glm::vec2*>(args[0]), *static_cast<GLfloat*>(args[1]), *static_cast<GLfloat*>(args[2]), vertexData);
+			_setCoords(*static_cast<glm::vec2*>(args[0]), *static_cast<GLfloat*>(args[1]), *static_cast<GLfloat*>(args[2]), obj, vertexData);
 			break;
 
 		case SET_WIDTH:
-			_setWidth(*static_cast<GLfloat*>(args[0]), vertexData);
+			_setWidth(*static_cast<GLfloat*>(args[0]), obj, vertexData);
 			break;
 
 		case SET_HEIGHT:
-			_setHeight(*static_cast<GLfloat*>(args[0]), vertexData);
+			_setHeight(*static_cast<GLfloat*>(args[0]), obj, vertexData);
 			break;
 
 		case MOVE:
-			_move(*static_cast<glm::vec2*>(args[0]), vertexData);
+			_move(*static_cast<glm::vec2*>(args[0]), obj, vertexData);
 			break;
 
 		case MOVE_TO:
-			_moveTo(*static_cast<glm::vec2*>(args[0]), vertexData);
+			_moveTo(*static_cast<glm::vec2*>(args[0]), obj, vertexData);
 			break;
 
 		case ZOOM:
-			_zoom(*static_cast<GLfloat*>(args[0]), *static_cast<GLfloat*>(args[1]), *static_cast<glm::vec2*>(args[2]), vertexData);
+			_zoom(*static_cast<GLfloat*>(args[0]), *static_cast<GLfloat*>(args[1]), *static_cast<glm::vec2*>(args[2]), obj, vertexData);
 			break;
 	}
 }
