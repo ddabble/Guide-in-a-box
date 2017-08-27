@@ -11,7 +11,7 @@ class HUDobject
 protected:
 	GLuint m_vertexArrayObject;
 
-	GLint m_vertexData_uniformIndex;
+	GLuint m_vertexBufferObject;
 	GLfloat m_vertexData[4 * 2 + 4 * 2];
 
 protected:

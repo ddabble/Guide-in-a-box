@@ -14,14 +14,13 @@ HUDobject_Dynamic::HUDobject_Dynamic(GLuint program, const GraphicsObjectManager
 HUDobject_Dynamic::HUDobject_Dynamic(GLuint program, const GraphicsObjectManager& graphicsObjectManager, glm::vec2 pos, GLfloat width, GLfloat height)
 	: HUDobject(program, graphicsObjectManager, pos, width, height)
 {
-	constexpr GLint vertexIndices[] = { 0, 1, 2, 3 };
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexIndices), vertexIndices, GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(m_vertexData), m_vertexData, GL_DYNAMIC_DRAW);
 }
 
 void HUDobject_Dynamic::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
 {
-	// TODO: Change object's position with matrices instead
-	glUniform2fv(m_vertexData_uniformIndex, 8, m_vertexData);
+	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferObject);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(m_vertexData), m_vertexData, GL_DYNAMIC_DRAW);
 
 	HUDobject::graphicsUpdate(program, graphicsObjectManager);
 }
