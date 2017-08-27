@@ -7,15 +7,14 @@ Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : H
 	EventHandler::addCursorPosHook(this);
 	EventHandler::addScrollHook(this);
 
-	int width, height;
 	GLenum format;
-	unsigned char* imageData = extractImageFrom7zFile("../../Source/map.7z", &width, &height, &format);
+	unsigned char* imageData = extractImageFrom7zFile("../../Source/map.7z", &m_originalWidth, &m_originalHeight, &format);
 
 	glGenTextures(1, &m_textureObject);
 	glBindTexture(GL_TEXTURE_2D, m_textureObject);
 
-	glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, width, height);
-	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, format, GL_UNSIGNED_BYTE, imageData);
+	glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, m_originalWidth, m_originalHeight);
+	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_originalWidth, m_originalHeight, format, GL_UNSIGNED_BYTE, imageData);
 	freeImageData(imageData);
 
 	//glGenerateMipmap(GL_TEXTURE_2D);
@@ -25,7 +24,7 @@ Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : H
 
 	m_zoomLevel = ZoomLevel();
 
-	this->setCoords({ 0.0f, 0.0f }, (GLfloat)width, (GLfloat)height, 0);
+	this->setCoords({ 0.0f, 0.0f }, (GLfloat)m_originalWidth, (GLfloat)m_originalHeight, 0);
 }
 
 Map::~Map()
@@ -51,7 +50,10 @@ void Map::scrollCallback(float xOffset, float yOffset, const InputManager& input
 	if (oldZoomLevel == m_zoomLevel.offsetLevel((int)yOffset))
 		return;
 
-	zoom(getWidth() * m_zoomLevel.getPercentage(), -1, 1.0f / 4.0f, { cursorPos.xPos, cursorPos.yPos });
+	GLfloat currentWidth = getWidth();
+	GLfloat newWidth = m_originalWidth * m_zoomLevel.getPercentage();
+
+	zoom(newWidth / currentWidth, 1.0f / 4.0f, cursorPos);
 }
 
 void Map::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
