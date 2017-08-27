@@ -19,13 +19,17 @@ HUDobject_Dynamic::HUDobject_Dynamic(GLuint program, const GraphicsObjectManager
 
 void HUDobject_Dynamic::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
 {
-	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferObject);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(m_vertexData), m_vertexData, GL_DYNAMIC_DRAW);
+	if (m_dirtyFlag)
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferObject);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(m_vertexData), m_vertexData, GL_DYNAMIC_DRAW);
+		m_dirtyFlag = false;
+	}
 
 	HUDobject::graphicsUpdate(program, graphicsObjectManager);
 }
 
-void HUDobject_Dynamic::_setCoords(glm::vec2 pos, GLfloat width, GLfloat height, GLfloat vertexData[])
+void HUDobject_Dynamic::_setCoords(glm::vec2 pos, GLfloat width, GLfloat height, HUDobject_Dynamic& obj, GLfloat vertexData[])
 {
 	const GLfloat newVertexData[] =
 	{
@@ -36,35 +40,43 @@ void HUDobject_Dynamic::_setCoords(glm::vec2 pos, GLfloat width, GLfloat height,
 	};
 
 	std::memcpy(vertexData, newVertexData, sizeof(newVertexData));
+
+	obj.m_dirtyFlag = true;
 }
 
-void HUDobject_Dynamic::_setWidth(GLfloat width, GLfloat vertexData[])
+void HUDobject_Dynamic::_setWidth(GLfloat width, HUDobject_Dynamic& obj, GLfloat vertexData[])
 {
 	vertexData[2] = vertexData[0] + width;
 	vertexData[4] = vertexData[0] + width;
+
+	obj.m_dirtyFlag = true;
 }
 
-void HUDobject_Dynamic::_setHeight(GLfloat height, GLfloat vertexData[])
+void HUDobject_Dynamic::_setHeight(GLfloat height, HUDobject_Dynamic& obj, GLfloat vertexData[])
 {
 	vertexData[5] = vertexData[1] + height;
 	vertexData[7] = vertexData[1] + height;
+
+	obj.m_dirtyFlag = true;
 }
 
-void HUDobject_Dynamic::_move(glm::vec2 direction, GLfloat vertexData[])
+void HUDobject_Dynamic::_move(glm::vec2 direction, HUDobject_Dynamic& obj, GLfloat vertexData[])
 {
 	for (int i = 0; i < 8; i += 2)
 	{
 		vertexData[i] += direction.x;
 		vertexData[i + 1] += direction.y;
 	}
+
+	obj.m_dirtyFlag = true;
 }
 
-void HUDobject_Dynamic::_moveTo(glm::vec2 pos, GLfloat vertexData[])
+void HUDobject_Dynamic::_moveTo(glm::vec2 pos, HUDobject_Dynamic& obj, GLfloat vertexData[])
 {
-	_setCoords(pos, _getWidth(vertexData), _getHeight(vertexData), vertexData);
+	_setCoords(pos, _getWidth(vertexData), _getHeight(vertexData), obj, vertexData);
 }
 
-void HUDobject_Dynamic::_zoom(GLfloat newWidth, GLfloat newHeight, glm::vec2 focus, GLfloat vertexData[])
+void HUDobject_Dynamic::_zoom(GLfloat newWidth, GLfloat newHeight, glm::vec2 focus, HUDobject_Dynamic& obj, GLfloat vertexData[])
 {
 	glm::clamp(focus, 0.0f, 1.0f);
 
@@ -93,4 +105,6 @@ void HUDobject_Dynamic::_zoom(GLfloat newWidth, GLfloat newHeight, glm::vec2 foc
 		vertexData[i] += (VERTEX_TEMPLATE[i] - cursorPosInTexCoords.x) * deltaWidth;
 		vertexData[i + 1] += (VERTEX_TEMPLATE[i + 1] - cursorPosInTexCoords.y) * deltaHeight;
 	}
+
+	obj.m_dirtyFlag = true;
 }

@@ -46,7 +46,7 @@ private:
 
 	void animate(animationFunction func, void* args[], float animationDuration);
 
-	constexpr static void invoke(animationFunction func, void* args[], GLfloat vertexData[8]);
+	constexpr static void invoke(animationFunction func, void* args[], HUDobject_Dynamic& obj, GLfloat vertexData[8]);
 
 private:
 	using HUDobject_Dynamic::setCoords;
