@@ -32,16 +32,19 @@ protected:
 	virtual void setWidth(GLfloat width) { _setWidth(width, *this, m_vertexData); }
 	virtual void setHeight(GLfloat height) { _setHeight(height, *this, m_vertexData); }
 
+	/* Returns the position of the lower left corner. */
+	virtual glm::vec2 getPos() const { return _getPos(m_vertexData); }
+
 	virtual void move(glm::vec2 direction) { _move(direction, *this, m_vertexData); }
 
 	/* xPos and yPos are the coordinates of the image's lower left corner. */
 	virtual void moveTo(glm::vec2 pos) { _moveTo(pos, *this, m_vertexData); }
 
 	/*
-	Set newWidth or newHeight to -1 to make the image maintain its aspect ratio during the zoom.
-	focusX and focusY are relative to the window's lower left corner, and are clamped between 0 and 1.
+	A percentage of 1.0f leaves the width and height unchanged.
+	focus is a point of the HUDobject that should remain in the same place after zoom.
 	*/
-	virtual void zoom(GLfloat newWidth, GLfloat newHeight, glm::vec2 focus = { 0.5f, 0.5f }) { _zoom(newWidth, newHeight, focus, *this, m_vertexData); }
+	virtual void zoom(GLfloat percentage, glm::vec2 focus) { _zoom(percentage, focus, *this, m_vertexData); }
 
 protected:
 	static void _setCoords(glm::vec2 pos, GLfloat width, GLfloat height, HUDobject_Dynamic& obj, GLfloat vertexData[8]);
@@ -51,9 +54,13 @@ protected:
 
 	static void _setWidth(GLfloat width, HUDobject_Dynamic& obj, GLfloat vertexData[8]);
 	static void _setHeight(GLfloat height, HUDobject_Dynamic& obj, GLfloat vertexData[8]);
+
+	static glm::vec2 _getPos(const GLfloat vertexData[8]) { return { vertexData[0], vertexData[1] }; }
+
 	static void _move(glm::vec2 direction, HUDobject_Dynamic& obj, GLfloat vertexData[8]);
 	static void _moveTo(glm::vec2 pos, HUDobject_Dynamic& obj, GLfloat vertexData[8]);
-	static void _zoom(GLfloat newWidth, GLfloat newHeight, glm::vec2 focus, HUDobject_Dynamic& obj, GLfloat vertexData[8]);
+
+	static void _zoom(GLfloat percentage, glm::vec2 focus, HUDobject_Dynamic& obj, GLfloat vertexData[8]);
 
 private:
 	virtual void onFramebufferResize(int, int, int, int, GLuint) override {}
