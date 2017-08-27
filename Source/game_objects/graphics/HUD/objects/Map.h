@@ -36,6 +36,9 @@ private:
 	};
 
 private:
+	int m_originalWidth;
+	int m_originalHeight;
+
 	GLuint m_textureObject;
 
 	ZoomLevel m_zoomLevel;

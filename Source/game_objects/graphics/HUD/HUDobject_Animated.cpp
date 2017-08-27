@@ -60,9 +60,9 @@ void HUDobject_Animated::moveTo(glm::vec2 pos, float animationDuration)
 	animate(MOVE_TO, args, animationDuration);
 }
 
-void HUDobject_Animated::zoom(GLfloat newWidth, GLfloat newHeight, float animationDuration, glm::vec2 focus)
+void HUDobject_Animated::zoom(GLfloat percentage, float animationDuration, glm::vec2 focus)
 {
-	void* args[]{ &newWidth, &newHeight, &focus };
+	void* args[]{ &percentage, &focus };
 	animate(ZOOM, args, animationDuration);
 }
 
@@ -116,7 +116,7 @@ constexpr void HUDobject_Animated::invoke(animationFunction func, void* args[], 
 			break;
 
 		case ZOOM:
-			_zoom(*static_cast<GLfloat*>(args[0]), *static_cast<GLfloat*>(args[1]), *static_cast<glm::vec2*>(args[2]), obj, vertexData);
+			_zoom(*static_cast<GLfloat*>(args[0]), *static_cast<glm::vec2*>(args[1]), obj, vertexData);
 			break;
 	}
 }

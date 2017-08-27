@@ -36,7 +36,7 @@ protected:
 
 	void moveTo(glm::vec2 pos, float animationDuration);
 
-	void zoom(GLfloat newWidth, GLfloat newHeight, float animationDuration, glm::vec2 focus = { 0.5f, 0.5f });
+	void zoom(GLfloat percentage, float animationDuration, glm::vec2 focus);
 
 private:
 	enum animationFunction
