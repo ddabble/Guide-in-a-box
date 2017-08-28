@@ -18,6 +18,8 @@ void HUDobject_Animated::graphicsUpdate(GLuint program, const GraphicsObjectMana
 			m_vertexData[i] = m_vertexDataAnimationOrigin[i] + (m_vertexDataAnimationDestination[i] - m_vertexDataAnimationOrigin[i]) * progressPercentage;
 			m_vertexData[i + 1] = m_vertexDataAnimationOrigin[i + 1] + (m_vertexDataAnimationDestination[i + 1] - m_vertexDataAnimationOrigin[i + 1]) * progressPercentage;
 		}
+		m_dirtyFlag = true;
+
 	} else if (m_isAnimating)
 	{
 		for (int i = 0; i < 8; i += 2)
@@ -25,6 +27,7 @@ void HUDobject_Animated::graphicsUpdate(GLuint program, const GraphicsObjectMana
 			m_vertexData[i] = m_vertexDataAnimationDestination[i];
 			m_vertexData[i + 1] = m_vertexDataAnimationDestination[i + 1];
 		}
+		m_dirtyFlag = true;
 
 		m_isAnimating = false;
 	}
