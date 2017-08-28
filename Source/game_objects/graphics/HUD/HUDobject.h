@@ -3,16 +3,15 @@
 #include <glm/glm.hpp>
 #include "../../../util/graphics/gl.h"
 
-#include "../../../Game.h"
-#include "../GraphicsObjectManager.h"
+class GraphicsObjectManager;
 
 class HUDobject
 {
 protected:
 	GLuint m_vertexArrayObject;
-
 	GLuint m_vertexBufferObject;
-	GLfloat m_vertexData[4 * 2 + 4 * 2];
+
+	GLfloat m_vertexData[2 * 4 + 2 * 4];
 
 protected:
 	/* User should call setCoords() after calling this constructor. */

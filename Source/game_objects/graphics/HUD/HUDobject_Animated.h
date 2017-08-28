@@ -15,6 +15,7 @@ protected:
 	GLfloat m_vertexDataAnimationDestination[4 * 2];
 
 protected:
+	/* User should call setCoords() after calling this constructor. */
 	HUDobject_Animated(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : HUDobject_Dynamic(program, graphicsObjectManager) {}
 
 	HUDobject_Animated(GLuint program, const GraphicsObjectManager& graphicsObjectManager, glm::vec2 pos, GLfloat width, GLfloat height)
@@ -27,6 +28,7 @@ public:
 	virtual void graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager) override;
 
 protected:
+	/* pos is the position of the lower left corner. */
 	void setCoords(glm::vec2 pos, GLfloat width, GLfloat height, float animationDuration);
 
 	/* The return value is from the state the HUDobject will have after it has finished its current animation. */
@@ -43,10 +45,15 @@ protected:
 	*/
 	virtual glm::vec2 getPos() const override { return (m_isAnimating ? _getPos(m_vertexDataAnimationDestination) : HUDobject_Dynamic::getPos()); }
 
-	void move(glm::vec2 direction, float animationDuration);
+	void move(glm::vec2 amount, float animationDuration);
 
+	/* pos is the position of the lower left corner. */
 	void moveTo(glm::vec2 pos, float animationDuration);
 
+	/*
+	A percentage of 1.0f leaves the width and height unchanged.
+	focus is a point of the HUDobject that should remain in the same place after zoom.
+	*/
 	void zoom(GLfloat percentage, float animationDuration, glm::vec2 focus);
 
 private:

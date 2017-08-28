@@ -3,6 +3,8 @@
 #include <cstring>
 #include <glm/glm.hpp>
 
+#include "../GraphicsObjectManager.h"
+#include "../../../screen/Window.h"
 
 HUDobject::HUDobject(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
 	: HUDobject(program, graphicsObjectManager, { 0.0f, 0.0f }, (GLfloat)graphicsObjectManager.getWindow().getWidth(), (GLfloat)graphicsObjectManager.getWindow().getHeight()) {}

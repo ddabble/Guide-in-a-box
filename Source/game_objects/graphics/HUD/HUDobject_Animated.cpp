@@ -51,9 +51,9 @@ void HUDobject_Animated::setHeight(GLfloat height, float animationDuration)
 	animate(SET_HEIGHT, args, animationDuration);
 }
 
-void HUDobject_Animated::move(glm::vec2 direction, float animationDuration)
+void HUDobject_Animated::move(glm::vec2 amount, float animationDuration)
 {
-	void* args[]{ &direction };
+	void* args[]{ &amount };
 	animate(MOVE, args, animationDuration);
 }
 

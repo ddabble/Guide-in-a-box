@@ -1,5 +1,8 @@
 #include "HUDobject_Dynamic.h"
 
+#include "../GraphicsObjectManager.h"
+#include "../../../screen/Window.h"
+
 static constexpr GLfloat VERTEX_TEMPLATE[] =
 {
 	0, 0,
@@ -22,7 +25,7 @@ void HUDobject_Dynamic::graphicsUpdate(GLuint program, const GraphicsObjectManag
 	if (m_dirtyFlag)
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferObject);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(m_vertexData), m_vertexData, GL_DYNAMIC_DRAW);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(m_vertexData) / 2, m_vertexData);
 		m_dirtyFlag = false;
 	}
 
@@ -60,12 +63,12 @@ void HUDobject_Dynamic::_setHeight(GLfloat height, HUDobject_Dynamic& obj, GLflo
 	obj.m_dirtyFlag = true;
 }
 
-void HUDobject_Dynamic::_move(glm::vec2 direction, HUDobject_Dynamic& obj, GLfloat vertexData[])
+void HUDobject_Dynamic::_move(glm::vec2 amount, HUDobject_Dynamic& obj, GLfloat vertexData[])
 {
 	for (int i = 0; i < 8; i += 2)
 	{
-		vertexData[i] += direction.x;
-		vertexData[i + 1] += direction.y;
+		vertexData[i] += amount.x;
+		vertexData[i + 1] += amount.y;
 	}
 
 	obj.m_dirtyFlag = true;
