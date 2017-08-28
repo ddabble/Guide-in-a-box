@@ -20,10 +20,7 @@ public:
 	virtual void graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager) override;
 
 protected:
-	/*
-	xPos and yPos are the coordinates of the image's lower left corner.
-	width and height are the image's dimensions measured in pixels.
-	*/
+	/* pos is the position of the lower left corner. */
 	virtual void setCoords(glm::vec2 pos, GLfloat width, GLfloat height) { _setCoords(pos, width, height, *this, m_vertexData); }
 
 	virtual GLfloat getWidth() const { return _getWidth(m_vertexData); }
@@ -35,9 +32,9 @@ protected:
 	/* Returns the position of the lower left corner. */
 	virtual glm::vec2 getPos() const { return _getPos(m_vertexData); }
 
-	virtual void move(glm::vec2 direction) { _move(direction, *this, m_vertexData); }
+	virtual void move(glm::vec2 amount) { _move(amount, *this, m_vertexData); }
 
-	/* xPos and yPos are the coordinates of the image's lower left corner. */
+	/* pos is the position of the lower left corner. */
 	virtual void moveTo(glm::vec2 pos) { _moveTo(pos, *this, m_vertexData); }
 
 	/*
@@ -57,7 +54,7 @@ protected:
 
 	static glm::vec2 _getPos(const GLfloat vertexData[8]) { return { vertexData[0], vertexData[1] }; }
 
-	static void _move(glm::vec2 direction, HUDobject_Dynamic& obj, GLfloat vertexData[8]);
+	static void _move(glm::vec2 amount, HUDobject_Dynamic& obj, GLfloat vertexData[8]);
 	static void _moveTo(glm::vec2 pos, HUDobject_Dynamic& obj, GLfloat vertexData[8]);
 
 	static void _zoom(GLfloat percentage, glm::vec2 focus, HUDobject_Dynamic& obj, GLfloat vertexData[8]);
