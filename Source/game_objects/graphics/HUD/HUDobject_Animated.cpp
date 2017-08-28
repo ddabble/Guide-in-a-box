@@ -82,7 +82,10 @@ void HUDobject_Animated::animate(animationFunction func, void* args[], float ani
 
 			m_isAnimating = true;
 		} else
+		{
+			std::memcpy(m_vertexDataAnimationOrigin, m_vertexData, sizeof(m_vertexDataAnimationOrigin));
 			invoke(func, args, *this, m_vertexDataAnimationDestination);
+		}
 
 		m_animationEndTime = m_animationStartTime + animationDuration;
 
