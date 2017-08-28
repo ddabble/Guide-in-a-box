@@ -29,8 +29,19 @@ public:
 protected:
 	void setCoords(glm::vec2 pos, GLfloat width, GLfloat height, float animationDuration);
 
+	/* The return value is from the state the HUDobject will have after it has finished its current animation. */
+	virtual GLfloat getWidth() const override { return (m_isAnimating ? _getWidth(m_vertexDataAnimationDestination) : HUDobject_Dynamic::getWidth()); }
+	/* The return value is from the state the HUDobject will have after it has finished its current animation. */
+	virtual GLfloat getHeight() const override { return (m_isAnimating ? _getHeight(m_vertexDataAnimationDestination) : HUDobject_Dynamic::getHeight()); }
+
 	void setWidth(GLfloat width, float animationDuration);
 	void setHeight(GLfloat height, float animationDuration);
+
+	/*
+	Returns the position of the lower left corner.
+	The return value is from the state the HUDobject will have after it has finished its current animation.
+	*/
+	virtual glm::vec2 getPos() const override { return (m_isAnimating ? _getPos(m_vertexDataAnimationDestination) : HUDobject_Dynamic::getPos()); }
 
 	void move(glm::vec2 direction, float animationDuration);
 
