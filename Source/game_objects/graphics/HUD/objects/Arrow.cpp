@@ -70,7 +70,7 @@ Arrow::Arrow(const GraphicsObjectManager& graphicsObjectManager, const Map& map,
 	glEnableVertexAttribArray(0);
 
 	m_projection_uniformIndex = glGetUniformLocation(m_program, "projection");
-	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getResizeMatrix()));
+	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getProjectionMatrix()));
 
 	//glEnable(GL_MULTISAMPLE);
 }
@@ -175,5 +175,5 @@ void Arrow::graphicsUpdate(const GraphicsObjectManager& graphicsObjectManager)
 void Arrow::framebufferSizeCallback(int lastWidth, int lastHeight, int newWidth, int newHeight, const GraphicsObjectManager& graphicsObjectManager)
 {
 	glUseProgram(m_program);
-	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getResizeMatrix()));
+	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getProjectionMatrix()));
 }
