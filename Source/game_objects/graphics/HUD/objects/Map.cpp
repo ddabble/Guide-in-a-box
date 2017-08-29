@@ -2,20 +2,19 @@
 
 #include "../../../../texture/ImageDecompression.h"
 
-Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : HUDobject_Animated_interface(program, graphicsObjectManager)
+Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : HUDobject_Animated(program, graphicsObjectManager)
 {
 	EventHandler::addCursorPosHook(this);
 	EventHandler::addScrollHook(this);
 
-	int width, height;
 	GLenum format;
-	unsigned char* imageData = extractImageFrom7zFile("../../Source/map.7z", &width, &height, &format);
+	unsigned char* imageData = extractImageFrom7zFile("../../Source/map.7z", &m_originalWidth, &m_originalHeight, &format);
 
 	glGenTextures(1, &m_textureObject);
 	glBindTexture(GL_TEXTURE_2D, m_textureObject);
 
-	glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, width, height);
-	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, format, GL_UNSIGNED_BYTE, imageData);
+	glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, m_originalWidth, m_originalHeight);
+	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_originalWidth, m_originalHeight, format, GL_UNSIGNED_BYTE, imageData);
 	freeImageData(imageData);
 
 	//glGenerateMipmap(GL_TEXTURE_2D);
@@ -25,7 +24,7 @@ Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : H
 
 	m_zoomLevel = ZoomLevel();
 
-	this->setFields(width, height, 0, 0, true, 1.0f / 4);
+	this->setCoords({ 0.0f, 0.0f }, (GLfloat)m_originalWidth, (GLfloat)m_originalHeight, 0);
 }
 
 Map::~Map()
@@ -39,7 +38,7 @@ void Map::cursorPosCallback(const InputManager& input)
 	if (input.getMouse().m_isLeftMouseButtonDown)
 	{
 		CursorPos cursorPos = input.getMouse().getCursorPos();
-		move(cursorPos.deltaX, cursorPos.deltaY, false);
+		move({ cursorPos.deltaX, cursorPos.deltaY }, 0);
 	}
 }
 
@@ -51,14 +50,16 @@ void Map::scrollCallback(float xOffset, float yOffset, const InputManager& input
 	if (oldZoomLevel == m_zoomLevel.offsetLevel((int)yOffset))
 		return;
 
-	Window window = m_graphicsObjectManager.getWindow();
-	zoom(int(m_pixelWidth * m_zoomLevel.getPercentage()), -1, true, (GLfloat)cursorPos.xPos / window.getWidth(), (GLfloat)cursorPos.yPos / window.getHeight());
+	GLfloat currentWidth = getWidth();
+	GLfloat newWidth = m_originalWidth * m_zoomLevel.getPercentage();
+
+	zoom(newWidth / currentWidth, 1.0f / 4.0f, cursorPos);
 }
 
 void Map::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
 {
 	glBindTexture(GL_TEXTURE_2D, m_textureObject);
 
-	HUDobject_Animated_interface::graphicsUpdate(program, graphicsObjectManager);
-	HUDobject_interface::graphicsUpdate(program, graphicsObjectManager);
+	HUDobject_Animated::graphicsUpdate(program, graphicsObjectManager);
+	HUDobject_Dynamic::graphicsUpdate(program, graphicsObjectManager);
 }

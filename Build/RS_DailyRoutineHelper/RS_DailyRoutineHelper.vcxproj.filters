@@ -105,17 +105,20 @@
     <ClCompile Include="..\..\Source\game_objects\graphics\HUD\HUDmanager.cpp">
       <Filter>Source Files\game_objects\graphics\HUD</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\game_objects\graphics\HUD\HUDobject_Animated_interface.cpp">
-      <Filter>Source Files\game_objects\graphics\HUD</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\game_objects\graphics\HUD\HUDobject_interface.cpp">
-      <Filter>Source Files\game_objects\graphics\HUD</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\util\graphics\GLSLshaders.cpp">
       <Filter>Source Files\util\graphics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\util\util.cpp">
       <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\game_objects\graphics\HUD\HUDobject.cpp">
+      <Filter>Source Files\game_objects\graphics\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\game_objects\graphics\HUD\HUDobject_Dynamic.cpp">
+      <Filter>Source Files\game_objects\graphics\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\game_objects\graphics\HUD\HUDobject_Animated.cpp">
+      <Filter>Source Files\game_objects\graphics\HUD</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -190,12 +193,6 @@
     <ClInclude Include="..\..\Source\game_objects\graphics\HUD\HUDmanager.h">
       <Filter>Source Files\game_objects\graphics\HUD</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\game_objects\graphics\HUD\HUDobject_Animated_interface.h">
-      <Filter>Source Files\game_objects\graphics\HUD</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\game_objects\graphics\HUD\HUDobject_interface.h">
-      <Filter>Source Files\game_objects\graphics\HUD</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\util\graphics\GLSLshaders.h">
       <Filter>Source Files\util\graphics</Filter>
     </ClInclude>
@@ -204,6 +201,15 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\util\graphics\gl.h">
       <Filter>Source Files\util\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\game_objects\graphics\HUD\HUDobject.h">
+      <Filter>Source Files\game_objects\graphics\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\game_objects\graphics\HUD\HUDobject_Dynamic.h">
+      <Filter>Source Files\game_objects\graphics\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\game_objects\graphics\HUD\HUDobject_Animated.h">
+      <Filter>Source Files\game_objects\graphics\HUD</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
