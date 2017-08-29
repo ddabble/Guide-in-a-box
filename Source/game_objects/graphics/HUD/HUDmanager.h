@@ -7,9 +7,7 @@
 #include "../GraphicsObject_interface.h"
 #include "../../../event/types/FramebufferSizeHook_interface.h"
 
-#include "HUDobject_interface.h"
-
-class EventHandler;
+#include "HUDobject.h"
 
 class HUDmanager : public GraphicsObject_interface, FramebufferSizeHook_interface
 {
@@ -18,7 +16,9 @@ class HUDmanager : public GraphicsObject_interface, FramebufferSizeHook_interfac
 private:
 	GLuint m_program;
 
-	std::vector<HUDobject_interface*> m_objects;
+	GLint m_projection_uniformIndex;
+
+	std::vector<HUDobject*> m_objects;
 
 	void registerHUDobjects(const GraphicsObjectManager& graphicsObjectManager);
 
