@@ -4,14 +4,14 @@
 
 class Game;
 class EventHandler;
-class FrameObject_interface;
+class FrameObject;
 
 class FrameObjectManager
 {
 	friend class GameObjectManager;
 
 private:
-	std::vector<FrameObject_interface*> m_objects;
+	std::vector<FrameObject*> m_objects;
 
 	const Game& m_game;
 

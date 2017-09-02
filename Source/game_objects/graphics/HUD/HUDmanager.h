@@ -4,14 +4,14 @@
 
 #include "../../../util/graphics/gl.h"
 
-#include "../GraphicsObject_interface.h"
+#include "../GraphicsObject.h"
 #include "../../../event/types/FramebufferSizeHook.h"
 
 #include "HUDobject_interface.h"
 
 class EventHandler;
 
-class HUDmanager : public GraphicsObject_interface, FramebufferSizeHook
+class HUDmanager : public GraphicsObject, FramebufferSizeHook
 {
 	friend class GraphicsObjectManager;
 
