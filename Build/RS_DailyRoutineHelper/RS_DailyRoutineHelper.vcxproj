@@ -184,10 +184,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\event\EventHandler.h" />
-    <ClInclude Include="..\..\Source\event\types\CursorPosHook_interface.h" />
-    <ClInclude Include="..\..\Source\event\types\FramebufferSizeHook_interface.h" />
-    <ClInclude Include="..\..\Source\event\types\MouseButtonHook_interface.h" />
-    <ClInclude Include="..\..\Source\event\types\ScrollHook_interface.h" />
+    <ClInclude Include="..\..\Source\event\types\CursorPosHook.h" />
+    <ClInclude Include="..\..\Source\event\types\FramebufferSizeHook.h" />
+    <ClInclude Include="..\..\Source\event\types\MouseButtonHook.h" />
+    <ClInclude Include="..\..\Source\event\types\ScrollHook.h" />
     <ClInclude Include="..\..\Source\game_objects\frame\FrameObjectManager.h" />
     <ClInclude Include="..\..\Source\game_objects\frame\FrameObject_interface.h" />
     <ClInclude Include="..\..\Source\game_objects\GameObjectManager.h" />
