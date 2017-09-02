@@ -151,15 +151,6 @@
     <ClInclude Include="..\..\Source\game_objects\GameObjectManager.h">
       <Filter>Source Files\game_objects</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\game_objects\frame\FrameObject_interface.h">
-      <Filter>Source Files\game_objects\frame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\game_objects\physics\PhysicsObject_interface.h">
-      <Filter>Source Files\game_objects\physics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\game_objects\graphics\GraphicsObject_interface.h">
-      <Filter>Source Files\game_objects\graphics</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\game_objects\graphics\HUD\objects\Arrow.h">
       <Filter>Source Files\game_objects\graphics\HUD\objects</Filter>
     </ClInclude>
@@ -204,6 +195,15 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\event\types\ScrollHook.h">
       <Filter>Source Files\event\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\game_objects\graphics\GraphicsObject.h">
+      <Filter>Source Files\game_objects\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\game_objects\physics\PhysicsObject.h">
+      <Filter>Source Files\game_objects\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\game_objects\frame\FrameObject.h">
+      <Filter>Source Files\game_objects\frame</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

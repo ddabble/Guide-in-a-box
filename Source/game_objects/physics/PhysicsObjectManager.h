@@ -4,14 +4,14 @@
 
 class Game;
 class EventHandler;
-class PhysicsObject_interface;
+class PhysicsObject;
 
 class PhysicsObjectManager
 {
 	friend class GameObjectManager;
 
 private:
-	std::vector<PhysicsObject_interface*> m_objects;
+	std::vector<PhysicsObject*> m_objects;
 
 	const Game& m_game;
 

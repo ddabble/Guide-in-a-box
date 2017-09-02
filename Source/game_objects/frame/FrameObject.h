@@ -2,10 +2,10 @@
 
 class Game;
 
-class FrameObject_interface
+class FrameObject
 {
 public:
 	virtual void frameUpdate(const Game& game) = 0;
 
-	virtual ~FrameObject_interface() {}
+	virtual ~FrameObject() {}
 };

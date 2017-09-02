@@ -2,10 +2,10 @@
 
 class Game;
 
-class PhysicsObject_interface
+class PhysicsObject
 {
 public:
 	virtual void physicsUpdate(const Game& game) = 0;
 
-	virtual ~PhysicsObject_interface() {}
+	virtual ~PhysicsObject() {}
 };

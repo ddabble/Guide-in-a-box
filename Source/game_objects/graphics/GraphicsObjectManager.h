@@ -6,14 +6,14 @@
 class Game;
 class EventHandler;
 class Window;
-class GraphicsObject_interface;
+class GraphicsObject;
 
 class GraphicsObjectManager
 {
 	friend class GameObjectManager;
 
 private:
-	std::vector<GraphicsObject_interface*> m_objects;
+	std::vector<GraphicsObject*> m_objects;
 
 	glm::mat4 m_projectionMatrix;
 

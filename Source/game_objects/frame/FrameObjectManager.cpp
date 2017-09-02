@@ -1,7 +1,7 @@
 #include "FrameObjectManager.h"
 
 #include "../../Game.h"
-#include "FrameObject_interface.h"
+#include "FrameObject.h"
 
 FrameObjectManager::FrameObjectManager(const Game& game) : m_game(game)
 {
