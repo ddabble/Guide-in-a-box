@@ -10,13 +10,16 @@ Mouse::Mouse(const Window& window)
 {
 	double xPos, yPos;
 	glfwGetCursorPos(window.getGLFWwindow(), &xPos, &yPos);
-	m_cursorPos = { (int)glm::floor(xPos), window.getHeight() - (int)glm::floor(yPos) - 1, 0, 0 };
+
+	updateCursorPos(xPos, yPos, window);
+	m_cursorDelta = { 0, 0 };
 }
 
 void Mouse::updateCursorPos(double xPos, double yPos, const Window& window)
 {
-	int xPos_i = (int)glm::floor(xPos);
-	int yPos_i = window.getHeight() - (int)glm::floor(yPos) - 1;
+	//                                              // Converts the cursor position to being relative to the lower left corner
+	glm::ivec2 newCursorPos = { (int)glm::floor(xPos), window.getHeight() - (int)glm::floor(yPos) - 1 };
 
-	m_cursorPos = { xPos_i, yPos_i, (xPos_i - m_cursorPos.xPos), (yPos_i - m_cursorPos.yPos) };
+	m_cursorDelta = { newCursorPos - m_cursorPos };
+	m_cursorPos = newCursorPos;
 }
