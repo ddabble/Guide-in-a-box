@@ -51,7 +51,7 @@ void Map::scrollCallback(float xOffset, float yOffset, const InputManager& input
 	if (oldZoomLevel == m_zoomLevel.offsetLevel((int)yOffset))
 		return;
 
-	Window window = m_graphicsObjectManager.getWindow();
+	const Window& window = m_graphicsObjectManager.getWindow();
 	zoom(int(m_pixelWidth * m_zoomLevel.getPercentage()), -1, true, (GLfloat)cursorPos.xPos / window.getWidth(), (GLfloat)cursorPos.yPos / window.getHeight());
 }
 

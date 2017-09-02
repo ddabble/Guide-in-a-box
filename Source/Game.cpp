@@ -25,8 +25,6 @@ Game::~Game()
 {
 	m_keepRunning = false;
 	m_physicsThread.join();
-
-	glfwTerminate();
 }
 
 void Game::run()
