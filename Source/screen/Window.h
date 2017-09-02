@@ -19,7 +19,9 @@ private:
 	int m_windowWidth;
 	int m_windowHeight;
 
-	Window(char* windowName);
+	Window(const char* windowName);
+	void initGLFW(const char* windowName);
+	void initGL_Load();
 
 public:
 	GLFWwindow* getGLFWwindow() const { return m_window; }
