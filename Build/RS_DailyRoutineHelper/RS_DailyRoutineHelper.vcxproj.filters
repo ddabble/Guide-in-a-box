@@ -166,18 +166,6 @@
     <ClInclude Include="..\..\Source\game_objects\graphics\HUD\objects\Map.h">
       <Filter>Source Files\game_objects\graphics\HUD\objects</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\event\types\CursorPosHook_interface.h">
-      <Filter>Source Files\event\types</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\event\types\FramebufferSizeHook_interface.h">
-      <Filter>Source Files\event\types</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\event\types\MouseButtonHook_interface.h">
-      <Filter>Source Files\event\types</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\event\types\ScrollHook_interface.h">
-      <Filter>Source Files\event\types</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\game_objects\graphics\GraphicsObjectManager.h">
       <Filter>Source Files\game_objects\graphics</Filter>
     </ClInclude>
@@ -204,6 +192,18 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\util\graphics\gl.h">
       <Filter>Source Files\util\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\event\types\CursorPosHook.h">
+      <Filter>Source Files\event\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\event\types\FramebufferSizeHook.h">
+      <Filter>Source Files\event\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\event\types\MouseButtonHook.h">
+      <Filter>Source Files\event\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\event\types\ScrollHook.h">
+      <Filter>Source Files\event\types</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

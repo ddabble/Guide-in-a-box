@@ -2,7 +2,7 @@
 
 #include "../../../../util/graphics/gl.h"
 
-#include "../../../../event/types/FramebufferSizeHook_interface.h"
+#include "../../../../event/types/FramebufferSizeHook.h"
 
 struct Point
 {
@@ -11,7 +11,7 @@ struct Point
 };
 typedef Point Vector;
 
-class Arrow : public FramebufferSizeHook_interface
+class Arrow : public FramebufferSizeHook
 {
 private:
 	GLuint m_program;

@@ -2,10 +2,10 @@
 
 #include "../../input/InputManager.h"
 
-class MouseButtonHook_interface
+class MouseButtonHook
 {
 public:
 	virtual void mouseButtonCallback(const InputManager& input) = 0;
 
-	virtual ~MouseButtonHook_interface() {}
+	virtual ~MouseButtonHook() {}
 };

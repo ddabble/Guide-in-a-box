@@ -2,10 +2,10 @@
 
 #include "../../input/InputManager.h"
 
-class ScrollHook_interface
+class ScrollHook
 {
 public:
 	virtual void scrollCallback(float xOffset, float yOffset, const InputManager& input) = 0;
 
-	virtual ~ScrollHook_interface() {}
+	virtual ~ScrollHook() {}
 };
