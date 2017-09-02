@@ -58,6 +58,14 @@ void Window::initGL_Load()
 	}
 }
 
+void Window::updateFramebufferSize(int newWidth, int newHeight)
+{
+	glViewport(0, 0, newWidth, newHeight);
+
+	m_windowWidth = newWidth;
+	m_windowHeight = newHeight;
+}
+
 GLfloat Window::pixelCoordsToWindowCoords_x(GLfloat pixels_x) const
 {
 	return 2 * pixels_x / m_windowWidth - 1;

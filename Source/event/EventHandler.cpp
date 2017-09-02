@@ -56,16 +56,13 @@ void EventHandler::registerCallbacks(GLFWwindow* window)
 
 void EventHandler::framebufferSizeCallback(GLFWwindow* window, int newWidth, int newHeight)
 {
-	glViewport(0, 0, newWidth, newHeight);
+	int width = m_game->m_window.m_windowWidth;
+	int height = m_game->m_window.m_windowHeight;
 
-	int* width = &(m_game->m_window.m_windowWidth);
-	int* height = &(m_game->m_window.m_windowHeight);
+	m_game->m_window.updateFramebufferSize(newWidth, newHeight);
 
 	for (auto hook : m_framebufferSizeHooks)
-		hook->framebufferSizeCallback(*width, *height, newWidth, newHeight, m_game->m_gameObjectManager.m_graphicsObjectManager);
-
-	*width = newWidth;
-	*height = newHeight;
+		hook->framebufferSizeCallback(width, height, newWidth, newHeight, m_game->m_gameObjectManager.m_graphicsObjectManager);
 }
 
 void EventHandler::windowRefreshCallback(GLFWwindow* window)
