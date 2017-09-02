@@ -58,6 +58,13 @@ void Window::initGL_Load()
 	}
 }
 
+Window::~Window()
+{
+	glfwDestroyWindow(m_window);
+
+	glfwTerminate();
+}
+
 void Window::updateFramebufferSize(int newWidth, int newHeight)
 {
 	glViewport(0, 0, newWidth, newHeight);

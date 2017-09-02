@@ -23,6 +23,8 @@ private:
 	void initGLFW(const char* windowName);
 	void initGL_Load();
 
+	~Window();
+
 	/* Should be called whenever the window is resized. */
 	void updateFramebufferSize(int newWidth, int newHeight);
 

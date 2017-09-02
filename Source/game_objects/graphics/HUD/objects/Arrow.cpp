@@ -132,7 +132,7 @@ Arrow::Arrow(const GraphicsObjectManager& graphicsObjectManager, Point arrowStar
 		r1.x, r1.y,
 		r2.x, r2.y
 	};
-	Window window = graphicsObjectManager.getWindow();
+	const Window& window = graphicsObjectManager.getWindow();
 	for (int i = 0; i < sizeof(vertexData) / sizeof(GLfloat); i += 2)
 	{
 		vertexData[i] = window.pixelCoordsToWindowCoords_x(vertexData[i]);
