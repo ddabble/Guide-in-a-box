@@ -24,7 +24,7 @@ void HUDmanager::registerHUDobjects(const GraphicsObjectManager& graphicsObjectM
 	glUseProgram(m_program);
 	glActiveTexture(GL_TEXTURE0);
 
-	GLint uniform = glGetUniformLocation(m_program, "tex");
+	GLint uniform = glGetUniformLocation(m_program, "sampler");
 	glUniform1i(uniform, 0);
 
 	m_objects.push_back(new Map(m_program, graphicsObjectManager));
