@@ -1,5 +1,6 @@
 #include "Map.h"
 
+#include "../../../../event/EventHandler.h"
 #include "../../../../texture/ImageDecompression.h"
 
 Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : HUDobject_Animated_interface(program, graphicsObjectManager)
