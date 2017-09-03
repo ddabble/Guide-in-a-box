@@ -23,8 +23,6 @@ Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : H
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
-	m_zoomLevel = ZoomLevel();
-
 	this->setFields(width, height, 0, 0, true, 1.0f / 4);
 }
 
