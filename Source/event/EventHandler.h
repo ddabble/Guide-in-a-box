@@ -11,7 +11,7 @@ struct GLFWwindow;
 
 class EventHandler
 {
-	friend Game;
+	friend class Game;
 
 private:
 	static Game* m_game;

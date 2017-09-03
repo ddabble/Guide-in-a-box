@@ -8,7 +8,14 @@
 HUDmanager::HUDmanager(const GraphicsObjectManager& graphicsObjectManager)
 {
 	EventHandler::addFramebufferSizeHook(this);
+
 	m_program = glsl::loadShaders("../../Source/shaders/HUD/HUD_object.glsl");
+	glUseProgram(m_program);
+
+	glActiveTexture(GL_TEXTURE0);
+	GLint uniform = glGetUniformLocation(m_program, "sampler");
+	glUniform1i(uniform, 0);
+
 	registerHUDobjects(graphicsObjectManager);
 }
 
@@ -21,12 +28,6 @@ HUDmanager::~HUDmanager()
 
 void HUDmanager::registerHUDobjects(const GraphicsObjectManager& graphicsObjectManager)
 {
-	glUseProgram(m_program);
-	glActiveTexture(GL_TEXTURE0);
-
-	GLint uniform = glGetUniformLocation(m_program, "sampler");
-	glUniform1i(uniform, 0);
-
 	m_objects.push_back(new Map(m_program, graphicsObjectManager));
 }
 

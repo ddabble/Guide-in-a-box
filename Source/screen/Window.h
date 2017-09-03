@@ -31,7 +31,10 @@ private:
 public:
 	GLFWwindow* getGLFWwindow() const { return m_window; }
 
+	/* Returns the width in pixels. */
 	int getWidth() const { return m_windowWidth; }
+
+	/* Returns the height in pixels. */
 	int getHeight() const { return m_windowHeight; }
 
 	GLfloat pixelCoordsToWindowCoords_x(GLfloat pixels_x) const;
