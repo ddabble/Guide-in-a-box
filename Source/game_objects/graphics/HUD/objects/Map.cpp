@@ -2,6 +2,8 @@
 
 #include "../../../../texture/ImageDecompression.h"
 
+#include "Arrow.h"
+
 Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : HUDobject_Animated(program, graphicsObjectManager)
 {
 	EventHandler::addCursorPosHook(this);
@@ -25,12 +27,21 @@ Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : H
 	m_zoomLevel = ZoomLevel();
 
 	this->setCoords({ 0.0f, 0.0f }, (GLfloat)m_originalWidth, (GLfloat)m_originalHeight, 0);
+
+
+
+	m_arrows.push_back(new Arrow(graphicsObjectManager, *this, { 0.03f, 0.06f }, { 0.03f, 0.2f }));
+	float mapAspectRatio = 3712.0f / 3333;
+	m_arrows.push_back(new Arrow(graphicsObjectManager, *this, { 0.06f, 0.06f * mapAspectRatio }, { 0.15f,  0.15f * mapAspectRatio }));
+	m_arrows.push_back(new Arrow(graphicsObjectManager, *this, { 0.06f, 0.03f }, { 0.27f, 0.03f }));
 }
 
 Map::~Map()
 {
 	EventHandler::removeCursorPosHook(this);
 	EventHandler::removeScrollHook(this);
+
+	for (auto arrow : m_arrows) delete arrow;
 }
 
 void Map::cursorPosCallback(const InputManager& input)
@@ -62,4 +73,7 @@ void Map::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsOb
 
 	HUDobject_Animated::graphicsUpdate(program, graphicsObjectManager);
 	HUDobject_Dynamic::graphicsUpdate(program, graphicsObjectManager);
+
+	for (Arrow* arrow : m_arrows)
+		arrow->graphicsUpdate(graphicsObjectManager);
 }

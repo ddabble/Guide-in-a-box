@@ -1,12 +1,14 @@
 #pragma once
 
+#include <vector>
+#include <glm/glm.hpp>
+
 #include "../HUDobject_Animated.h"
 #include "../../../../event/types/CursorPosHook_interface.h"
 #include "../../../../event/types/ScrollHook_interface.h"
 
-#include <glm/glm.hpp>
+class Arrow;
 
-// TODO: Make Map observable
 class Map : public HUDobject_Animated, CursorPosHook_interface, ScrollHook_interface
 {
 private:
@@ -42,6 +44,8 @@ private:
 	GLuint m_textureObject;
 
 	ZoomLevel m_zoomLevel;
+
+	std::vector<Arrow*> m_arrows;
 
 public:
 	Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager);
