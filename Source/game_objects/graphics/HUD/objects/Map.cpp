@@ -72,6 +72,13 @@ void Map::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsOb
 	glBindTexture(GL_TEXTURE_2D, m_textureObject);
 
 	HUDobject_Animated::graphicsUpdate(program, graphicsObjectManager);
+
+	if (m_dirtyFlag)
+	{
+		for (Arrow* arrow : m_arrows)
+			arrow->updatePosition(*this);
+	}
+
 	HUDobject_Dynamic::graphicsUpdate(program, graphicsObjectManager);
 
 	for (Arrow* arrow : m_arrows)
