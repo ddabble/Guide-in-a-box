@@ -81,6 +81,6 @@ void Map::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsOb
 
 	HUDobject_Dynamic::graphicsUpdate(program, graphicsObjectManager);
 
-	for (Arrow* arrow : m_arrows)
+	for (GraphicsObject_interface* arrow : m_arrows)
 		arrow->graphicsUpdate(graphicsObjectManager);
 }

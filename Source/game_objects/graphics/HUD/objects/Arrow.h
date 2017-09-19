@@ -2,13 +2,14 @@
 
 #include <glm/glm.hpp>
 
+#include "../../GraphicsObject_interface.h"
 #include "../../../../event/types/FramebufferSizeHook_interface.h"
 
 #include "../../../../util/graphics/gl.h"
 
 class Map;
 
-class Arrow : public FramebufferSizeHook_interface
+class Arrow : public GraphicsObject_interface, FramebufferSizeHook_interface
 {
 private:
 	GLuint m_program;
@@ -29,9 +30,9 @@ public:
 	Arrow(const GraphicsObjectManager& graphicsObjectManager, const Map& map, glm::vec2 mapStartPoint, glm::vec2 mapEndPoint, GLint lineWidth = 10);
 	~Arrow();
 
-	void graphicsUpdate(const GraphicsObjectManager& graphicsObjectManager);
 	void updatePosition(const Map& map);
 
+	void graphicsUpdate(const GraphicsObjectManager& graphicsObjectManager) override;
 
 	void framebufferSizeCallback(int lastWidth, int lastHeight, int newWidth, int newHeight, const GraphicsObjectManager& graphicsObjectManager) override;
 };
