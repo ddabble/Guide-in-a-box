@@ -43,7 +43,8 @@ glm::vec2 rotatePointWithVector(const glm::vec2 point, const glm::vec2 vector)
 	return rotatePointWithVector(point, vector, vectorLength);
 }
 
-Arrow::Arrow(const GraphicsObjectManager& graphicsObjectManager, const Map& map, const glm::vec2 mapStartPoint, const glm::vec2 mapEndPoint, const float lineWidth)
+Arrow::Arrow(const GraphicsObjectManager& graphicsObjectManager, const Map& map, const glm::vec2 mapStartPoint, const glm::vec2 mapEndPoint, const GLint lineWidth)
+	: m_mapStartPoint(mapStartPoint), m_mapEndPoint(mapEndPoint), m_lineWidth(lineWidth)
 {
 	EventHandler::addFramebufferSizeHook(this);
 
@@ -60,11 +61,7 @@ Arrow::Arrow(const GraphicsObjectManager& graphicsObjectManager, const Map& map,
 
 	glGenBuffers(1, &m_vertexBufferObject);
 
-	const glm::vec2 lowerLeft = map.getLowerLeftCornerPos();
-	const glm::vec2 diff = map.getUpperRightCornerPos() - lowerLeft;
-
-	makeVertices(lowerLeft + diff * mapStartPoint,
-				 lowerLeft + diff * mapEndPoint, lineWidth);
+	makeVertices(map, m_lineWidth);
 
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
 	glEnableVertexAttribArray(0);
@@ -75,14 +72,15 @@ Arrow::Arrow(const GraphicsObjectManager& graphicsObjectManager, const Map& map,
 	//glEnable(GL_MULTISAMPLE);
 }
 
-void Arrow::makeVertices(const glm::vec2 startPoint, const glm::vec2 endPoint, const float lineWidth)
+void Arrow::makeVertices(const Map& map, const GLint lineWidth)
 {
 	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferObject);
 
-	const glm::vec2 rotationVector = endPoint - startPoint;
-	const float length = glm::sqrt(rotationVector.x * rotationVector.x + rotationVector.y * rotationVector.y);
+	const glm::vec2 lowerLeft = map.getLowerLeftCornerPos();
+	const glm::vec2 diff = map.getUpperRightCornerPos() - lowerLeft;
 
-	const float diagonal = glm::sqrt(2.0f * lineWidth * lineWidth);
+	const glm::vec2 startPoint = lowerLeft + diff * m_mapStartPoint;
+	const glm::vec2 endPoint = lowerLeft + diff * m_mapEndPoint;
 
 	/*
 	 *                               l1------------l2
@@ -99,6 +97,11 @@ void Arrow::makeVertices(const glm::vec2 startPoint, const glm::vec2 endPoint, c
 	 *                                  /          /
 	 *                               r1------------r2
 	 */
+
+	const glm::vec2 rotationVector = endPoint - startPoint;
+	const float length = glm::sqrt(rotationVector.x * rotationVector.x + rotationVector.y * rotationVector.y);
+
+	const float diagonal = glm::sqrt(2.0f * lineWidth * lineWidth);
 
 	// Relative to startPoint:
 	glm::vec2 s1 = rotatePointWithVector({ 0, lineWidth / 2.0f },                                 rotationVector, length);
@@ -150,12 +153,17 @@ void Arrow::makeVertices(const glm::vec2 startPoint, const glm::vec2 endPoint, c
 		r2.x, r2.y
 	};
 
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_DYNAMIC_DRAW);
 }
 
 Arrow::~Arrow()
 {
 	EventHandler::removeFramebufferSizeHook(this);
+}
+
+void Arrow::updatePosition(const Map& map)
+{
+	makeVertices(map, m_lineWidth);
 }
 
 void Arrow::graphicsUpdate(const GraphicsObjectManager& graphicsObjectManager)
