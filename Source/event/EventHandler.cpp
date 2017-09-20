@@ -62,7 +62,7 @@ void EventHandler::framebufferSizeCallback(GLFWwindow* window, int newWidth, int
 	m_game->m_window.updateFramebufferSize(newWidth, newHeight);
 	m_game->m_gameObjectManager.updateFramebufferSize(newWidth, newHeight);
 
-	for (auto hook : m_framebufferSizeHooks)
+	for (FramebufferSizeHook* hook : m_framebufferSizeHooks)
 		hook->framebufferSizeCallback(width, height, newWidth, newHeight, m_game->m_gameObjectManager.m_graphicsObjectManager);
 }
 
@@ -87,7 +87,7 @@ void EventHandler::cursorPositionCallback(GLFWwindow* window, double xPos, doubl
 	InputManager* input = &(m_game->m_input);
 	input->m_mouse.updateCursorPos(xPos, yPos, m_game->m_window);
 
-	for (auto hook : m_cursorPosHooks)
+	for (CursorPosHook* hook : m_cursorPosHooks)
 		hook->cursorPosCallback(*input);
 }
 
@@ -95,7 +95,7 @@ void EventHandler::mouseButtonCallback(GLFWwindow* window, int button, int actio
 {
 	InputManager* input = &(m_game->m_input);
 
-	for (auto hook : m_mouseButtonHooks)
+	for (MouseButtonHook* hook : m_mouseButtonHooks)
 		hook->mouseButtonCallback(*input);
 
 	// TODO:
@@ -110,6 +110,6 @@ void EventHandler::mouseButtonCallback(GLFWwindow* window, int button, int actio
 
 void EventHandler::scrollCallback(GLFWwindow* window, double xOffset, double yOffset)
 {
-	for (auto hook : m_scrollHooks)
+	for (ScrollHook* hook : m_scrollHooks)
 		hook->scrollCallback((float)xOffset, (float)yOffset, m_game->m_input);
 }

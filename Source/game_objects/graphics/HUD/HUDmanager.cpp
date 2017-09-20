@@ -41,7 +41,7 @@ void HUDmanager::graphicsUpdate(const GraphicsObjectManager& graphicsObjectManag
 	glUseProgram(m_program);
 	glActiveTexture(GL_TEXTURE0);
 
-	for (auto object : m_objects)
+	for (HUDobject* object : m_objects)
 		object->graphicsUpdate(m_program, graphicsObjectManager);
 }
 
@@ -50,6 +50,6 @@ void HUDmanager::framebufferSizeCallback(int lastWidth, int lastHeight, int newW
 	glUseProgram(m_program);
 	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getProjectionMatrix()));
 
-	for (auto object : m_objects)
+	for (HUDobject* object : m_objects)
 		object->onFramebufferResize(lastWidth, lastHeight, newWidth, newHeight, m_program);
 }

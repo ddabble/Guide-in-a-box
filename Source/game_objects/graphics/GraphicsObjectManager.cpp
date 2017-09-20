@@ -40,7 +40,7 @@ void GraphicsObjectManager::graphicsUpdate()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	for (auto object : m_objects)
+	for (GraphicsObject* object : m_objects)
 		object->graphicsUpdate(*this);
 
 	// Setup
