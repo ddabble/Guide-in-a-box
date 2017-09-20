@@ -60,6 +60,7 @@ void EventHandler::framebufferSizeCallback(GLFWwindow* window, int newWidth, int
 	int height = m_game->m_window.m_windowHeight;
 
 	m_game->m_window.updateFramebufferSize(newWidth, newHeight);
+	m_game->m_gameObjectManager.updateFramebufferSize(newWidth, newHeight);
 
 	for (auto hook : m_framebufferSizeHooks)
 		hook->framebufferSizeCallback(width, height, newWidth, newHeight, m_game->m_gameObjectManager.m_graphicsObjectManager);
