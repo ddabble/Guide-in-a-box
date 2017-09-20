@@ -24,22 +24,22 @@ void EventHandler::init(Game& game)
 	registerCallbacks(game.m_window.m_window);
 }
 
-void EventHandler::removeFramebufferSizeHook(FramebufferSizeHook* hook)
+void EventHandler::removeFramebufferSizeHook(const FramebufferSizeHook* hook)
 {
 	m_framebufferSizeHooks.erase(std::remove(m_framebufferSizeHooks.begin(), m_framebufferSizeHooks.end(), hook), m_framebufferSizeHooks.end());
 }
 
-void EventHandler::removeCursorPosHook(CursorPosHook* hook)
+void EventHandler::removeCursorPosHook(const CursorPosHook* hook)
 {
 	m_cursorPosHooks.erase(std::remove(m_cursorPosHooks.begin(), m_cursorPosHooks.end(), hook), m_cursorPosHooks.end());
 }
 
-void EventHandler::removeMouseButtonHook(MouseButtonHook* hook)
+void EventHandler::removeMouseButtonHook(const MouseButtonHook* hook)
 {
 	m_mouseButtonHooks.erase(std::remove(m_mouseButtonHooks.begin(), m_mouseButtonHooks.end(), hook), m_mouseButtonHooks.end());
 }
 
-void EventHandler::removeScrollHook(ScrollHook* hook)
+void EventHandler::removeScrollHook(const ScrollHook* hook)
 {
 	m_scrollHooks.erase(std::remove(m_scrollHooks.begin(), m_scrollHooks.end(), hook), m_scrollHooks.end());
 }

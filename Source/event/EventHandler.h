@@ -37,10 +37,10 @@ public:
 	static void addScrollHook(ScrollHook* hook) { m_scrollHooks.push_back(hook); }
 
 	/* Must be called before the pointer to the hook is deleted. */
-	static void removeFramebufferSizeHook(FramebufferSizeHook* hook);
-	static void removeCursorPosHook(CursorPosHook* hook);
-	static void removeMouseButtonHook(MouseButtonHook* hook);
-	static void removeScrollHook(ScrollHook* hook);
+	static void removeFramebufferSizeHook(const FramebufferSizeHook* hook);
+	static void removeCursorPosHook(const CursorPosHook* hook);
+	static void removeMouseButtonHook(const MouseButtonHook* hook);
+	static void removeScrollHook(const ScrollHook* hook);
 
 private:
 	/*

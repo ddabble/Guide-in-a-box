@@ -9,7 +9,7 @@ class Window
 	friend class Game;
 	friend class EventHandler;
 
-public:
+private:
 	static constexpr int INITIAL_WINDOW_WIDTH = 1280;
 	static constexpr int INITIAL_WINDOW_HEIGHT = 768;
 
