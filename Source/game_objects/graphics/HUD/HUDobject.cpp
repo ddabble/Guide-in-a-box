@@ -36,11 +36,15 @@ HUDobject::HUDobject(GLuint program, const GraphicsObjectManager& graphicsObject
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
+
+	glGenTextures(1, &m_textureObject);
+	glBindTexture(GL_TEXTURE_2D, m_textureObject);
 }
 
 void HUDobject::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
 {
 	glBindVertexArray(m_vertexArrayObject);
+	glBindTexture(GL_TEXTURE_2D, m_textureObject);
 
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 }

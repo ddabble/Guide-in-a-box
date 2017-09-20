@@ -12,9 +12,6 @@ Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : H
 	GLenum format;
 	unsigned char* imageData = extractImageFrom7zFile("../../Source/map.7z", &m_originalWidth, &m_originalHeight, &format);
 
-	glGenTextures(1, &m_textureObject);
-	glBindTexture(GL_TEXTURE_2D, m_textureObject);
-
 	glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, m_originalWidth, m_originalHeight);
 	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_originalWidth, m_originalHeight, format, GL_UNSIGNED_BYTE, imageData);
 	freeImageData(imageData);
@@ -69,8 +66,6 @@ void Map::scrollCallback(float xOffset, float yOffset, const InputManager& input
 
 void Map::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
 {
-	glBindTexture(GL_TEXTURE_2D, m_textureObject);
-
 	HUDobject_Animated::graphicsUpdate(program, graphicsObjectManager);
 
 	if (m_dirtyFlag)
