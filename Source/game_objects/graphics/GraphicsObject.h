@@ -2,10 +2,10 @@
 
 #include "GraphicsObjectManager.h"
 
-class GraphicsObject_interface
+class GraphicsObject
 {
 public:
 	virtual void graphicsUpdate(const GraphicsObjectManager& graphicsObjectManager) = 0;
 
-	virtual ~GraphicsObject_interface() {}
+	virtual ~GraphicsObject() {}
 };

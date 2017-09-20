@@ -15,18 +15,10 @@ Game::Game() : m_window("RS Daily Routine Helper"), m_gameObjectManager(*this), 
 	m_physicsThread = std::thread(physics, this);
 }
 
-// Argument has to be pointer type, not reference type, because compilation error..
-void Game::physics(Game* game)
-{
-	game->runPhysics();
-}
-
 Game::~Game()
 {
 	m_keepRunning = false;
 	m_physicsThread.join();
-
-	glfwTerminate();
 }
 
 void Game::run()
@@ -40,6 +32,12 @@ void Game::run()
 
 		glfwPollEvents();
 	}
+}
+
+// Argument has to be pointer type, not reference type, because compilation error..
+void Game::physics(Game* game)
+{
+	game->runPhysics();
 }
 
 void Game::runPhysics()

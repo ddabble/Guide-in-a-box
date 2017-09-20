@@ -4,37 +4,39 @@
 #include <glm/glm.hpp>
 
 #include "../HUDobject_Animated.h"
-#include "../../../../event/types/CursorPosHook_interface.h"
-#include "../../../../event/types/ScrollHook_interface.h"
+#include "../../../../event/types/CursorPosHook.h"
+#include "../../../../event/types/ScrollHook.h"
 
 class Arrow;
 
-class Map : public HUDobject_Animated, CursorPosHook_interface, ScrollHook_interface
+class Map : public HUDobject_Animated, CursorPosHook, ScrollHook
 {
 private:
 	class ZoomLevel
 	{
 		static constexpr uint8_t LEVELS[6] = { 25, 37, 50, 75, 100, 200 };
 
+		static int clamp(const int levelIndex) { return glm::clamp(levelIndex, 0, int(sizeof(LEVELS) / sizeof(uint8_t)) - 1); }
+
 	private:
 		int m_levelIndex;
 
 	public:
-		ZoomLevel(int levelIndex = 4) : m_levelIndex(glm::clamp(levelIndex, 0, (int)sizeof(LEVELS) - 1)) {}
+		ZoomLevel(int levelIndex = 4) : m_levelIndex(clamp(levelIndex)) {}
 
-		uint8_t getLevel() { return LEVELS[m_levelIndex]; }
+		uint8_t getLevel() const { return LEVELS[m_levelIndex]; }
 
-		float getPercentage() { return LEVELS[m_levelIndex] / 100.0f; }
+		float getPercentage() const { return LEVELS[m_levelIndex] / 100.0f; }
 
-		void setLevel(int levelIndex) { m_levelIndex = glm::clamp(levelIndex, 0, (int)sizeof(LEVELS) - 1); }
+		void setLevel(int levelIndex) { m_levelIndex = clamp(levelIndex); }
 
 		ZoomLevel offsetLevel(int indexOffset)
 		{
-			m_levelIndex = glm::clamp(m_levelIndex + indexOffset, 0, (int)sizeof(LEVELS) - 1);
+			m_levelIndex = clamp(m_levelIndex + indexOffset);
 			return *this;
 		}
 
-		bool operator==(const ZoomLevel& other) { return m_levelIndex == other.m_levelIndex; }
+		bool operator==(const ZoomLevel& other) const { return m_levelIndex == other.m_levelIndex; }
 	};
 
 private:

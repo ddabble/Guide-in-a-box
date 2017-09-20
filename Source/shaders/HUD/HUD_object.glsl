@@ -1,9 +1,6 @@
 /*** VERTEX SHADER ***/
 #version 330 core
 
-//layout(location = 0) in vec4 position;
-//layout(location = 1) in vec2 in_tex_coord;
-
 uniform mat4 projection;
 
 layout(location = 0) in vec4 vert;
@@ -23,19 +20,20 @@ void main()
 /*** FRAGMENT SHADER ***/
 #version 330 core
 
-uniform vec3 rainbow;
-//uniform sampler2DArray tex;
+//uniform vec3 rainbow;
 
-uniform sampler2D tex;
+//uniform sampler2DArray sampler;
+uniform sampler2D sampler;
+
 in vec2 vs_texCoord;
 
-out vec4 color;
+out vec4 fs_color;
 
 void main()
 {
-	color = texture(tex, vs_texCoord);
+	fs_color = texture(sampler, vs_texCoord);
 
-	//color = texture(tex, vec3(vs_tex_coord, 0));
-	//color = vec4(rainbow, 1.0);
-	//color = texture(sprite_texture, gl_PointCoord);
+	//fs_color = texture(sampler, vec3(vs_texCoord, 0));
+	//fs_color = vec4(rainbow, 1.0);
+	//fs_color = texture(sprite_texture, gl_PointCoord);
 }

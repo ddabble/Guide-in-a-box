@@ -3,7 +3,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "../../Game.h"
-#include "GraphicsObject_interface.h"
+#include "GraphicsObject.h"
 #include "HUD/HUDmanager.h"
 
 GraphicsObjectManager::GraphicsObjectManager(const Game& game) : m_game(game), m_window(game.getWindow())

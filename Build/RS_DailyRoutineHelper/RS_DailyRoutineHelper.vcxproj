@@ -185,15 +185,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\event\EventHandler.h" />
-    <ClInclude Include="..\..\Source\event\types\CursorPosHook_interface.h" />
-    <ClInclude Include="..\..\Source\event\types\FramebufferSizeHook_interface.h" />
-    <ClInclude Include="..\..\Source\event\types\MouseButtonHook_interface.h" />
-    <ClInclude Include="..\..\Source\event\types\ScrollHook_interface.h" />
+    <ClInclude Include="..\..\Source\event\types\CursorPosHook.h" />
+    <ClInclude Include="..\..\Source\event\types\FramebufferSizeHook.h" />
+    <ClInclude Include="..\..\Source\event\types\MouseButtonHook.h" />
+    <ClInclude Include="..\..\Source\event\types\ScrollHook.h" />
     <ClInclude Include="..\..\Source\game_objects\frame\FrameObjectManager.h" />
-    <ClInclude Include="..\..\Source\game_objects\frame\FrameObject_interface.h" />
+    <ClInclude Include="..\..\Source\game_objects\frame\FrameObject.h" />
     <ClInclude Include="..\..\Source\game_objects\GameObjectManager.h" />
     <ClInclude Include="..\..\Source\game_objects\graphics\GraphicsObjectManager.h" />
-    <ClInclude Include="..\..\Source\game_objects\graphics\GraphicsObject_interface.h" />
+    <ClInclude Include="..\..\Source\game_objects\graphics\GraphicsObject.h" />
     <ClInclude Include="..\..\Source\game_objects\graphics\HUD\HUDmanager.h" />
     <ClInclude Include="..\..\Source\game_objects\graphics\HUD\HUDobject.h" />
     <ClInclude Include="..\..\Source\game_objects\graphics\HUD\HUDobject_Animated.h" />
@@ -201,7 +201,7 @@
     <ClInclude Include="..\..\Source\game_objects\graphics\HUD\objects\Arrow.h" />
     <ClInclude Include="..\..\Source\game_objects\graphics\HUD\objects\Map.h" />
     <ClInclude Include="..\..\Source\game_objects\physics\PhysicsObjectManager.h" />
-    <ClInclude Include="..\..\Source\game_objects\physics\PhysicsObject_interface.h" />
+    <ClInclude Include="..\..\Source\game_objects\physics\PhysicsObject.h" />
     <ClInclude Include="..\..\Source\input\InputManager.h" />
     <ClInclude Include="..\..\Source\input\Keyboard.h" />
     <ClInclude Include="..\..\Source\input\Mouse.h" />

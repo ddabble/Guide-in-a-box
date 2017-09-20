@@ -2,14 +2,14 @@
 
 #include <glm/glm.hpp>
 
-#include "../../GraphicsObject_interface.h"
-#include "../../../../event/types/FramebufferSizeHook_interface.h"
+#include "../../GraphicsObject.h"
+#include "../../../../event/types/FramebufferSizeHook.h"
 
 #include "../../../../util/graphics/gl.h"
 
 class Map;
 
-class Arrow : public GraphicsObject_interface, FramebufferSizeHook_interface
+class Arrow : public GraphicsObject, FramebufferSizeHook
 {
 private:
 	GLuint m_program;

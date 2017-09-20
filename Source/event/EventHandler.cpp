@@ -13,10 +13,10 @@
 
 Game* EventHandler::m_game;
 
-std::vector<FramebufferSizeHook_interface*> EventHandler::m_framebufferSizeHooks;
-std::vector<CursorPosHook_interface*> EventHandler::m_cursorPosHooks;
-std::vector<MouseButtonHook_interface*> EventHandler::m_mouseButtonHooks;
-std::vector<ScrollHook_interface*> EventHandler::m_scrollHooks;
+std::vector<FramebufferSizeHook*> EventHandler::m_framebufferSizeHooks;
+std::vector<CursorPosHook*> EventHandler::m_cursorPosHooks;
+std::vector<MouseButtonHook*> EventHandler::m_mouseButtonHooks;
+std::vector<ScrollHook*> EventHandler::m_scrollHooks;
 
 void EventHandler::init(Game& game)
 {
@@ -24,22 +24,22 @@ void EventHandler::init(Game& game)
 	registerCallbacks(game.m_window.m_window);
 }
 
-void EventHandler::removeFramebufferSizeHook(FramebufferSizeHook_interface* hook)
+void EventHandler::removeFramebufferSizeHook(FramebufferSizeHook* hook)
 {
 	m_framebufferSizeHooks.erase(std::remove(m_framebufferSizeHooks.begin(), m_framebufferSizeHooks.end(), hook), m_framebufferSizeHooks.end());
 }
 
-void EventHandler::removeCursorPosHook(CursorPosHook_interface* hook)
+void EventHandler::removeCursorPosHook(CursorPosHook* hook)
 {
 	m_cursorPosHooks.erase(std::remove(m_cursorPosHooks.begin(), m_cursorPosHooks.end(), hook), m_cursorPosHooks.end());
 }
 
-void EventHandler::removeMouseButtonHook(MouseButtonHook_interface* hook)
+void EventHandler::removeMouseButtonHook(MouseButtonHook* hook)
 {
 	m_mouseButtonHooks.erase(std::remove(m_mouseButtonHooks.begin(), m_mouseButtonHooks.end(), hook), m_mouseButtonHooks.end());
 }
 
-void EventHandler::removeScrollHook(ScrollHook_interface* hook)
+void EventHandler::removeScrollHook(ScrollHook* hook)
 {
 	m_scrollHooks.erase(std::remove(m_scrollHooks.begin(), m_scrollHooks.end(), hook), m_scrollHooks.end());
 }
@@ -56,16 +56,13 @@ void EventHandler::registerCallbacks(GLFWwindow* window)
 
 void EventHandler::framebufferSizeCallback(GLFWwindow* window, int newWidth, int newHeight)
 {
-	glViewport(0, 0, newWidth, newHeight);
+	int width = m_game->m_window.m_windowWidth;
+	int height = m_game->m_window.m_windowHeight;
 
-	int* width = &(m_game->m_window.m_windowWidth);
-	int* height = &(m_game->m_window.m_windowHeight);
+	m_game->m_window.updateFramebufferSize(newWidth, newHeight);
 
 	for (auto hook : m_framebufferSizeHooks)
-		hook->framebufferSizeCallback(*width, *height, newWidth, newHeight, m_game->m_gameObjectManager.m_graphicsObjectManager);
-
-	*width = newWidth;
-	*height = newHeight;
+		hook->framebufferSizeCallback(width, height, newWidth, newHeight, m_game->m_gameObjectManager.m_graphicsObjectManager);
 }
 
 void EventHandler::windowRefreshCallback(GLFWwindow* window)
