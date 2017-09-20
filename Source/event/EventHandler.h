@@ -21,26 +21,22 @@ private:
 	static std::vector<MouseButtonHook*> m_mouseButtonHooks;
 	static std::vector<ScrollHook*> m_scrollHooks;
 
-	/*
-	Must be called before any eventhandlin' can be done.
-	*/
+	/* Must be called before any eventhandlin' can be done. */
 	static void init(Game& game);
 
 	EventHandler() {}
 
 public:
 	/*
-	Functions below have to be passed pointers to heap ("new").
-	Deletion of the pointers must be handled from the caller's side.
+	Hook must be a heap pointer.
+	Deletion of the pointer must be handled by the caller.
 	*/
 	static void addFramebufferSizeHook(FramebufferSizeHook* hook) { m_framebufferSizeHooks.push_back(hook); }
 	static void addCursorPosHook(CursorPosHook* hook) { m_cursorPosHooks.push_back(hook); }
 	static void addMouseButtonHook(MouseButtonHook* hook) { m_mouseButtonHooks.push_back(hook); }
 	static void addScrollHook(ScrollHook* hook) { m_scrollHooks.push_back(hook); }
 
-	/*
-	The respective function below must be called before the deletion of the pointer to a hook.
-	*/
+	/* Must be called before the pointer to the hook is deleted. */
 	static void removeFramebufferSizeHook(FramebufferSizeHook* hook);
 	static void removeCursorPosHook(CursorPosHook* hook);
 	static void removeMouseButtonHook(MouseButtonHook* hook);

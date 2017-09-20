@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+
 #include "../../../util/graphics/gl.h"
 
 class GraphicsObjectManager;
@@ -15,9 +16,13 @@ protected:
 	GLfloat m_vertexData[2 * 4 + 2 * 4];
 
 protected:
-	/* User should call setCoords() after calling this constructor. */
+	/*
+	Derived class should call setCoords() after delegating to this constructor.
+	Texture storage should be handled by the derived class.
+	*/
 	HUDobject(GLuint program, const GraphicsObjectManager& graphicsObjectManager);
 
+	/* Texture storage should be handled by the derived class. */
 	HUDobject(GLuint program, const GraphicsObjectManager& graphicsObjectManager, glm::vec2 pos, GLfloat width, GLfloat height);
 
 public:

@@ -8,9 +8,13 @@ protected:
 	bool m_dirtyFlag = false;
 
 protected:
-	/* User should call setCoords() after calling this constructor. */
+	/*
+	Derived class should call setCoords() after delegating to this constructor.
+	Texture storage should be handled by the derived class.
+	*/
 	HUDobject_Dynamic(GLuint program, const GraphicsObjectManager& graphicsObjectManager);
 
+	/* Texture storage should be handled by the derived class. */
 	HUDobject_Dynamic(GLuint program, const GraphicsObjectManager& graphicsObjectManager, glm::vec2 pos, GLfloat width, GLfloat height);
 
 public:

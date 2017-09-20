@@ -15,9 +15,13 @@ protected:
 	GLfloat m_vertexDataAnimationDestination[4 * 2];
 
 protected:
-	/* User should call setCoords() after calling this constructor. */
+	/*
+	Derived class should call setCoords() after delegating to this constructor.
+	Texture storage should be handled by the derived class.
+	*/
 	HUDobject_Animated(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : HUDobject_Dynamic(program, graphicsObjectManager) {}
 
+	/* Texture storage should be handled by the derived class. */
 	HUDobject_Animated(GLuint program, const GraphicsObjectManager& graphicsObjectManager, glm::vec2 pos, GLfloat width, GLfloat height)
 		: HUDobject_Dynamic(program, graphicsObjectManager, pos, width, height) {}
 
@@ -33,6 +37,7 @@ protected:
 
 	/* The return value is from the state the HUDobject will have after it has finished its current animation. */
 	virtual GLfloat getWidth() const override { return (m_isAnimating ? _getWidth(m_vertexDataAnimationDestination) : HUDobject_Dynamic::getWidth()); }
+
 	/* The return value is from the state the HUDobject will have after it has finished its current animation. */
 	virtual GLfloat getHeight() const override { return (m_isAnimating ? _getHeight(m_vertexDataAnimationDestination) : HUDobject_Dynamic::getHeight()); }
 
