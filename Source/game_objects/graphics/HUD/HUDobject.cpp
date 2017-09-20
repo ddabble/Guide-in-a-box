@@ -6,10 +6,10 @@
 #include "../GraphicsObjectManager.h"
 #include "../../../screen/Window.h"
 
-HUDobject::HUDobject(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
-	: HUDobject(program, graphicsObjectManager, { 0.0f, 0.0f }, (GLfloat)graphicsObjectManager.getWindow().getWidth(), (GLfloat)graphicsObjectManager.getWindow().getHeight()) {}
+HUDobject::HUDobject(GLuint program, const GraphicsObjectManager& graphics)
+	: HUDobject(program, graphics, { 0.0f, 0.0f }, (GLfloat)graphics.getWindow().getWidth(), (GLfloat)graphics.getWindow().getHeight()) {}
 
-HUDobject::HUDobject(GLuint program, const GraphicsObjectManager& graphicsObjectManager, glm::vec2 pos, GLfloat width, GLfloat height)
+HUDobject::HUDobject(GLuint program, const GraphicsObjectManager& graphics, glm::vec2 pos, GLfloat width, GLfloat height)
 	: m_vertexData
 {
 	// Vertices
@@ -41,7 +41,7 @@ HUDobject::HUDobject(GLuint program, const GraphicsObjectManager& graphicsObject
 	glBindTexture(GL_TEXTURE_2D, m_textureObject);
 }
 
-void HUDobject::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
+void HUDobject::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphics)
 {
 	glBindVertexArray(m_vertexArrayObject);
 	glBindTexture(GL_TEXTURE_2D, m_textureObject);

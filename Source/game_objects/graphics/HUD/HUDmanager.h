@@ -20,14 +20,14 @@ private:
 
 	std::vector<HUDobject*> m_objects;
 
-	void registerHUDobjects(const GraphicsObjectManager& graphicsObjectManager);
+	void registerHUDobjects(const GraphicsObjectManager& graphics);
 
 private:
-	HUDmanager(const GraphicsObjectManager& graphicsObjectManager);
+	HUDmanager(const GraphicsObjectManager& graphics);
 	~HUDmanager();
 
 public:
-	void graphicsUpdate(const GraphicsObjectManager& graphicsObjectManager) override;
+	void graphicsUpdate(const GraphicsObjectManager& graphics) override;
 
-	void framebufferSizeCallback(int lastWidth, int lastHeight, int newWidth, int newHeight, const GraphicsObjectManager& graphicsObjectManager) override;
+	void framebufferSizeCallback(int lastWidth, int lastHeight, int newWidth, int newHeight, const GraphicsObjectManager& graphics) override;
 };

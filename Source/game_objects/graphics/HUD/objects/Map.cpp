@@ -5,7 +5,7 @@
 
 #include "Arrow.h"
 
-Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : HUDobject_Animated(program, graphicsObjectManager)
+Map::Map(GLuint program, const GraphicsObjectManager& graphics) : HUDobject_Animated(program, graphics)
 {
 	EventHandler::addCursorPosHook(this);
 	EventHandler::addScrollHook(this);
@@ -26,10 +26,10 @@ Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : H
 
 
 
-	m_arrows.push_back(new Arrow(graphicsObjectManager, *this, { 0.03f, 0.06f }, { 0.03f, 0.2f }));
+	m_arrows.push_back(new Arrow(graphics, *this, { 0.03f, 0.06f }, { 0.03f, 0.2f }));
 	float mapAspectRatio = 3712.0f / 3333;
-	m_arrows.push_back(new Arrow(graphicsObjectManager, *this, { 0.06f, 0.06f * mapAspectRatio }, { 0.15f,  0.15f * mapAspectRatio }));
-	m_arrows.push_back(new Arrow(graphicsObjectManager, *this, { 0.06f, 0.03f }, { 0.27f, 0.03f }));
+	m_arrows.push_back(new Arrow(graphics, *this, { 0.06f, 0.06f * mapAspectRatio }, { 0.15f,  0.15f * mapAspectRatio }));
+	m_arrows.push_back(new Arrow(graphics, *this, { 0.06f, 0.03f }, { 0.27f, 0.03f }));
 }
 
 Map::~Map()
@@ -63,9 +63,9 @@ void Map::scrollCallback(float xOffset, float yOffset, const InputManager& input
 	zoom(newWidth / currentWidth, 1.0f / 4.0f, cursorPos);
 }
 
-void Map::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
+void Map::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphics)
 {
-	HUDobject_Animated::graphicsUpdate(program, graphicsObjectManager);
+	HUDobject_Animated::graphicsUpdate(program, graphics);
 
 	if (m_dirtyFlag)
 	{
@@ -73,8 +73,8 @@ void Map::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsOb
 			arrow->updatePosition(*this);
 	}
 
-	HUDobject_Dynamic::graphicsUpdate(program, graphicsObjectManager);
+	HUDobject_Dynamic::graphicsUpdate(program, graphics);
 
 	for (GraphicsObject* arrow : m_arrows)
-		arrow->graphicsUpdate(graphicsObjectManager);
+		arrow->graphicsUpdate(graphics);
 }

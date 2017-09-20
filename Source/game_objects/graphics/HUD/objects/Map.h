@@ -48,7 +48,7 @@ private:
 	std::vector<Arrow*> m_arrows;
 
 public:
-	Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager);
+	Map(GLuint program, const GraphicsObjectManager& graphics);
 	~Map();
 
 	glm::vec2 getLowerLeftCornerPos() const { return { m_vertexData[0], m_vertexData[1] }; }
@@ -57,5 +57,5 @@ public:
 	void cursorPosCallback(const InputManager& input) override;
 	void scrollCallback(float xOffset, float yOffset, const InputManager& input) override;
 
-	void graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager) override;
+	void graphicsUpdate(GLuint program, const GraphicsObjectManager& graphics) override;
 };

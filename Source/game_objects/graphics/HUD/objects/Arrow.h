@@ -27,12 +27,12 @@ private:
 	void makeVertices(const Map& map, GLint lineWidth);
 
 public:
-	Arrow(const GraphicsObjectManager& graphicsObjectManager, const Map& map, glm::vec2 mapStartPoint, glm::vec2 mapEndPoint, GLint lineWidth = 10);
+	Arrow(const GraphicsObjectManager& graphics, const Map& map, glm::vec2 mapStartPoint, glm::vec2 mapEndPoint, GLint lineWidth = 10);
 	~Arrow();
 
 	void updatePosition(const Map& map);
 
-	void graphicsUpdate(const GraphicsObjectManager& graphicsObjectManager) override;
+	void graphicsUpdate(const GraphicsObjectManager& graphics) override;
 
-	void framebufferSizeCallback(int lastWidth, int lastHeight, int newWidth, int newHeight, const GraphicsObjectManager& graphicsObjectManager) override;
+	void framebufferSizeCallback(int lastWidth, int lastHeight, int newWidth, int newHeight, const GraphicsObjectManager& graphics) override;
 };

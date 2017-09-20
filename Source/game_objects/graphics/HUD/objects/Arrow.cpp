@@ -43,7 +43,7 @@ glm::vec2 rotatePointWithVector(const glm::vec2 point, const glm::vec2 vector)
 	return rotatePointWithVector(point, vector, vectorLength);
 }
 
-Arrow::Arrow(const GraphicsObjectManager& graphicsObjectManager, const Map& map, const glm::vec2 mapStartPoint, const glm::vec2 mapEndPoint, const GLint lineWidth)
+Arrow::Arrow(const GraphicsObjectManager& graphics, const Map& map, const glm::vec2 mapStartPoint, const glm::vec2 mapEndPoint, const GLint lineWidth)
 	: m_mapStartPoint(mapStartPoint), m_mapEndPoint(mapEndPoint), m_lineWidth(lineWidth)
 {
 	EventHandler::addFramebufferSizeHook(this);
@@ -67,7 +67,7 @@ Arrow::Arrow(const GraphicsObjectManager& graphicsObjectManager, const Map& map,
 	glEnableVertexAttribArray(0);
 
 	m_projection_uniformIndex = glGetUniformLocation(m_program, "projection");
-	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getProjectionMatrix()));
+	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(graphics.getProjectionMatrix()));
 
 	//glEnable(GL_MULTISAMPLE);
 }
@@ -154,7 +154,7 @@ void Arrow::updatePosition(const Map& map)
 	makeVertices(map, m_lineWidth);
 }
 
-void Arrow::graphicsUpdate(const GraphicsObjectManager& graphicsObjectManager)
+void Arrow::graphicsUpdate(const GraphicsObjectManager& graphics)
 {
 	glUseProgram(m_program);
 
@@ -168,8 +168,8 @@ void Arrow::graphicsUpdate(const GraphicsObjectManager& graphicsObjectManager)
 	glMultiDrawArrays(GL_TRIANGLE_FAN, firsts, counts, 4);
 }
 
-void Arrow::framebufferSizeCallback(int lastWidth, int lastHeight, int newWidth, int newHeight, const GraphicsObjectManager& graphicsObjectManager)
+void Arrow::framebufferSizeCallback(int lastWidth, int lastHeight, int newWidth, int newHeight, const GraphicsObjectManager& graphics)
 {
 	glUseProgram(m_program);
-	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getProjectionMatrix()));
+	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(graphics.getProjectionMatrix()));
 }

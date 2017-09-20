@@ -12,16 +12,16 @@ protected:
 	Derived class should call setCoords() after delegating to this constructor.
 	Texture storage should be handled by the derived class.
 	*/
-	HUDobject_Dynamic(GLuint program, const GraphicsObjectManager& graphicsObjectManager);
+	HUDobject_Dynamic(GLuint program, const GraphicsObjectManager& graphics);
 
 	/* Texture storage should be handled by the derived class. */
-	HUDobject_Dynamic(GLuint program, const GraphicsObjectManager& graphicsObjectManager, glm::vec2 pos, GLfloat width, GLfloat height);
+	HUDobject_Dynamic(GLuint program, const GraphicsObjectManager& graphics, glm::vec2 pos, GLfloat width, GLfloat height);
 
 public:
 	virtual ~HUDobject_Dynamic() {}
 
 public:
-	virtual void graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager) override;
+	virtual void graphicsUpdate(GLuint program, const GraphicsObjectManager& graphics) override;
 
 protected:
 	/* pos is the position of the lower left corner. */

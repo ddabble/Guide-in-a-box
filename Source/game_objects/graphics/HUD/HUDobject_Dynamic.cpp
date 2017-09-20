@@ -11,16 +11,15 @@ static constexpr GLfloat VERTEX_TEMPLATE[] =
 	0, 1
 };
 
-HUDobject_Dynamic::HUDobject_Dynamic(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
-	: HUDobject_Dynamic(program, graphicsObjectManager, { 0.0f, 0.0f }, (GLfloat)graphicsObjectManager.getWindow().getWidth(), (GLfloat)graphicsObjectManager.getWindow().getHeight()) {}
+HUDobject_Dynamic::HUDobject_Dynamic(GLuint program, const GraphicsObjectManager& graphics)
+	: HUDobject_Dynamic(program, graphics, { 0.0f, 0.0f }, (GLfloat)graphics.getWindow().getWidth(), (GLfloat)graphics.getWindow().getHeight()) {}
 
-HUDobject_Dynamic::HUDobject_Dynamic(GLuint program, const GraphicsObjectManager& graphicsObjectManager, glm::vec2 pos, GLfloat width, GLfloat height)
-	: HUDobject(program, graphicsObjectManager, pos, width, height)
+HUDobject_Dynamic::HUDobject_Dynamic(GLuint program, const GraphicsObjectManager& graphics, glm::vec2 pos, GLfloat width, GLfloat height) : HUDobject(program, graphics, pos, width, height)
 {
 	glBufferData(GL_ARRAY_BUFFER, sizeof(m_vertexData), m_vertexData, GL_DYNAMIC_DRAW);
 }
 
-void HUDobject_Dynamic::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
+void HUDobject_Dynamic::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphics)
 {
 	if (m_dirtyFlag)
 	{
@@ -29,7 +28,7 @@ void HUDobject_Dynamic::graphicsUpdate(GLuint program, const GraphicsObjectManag
 		m_dirtyFlag = false;
 	}
 
-	HUDobject::graphicsUpdate(program, graphicsObjectManager);
+	HUDobject::graphicsUpdate(program, graphics);
 }
 
 void HUDobject_Dynamic::_setCoords(glm::vec2 pos, GLfloat width, GLfloat height, HUDobject_Dynamic& obj, GLfloat vertexData[])

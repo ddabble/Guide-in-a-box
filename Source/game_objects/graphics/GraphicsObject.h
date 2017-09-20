@@ -5,7 +5,7 @@
 class GraphicsObject
 {
 public:
-	virtual void graphicsUpdate(const GraphicsObjectManager& graphicsObjectManager) = 0;
+	virtual void graphicsUpdate(const GraphicsObjectManager& graphics) = 0;
 
 	virtual ~GraphicsObject() {}
 };
