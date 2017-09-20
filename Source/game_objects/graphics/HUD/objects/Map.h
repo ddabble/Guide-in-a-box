@@ -1,12 +1,15 @@
 #pragma once
 
-#include "../HUDobject_Animated_interface.h"
+#include <vector>
+#include <glm/glm.hpp>
+
+#include "../HUDobject_Animated.h"
 #include "../../../../event/types/CursorPosHook.h"
 #include "../../../../event/types/ScrollHook.h"
 
-#include <glm/glm.hpp>
+class Arrow;
 
-class Map : public HUDobject_Animated_interface, CursorPosHook, ScrollHook
+class Map : public HUDobject_Animated, CursorPosHook, ScrollHook
 {
 private:
 	class ZoomLevel
@@ -37,13 +40,19 @@ private:
 	};
 
 private:
-	GLuint m_textureObject;
+	int m_originalWidth;
+	int m_originalHeight;
 
 	ZoomLevel m_zoomLevel;
+
+	std::vector<Arrow*> m_arrows;
 
 public:
 	Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager);
 	~Map();
+
+	glm::vec2 getLowerLeftCornerPos() const { return { m_vertexData[0], m_vertexData[1] }; }
+	glm::vec2 getUpperRightCornerPos() const { return { m_vertexData[4], m_vertexData[5] }; }
 
 	void cursorPosCallback(const InputManager& input) override;
 	void scrollCallback(float xOffset, float yOffset, const InputManager& input) override;

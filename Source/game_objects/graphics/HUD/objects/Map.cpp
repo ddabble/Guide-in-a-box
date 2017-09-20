@@ -3,20 +3,18 @@
 #include "../../../../event/EventHandler.h"
 #include "../../../../texture/ImageDecompression.h"
 
-Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : HUDobject_Animated_interface(program, graphicsObjectManager)
+#include "Arrow.h"
+
+Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : HUDobject_Animated(program, graphicsObjectManager)
 {
 	EventHandler::addCursorPosHook(this);
 	EventHandler::addScrollHook(this);
 
-	int width, height;
 	GLenum format;
-	unsigned char* imageData = extractImageFrom7zFile("../../Source/map.7z", &width, &height, &format);
+	unsigned char* imageData = extractImageFrom7zFile("../../Source/map.7z", &m_originalWidth, &m_originalHeight, &format);
 
-	glGenTextures(1, &m_textureObject);
-	glBindTexture(GL_TEXTURE_2D, m_textureObject);
-
-	glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, width, height);
-	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, format, GL_UNSIGNED_BYTE, imageData);
+	glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, m_originalWidth, m_originalHeight);
+	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, m_originalWidth, m_originalHeight, format, GL_UNSIGNED_BYTE, imageData);
 	freeImageData(imageData);
 
 	//glGenerateMipmap(GL_TEXTURE_2D);
@@ -24,13 +22,22 @@ Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : H
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
-	this->setFields(width, height, 0, 0, true, 1.0f / 4);
+	this->setCoords({ 0.0f, 0.0f }, (GLfloat)m_originalWidth, (GLfloat)m_originalHeight, 0);
+
+
+
+	m_arrows.push_back(new Arrow(graphicsObjectManager, *this, { 0.03f, 0.06f }, { 0.03f, 0.2f }));
+	float mapAspectRatio = 3712.0f / 3333;
+	m_arrows.push_back(new Arrow(graphicsObjectManager, *this, { 0.06f, 0.06f * mapAspectRatio }, { 0.15f,  0.15f * mapAspectRatio }));
+	m_arrows.push_back(new Arrow(graphicsObjectManager, *this, { 0.06f, 0.03f }, { 0.27f, 0.03f }));
 }
 
 Map::~Map()
 {
 	EventHandler::removeCursorPosHook(this);
 	EventHandler::removeScrollHook(this);
+
+	for (auto arrow : m_arrows) delete arrow;
 }
 
 void Map::cursorPosCallback(const InputManager& input)
@@ -38,7 +45,7 @@ void Map::cursorPosCallback(const InputManager& input)
 	if (input.getMouse().m_isLeftMouseButtonDown)
 	{
 		glm::ivec2 cursorDelta = input.getMouse().getCursorDelta();
-		move(cursorDelta.x, cursorDelta.y, false);
+		move(cursorDelta, 0);
 	}
 }
 
@@ -50,14 +57,24 @@ void Map::scrollCallback(float xOffset, float yOffset, const InputManager& input
 	if (oldZoomLevel == m_zoomLevel.offsetLevel((int)yOffset))
 		return;
 
-	const Window& window = m_graphicsObjectManager.getWindow();
-	zoom(int(m_pixelWidth * m_zoomLevel.getPercentage()), -1, true, (GLfloat)cursorPos.x / window.getWidth(), (GLfloat)cursorPos.y / window.getHeight());
+	GLfloat currentWidth = getWidth();
+	GLfloat newWidth = m_originalWidth * m_zoomLevel.getPercentage();
+
+	zoom(newWidth / currentWidth, 1.0f / 4.0f, cursorPos);
 }
 
 void Map::graphicsUpdate(GLuint program, const GraphicsObjectManager& graphicsObjectManager)
 {
-	glBindTexture(GL_TEXTURE_2D, m_textureObject);
+	HUDobject_Animated::graphicsUpdate(program, graphicsObjectManager);
 
-	HUDobject_Animated_interface::graphicsUpdate(program, graphicsObjectManager);
-	HUDobject_interface::graphicsUpdate(program, graphicsObjectManager);
+	if (m_dirtyFlag)
+	{
+		for (Arrow* arrow : m_arrows)
+			arrow->updatePosition(*this);
+	}
+
+	HUDobject_Dynamic::graphicsUpdate(program, graphicsObjectManager);
+
+	for (GraphicsObject_interface* arrow : m_arrows)
+		arrow->graphicsUpdate(graphicsObjectManager);
 }

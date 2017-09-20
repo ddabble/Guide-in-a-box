@@ -24,11 +24,14 @@ private:
 	GraphicsObjectManager(const Game& game);
 	~GraphicsObjectManager();
 
+	/* Should be called whenever the framebuffer is resized. */
+	void updateFramebufferSize(int newWidth, int newHeight);
+
 public:
 	void graphicsUpdate();
 
 public:
-	const glm::mat4& getResizeMatrix() const { return m_projectionMatrix; }
+	const glm::mat4& getProjectionMatrix() const { return m_projectionMatrix; }
 
 	const Game& getGame() const { return m_game; }
 

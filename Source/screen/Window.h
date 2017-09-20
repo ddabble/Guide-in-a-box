@@ -36,10 +36,4 @@ public:
 
 	/* Returns the height in pixels. */
 	int getHeight() const { return m_windowHeight; }
-
-	GLfloat pixelCoordsToWindowCoords_x(GLfloat pixels_x) const;
-	GLfloat pixelCoordsToWindowCoords_y(GLfloat pixels_y) const;
-
-	GLfloat windowCoordsToPixelCoords_x(GLfloat x) const;
-	GLfloat windowCoordsToPixelCoords_y(GLfloat y) const;
 };

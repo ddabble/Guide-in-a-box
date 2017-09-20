@@ -1,29 +1,38 @@
 ﻿#pragma once
 
-#include "../../../../util/graphics/gl.h"
+#include <glm/glm.hpp>
 
+#include "../../GraphicsObject.h"
 #include "../../../../event/types/FramebufferSizeHook.h"
 
-struct Point
-{
-	float x;
-	float y;
-};
-typedef Point Vector;
+#include "../../../../util/graphics/gl.h"
 
-class Arrow : public FramebufferSizeHook
+class Map;
+
+class Arrow : public GraphicsObject, FramebufferSizeHook
 {
 private:
 	GLuint m_program;
 	GLuint m_vertexArrayObject;
+	GLuint m_vertexBufferObject;
 
 	GLint m_projection_uniformIndex;
 
+	const glm::vec2 m_mapStartPoint;
+	const glm::vec2 m_mapEndPoint;
+
+	const GLint m_lineWidth;
+
+private:
+	void makeVertices(const Map& map, GLint lineWidth);
+
 public:
-	Arrow(const GraphicsObjectManager& graphicsObjectManager, Point arrowStartPoint, Point arrowEndPoint, int lineWidth = 10);
+	Arrow(const GraphicsObjectManager& graphicsObjectManager, const Map& map, glm::vec2 mapStartPoint, glm::vec2 mapEndPoint, GLint lineWidth = 10);
 	~Arrow();
 
-	void graphicsUpdate(const GraphicsObjectManager& graphicsObjectManager);
+	void updatePosition(const Map& map);
+
+	void graphicsUpdate(const GraphicsObjectManager& graphicsObjectManager) override;
 
 	void framebufferSizeCallback(int lastWidth, int lastHeight, int newWidth, int newHeight, const GraphicsObjectManager& graphicsObjectManager) override;
 };

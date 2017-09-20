@@ -5,13 +5,13 @@
 #include <iostream>
 #include <stb_image.h>
 
-#include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Map.h"
 #include "../../../../util/graphics/GLSLshaders.h"
 
-constexpr Point rotatePointWithVector(Point point, Vector vector, float precomputedVectorLength)
+glm::vec2 rotatePointWithVector(const glm::vec2 point, const glm::vec2 vector, const float precomputedVectorLength)
 {
 	/*
 	 * vector1 = (x1, y1), vector2 = (x2, y2), rotatedVector = (x', y')
@@ -28,7 +28,7 @@ constexpr Point rotatePointWithVector(Point point, Vector vector, float precompu
 	 * |vector1| = |rotatedVector| / |vector2|
 	 */
 
-	Point rotatedPoint =
+	const glm::vec2 rotatedPoint =
 	{
 		(point.x * vector.x - point.y * vector.y) / precomputedVectorLength,
 		(point.x * vector.y + vector.x * point.y) / precomputedVectorLength
@@ -37,13 +37,14 @@ constexpr Point rotatePointWithVector(Point point, Vector vector, float precompu
 	return rotatedPoint;
 }
 
-Point rotatePointWithVector(Point point, Vector vector)
+glm::vec2 rotatePointWithVector(const glm::vec2 point, const glm::vec2 vector)
 {
 	const float vectorLength = glm::sqrt(vector.x * vector.x + vector.y * vector.y);
 	return rotatePointWithVector(point, vector, vectorLength);
 }
 
-Arrow::Arrow(const GraphicsObjectManager& graphicsObjectManager, Point arrowStartPoint, Point arrowEndPoint, int lineWidth)
+Arrow::Arrow(const GraphicsObjectManager& graphicsObjectManager, const Map& map, const glm::vec2 mapStartPoint, const glm::vec2 mapEndPoint, const GLint lineWidth)
+	: m_mapStartPoint(mapStartPoint), m_mapEndPoint(mapEndPoint), m_lineWidth(lineWidth)
 {
 	EventHandler::addFramebufferSizeHook(this);
 
@@ -58,101 +59,99 @@ Arrow::Arrow(const GraphicsObjectManager& graphicsObjectManager, Point arrowStar
 	glGenVertexArrays(1, &m_vertexArrayObject);
 	glBindVertexArray(m_vertexArrayObject);
 
-	GLuint buf;
-	glGenBuffers(1, &buf);
-	glBindBuffer(GL_ARRAY_BUFFER, buf);
+	glGenBuffers(1, &m_vertexBufferObject);
 
-	const Vector rotationVector = { arrowEndPoint.x - arrowStartPoint.x, arrowEndPoint.y - arrowStartPoint.y };
-	const float length = glm::sqrt(rotationVector.x * rotationVector.x + rotationVector.y * rotationVector.y);
-
-	const float diagonal = (float)glm::sqrt(2 * lineWidth * lineWidth);
-
-	/*
-	 *                                    l1------------l2
-	 *                                       \          \
-	 *                                        \          \
-	 *                                       m1\          \
-	 *              s1--------------------------\          \
-	 *                |          /\              \ diagonal \
-	 * arrowStartPoint|          || lineWidth   m3⟩ <------> ⟩ arrowEndPoint
-	 *                |          \/              /          /
-	 *              s2--------------------------/          /
-	 *                                       m2/          /
-	 *                                        /          /
-	 *                                       /          /
-	 *                                    r1------------r2
-	 */
-
-	// Relative to arrowStartPoint:
-	Point s1 = rotatePointWithVector({ 0, lineWidth / 2.0f },                                 rotationVector, length);
-	Point s2 = rotatePointWithVector({ 0, -lineWidth / 2.0f },                                rotationVector, length);
-
-	// Relative to arrowEndPoint:
-	Point m1 = rotatePointWithVector({ -lineWidth / 2.0f - diagonal + 1, lineWidth / 2.0f },  rotationVector, length);
-	Point m2 = rotatePointWithVector({ -lineWidth / 2.0f - diagonal + 1, -lineWidth / 2.0f }, rotationVector, length);
-	Point m3 = rotatePointWithVector({ -diagonal, 0 },                                        rotationVector, length);
-	//                                 + 1 pixel is apparently needed to make the lines look perfectly straight
-	Point l1 = rotatePointWithVector({ -20 - diagonal + 1, 20 },                              rotationVector, length);
-	Point r1 = rotatePointWithVector({ -20 - diagonal + 1, -20 },                             rotationVector, length);
-	Point l2 = rotatePointWithVector({ -20 + 1, 20 },                                         rotationVector, length);
-	Point r2 = rotatePointWithVector({ -20 + 1, -20 },                                        rotationVector, length);
-
-	s1 = { arrowStartPoint.x + s1.x, arrowStartPoint.y + s1.y };
-	s2 = { arrowStartPoint.x + s2.x, arrowStartPoint.y + s2.y };
-	m1 = { arrowEndPoint.x + m1.x, arrowEndPoint.y + m1.y };
-	m2 = { arrowEndPoint.x + m2.x, arrowEndPoint.y + m2.y };
-	m3 = { arrowEndPoint.x + m3.x, arrowEndPoint.y + m3.y };
-	l1 = { arrowEndPoint.x + l1.x, arrowEndPoint.y + l1.y };
-	r1 = { arrowEndPoint.x + r1.x, arrowEndPoint.y + r1.y };
-	r2 = { arrowEndPoint.x + r2.x, arrowEndPoint.y + r2.y };
-	l2 = { arrowEndPoint.x + l2.x, arrowEndPoint.y + l2.y };
-
-	// TODO: the arrows have curvature proportional to how far away from the center of the window they are (using a geometry shader..?)
-	GLfloat vertexData[] =
-	{
-		// Shaft, left half:
-		arrowStartPoint.x, arrowStartPoint.y,
-		s1.x, s1.y,
-		m1.x, m1.y,
-		m3.x, m3.y,
-		// Shaft, right half:
-		arrowStartPoint.x, arrowStartPoint.y,
-		s2.x, s2.y,
-		m2.x, m2.y,
-		m3.x, m3.y,
-
-		// Head, left half:
-		arrowEndPoint.x, arrowEndPoint.y,
-		m3.x, m3.y,
-		l1.x, l1.y,
-		l2.x, l2.y,
-		// Head, right half:
-		arrowEndPoint.x, arrowEndPoint.y,
-		m3.x, m3.y,
-		r1.x, r1.y,
-		r2.x, r2.y
-	};
-	const Window& window = graphicsObjectManager.getWindow();
-	for (int i = 0; i < sizeof(vertexData) / sizeof(GLfloat); i += 2)
-	{
-		vertexData[i] = window.pixelCoordsToWindowCoords_x(vertexData[i]);
-		vertexData[i + 1] = window.pixelCoordsToWindowCoords_y(vertexData[i + 1]);
-	}
-
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
+	makeVertices(map, m_lineWidth);
 
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
 	glEnableVertexAttribArray(0);
 
 	m_projection_uniformIndex = glGetUniformLocation(m_program, "projection");
-	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getResizeMatrix()));
+	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getProjectionMatrix()));
 
 	//glEnable(GL_MULTISAMPLE);
+}
+
+void Arrow::makeVertices(const Map& map, const GLint lineWidth)
+{
+	glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferObject);
+
+	const glm::vec2 lowerLeft = map.getLowerLeftCornerPos();
+	const glm::vec2 diff = map.getUpperRightCornerPos() - lowerLeft;
+
+	const glm::vec2 startPoint = lowerLeft + diff * m_mapStartPoint;
+	const glm::vec2 endPoint = lowerLeft + diff * m_mapEndPoint;
+
+	/*
+	 *                               l1------------l2
+	 *                                  \          \
+	 *                                   \          \
+	 *                                  m1\          \
+	 *         s1--------------------------\          \
+	 *           |          /\              \ diagonal \
+	 * startPoint|          || lineWidth   m3⟩ <------> ⟩ endPoint
+	 *           |          \/              /          /
+	 *         s2--------------------------/          /
+	 *                                  m2/          /
+	 *                                   /          /
+	 *                                  /          /
+	 *                               r1------------r2
+	 */
+
+	const glm::vec2 rotationVector = endPoint - startPoint;
+	const float length = glm::sqrt(rotationVector.x * rotationVector.x + rotationVector.y * rotationVector.y);
+
+	const float diagonal = glm::sqrt(2.0f * lineWidth * lineWidth);
+
+	glm::vec2 s1 = startPoint + rotatePointWithVector({ 0.0f,  lineWidth / 2.0f },                           rotationVector, length);
+	glm::vec2 s2 = startPoint + rotatePointWithVector({ 0.0f, -lineWidth / 2.0f },                           rotationVector, length);
+
+	glm::vec2 m1 = endPoint + rotatePointWithVector({ -lineWidth / 2.0f - diagonal,  lineWidth / 2.0f },     rotationVector, length);
+	glm::vec2 m2 = endPoint + rotatePointWithVector({ -lineWidth / 2.0f - diagonal, -lineWidth / 2.0f },     rotationVector, length);
+	glm::vec2 m3 = endPoint + rotatePointWithVector({ -diagonal, 0.0f },                                     rotationVector, length);
+
+	glm::vec2 l1 = endPoint + rotatePointWithVector({ -(lineWidth * 2.0f) - diagonal,  (lineWidth * 2.0f) }, rotationVector, length);
+	glm::vec2 r1 = endPoint + rotatePointWithVector({ -(lineWidth * 2.0f) - diagonal, -(lineWidth * 2.0f) }, rotationVector, length);
+	glm::vec2 l2 = endPoint + rotatePointWithVector({ -(lineWidth * 2.0f),             (lineWidth * 2.0f) }, rotationVector, length);
+	glm::vec2 r2 = endPoint + rotatePointWithVector({ -(lineWidth * 2.0f),            -(lineWidth * 2.0f) }, rotationVector, length);
+
+	// TODO: the arrows have curvature proportional to how far away from the center of the window they are (using a geometry shader..?)
+	const GLfloat vertexData[] =
+	{
+		// Shaft, left half:
+		startPoint.x, startPoint.y,
+		s1.x, s1.y,
+		m1.x, m1.y,
+		m3.x, m3.y,
+		// Shaft, right half:
+		startPoint.x, startPoint.y,
+		s2.x, s2.y,
+		m2.x, m2.y,
+		m3.x, m3.y,
+
+		// Head, left half:
+		endPoint.x, endPoint.y,
+		m3.x, m3.y,
+		l1.x, l1.y,
+		l2.x, l2.y,
+		// Head, right half:
+		endPoint.x, endPoint.y,
+		m3.x, m3.y,
+		r1.x, r1.y,
+		r2.x, r2.y
+	};
+
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_DYNAMIC_DRAW);
 }
 
 Arrow::~Arrow()
 {
 	EventHandler::removeFramebufferSizeHook(this);
+}
+
+void Arrow::updatePosition(const Map& map)
+{
+	makeVertices(map, m_lineWidth);
 }
 
 void Arrow::graphicsUpdate(const GraphicsObjectManager& graphicsObjectManager)
@@ -172,5 +171,5 @@ void Arrow::graphicsUpdate(const GraphicsObjectManager& graphicsObjectManager)
 void Arrow::framebufferSizeCallback(int lastWidth, int lastHeight, int newWidth, int newHeight, const GraphicsObjectManager& graphicsObjectManager)
 {
 	glUseProgram(m_program);
-	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getResizeMatrix()));
+	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getProjectionMatrix()));
 }

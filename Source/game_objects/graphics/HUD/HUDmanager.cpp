@@ -1,5 +1,7 @@
 #include "HUDmanager.h"
 
+#include <glm/gtc/type_ptr.hpp>
+
 #include "../../../event/EventHandler.h"
 #include "../../../util/graphics/GLSLshaders.h"
 
@@ -11,6 +13,9 @@ HUDmanager::HUDmanager(const GraphicsObjectManager& graphicsObjectManager)
 
 	m_program = glsl::loadShaders("../../Source/shaders/HUD/HUD_object.glsl");
 	glUseProgram(m_program);
+
+	m_projection_uniformIndex = glGetUniformLocation(m_program, "projection");
+	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getProjectionMatrix()));
 
 	glActiveTexture(GL_TEXTURE0);
 	GLint uniform = glGetUniformLocation(m_program, "sampler");
@@ -42,6 +47,9 @@ void HUDmanager::graphicsUpdate(const GraphicsObjectManager& graphicsObjectManag
 
 void HUDmanager::framebufferSizeCallback(int lastWidth, int lastHeight, int newWidth, int newHeight, const GraphicsObjectManager& graphicsObjectManager)
 {
+	glUseProgram(m_program);
+	glUniformMatrix4fv(m_projection_uniformIndex, 1, GL_FALSE, glm::value_ptr(graphicsObjectManager.getProjectionMatrix()));
+
 	for (auto object : m_objects)
 		object->onFramebufferResize(lastWidth, lastHeight, newWidth, newHeight, m_program);
 }
