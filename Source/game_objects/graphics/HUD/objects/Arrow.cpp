@@ -103,29 +103,17 @@ void Arrow::makeVertices(const Map& map, const GLint lineWidth)
 
 	const float diagonal = glm::sqrt(2.0f * lineWidth * lineWidth);
 
-	// Relative to startPoint:
-	glm::vec2 s1 = rotatePointWithVector({ 0, lineWidth / 2.0f },                                 rotationVector, length);
-	glm::vec2 s2 = rotatePointWithVector({ 0, -lineWidth / 2.0f },                                rotationVector, length);
+	glm::vec2 s1 = startPoint + rotatePointWithVector({ 0.0f,  lineWidth / 2.0f },                           rotationVector, length);
+	glm::vec2 s2 = startPoint + rotatePointWithVector({ 0.0f, -lineWidth / 2.0f },                           rotationVector, length);
 
-	// Relative to endPoint:
-	glm::vec2 m1 = rotatePointWithVector({ -lineWidth / 2.0f - diagonal, lineWidth / 2.0f },      rotationVector, length);
-	glm::vec2 m2 = rotatePointWithVector({ -lineWidth / 2.0f - diagonal, -lineWidth / 2.0f },     rotationVector, length);
-	glm::vec2 m3 = rotatePointWithVector({ -diagonal, 0 },                                        rotationVector, length);
-	//                               TODO: + 1 pixel is apparently needed to make the lines look perfectly straight
-	glm::vec2 l1 = rotatePointWithVector({ -(lineWidth * 2.0f) - diagonal, (lineWidth * 2.0f) },  rotationVector, length);
-	glm::vec2 r1 = rotatePointWithVector({ -(lineWidth * 2.0f) - diagonal, -(lineWidth * 2.0f) }, rotationVector, length);
-	glm::vec2 l2 = rotatePointWithVector({ -(lineWidth * 2.0f), (lineWidth * 2.0f) },             rotationVector, length);
-	glm::vec2 r2 = rotatePointWithVector({ -(lineWidth * 2.0f), -(lineWidth * 2.0f) },            rotationVector, length);
+	glm::vec2 m1 = endPoint + rotatePointWithVector({ -lineWidth / 2.0f - diagonal,  lineWidth / 2.0f },     rotationVector, length);
+	glm::vec2 m2 = endPoint + rotatePointWithVector({ -lineWidth / 2.0f - diagonal, -lineWidth / 2.0f },     rotationVector, length);
+	glm::vec2 m3 = endPoint + rotatePointWithVector({ -diagonal, 0.0f },                                     rotationVector, length);
 
-	s1 += startPoint;
-	s2 += startPoint;
-	m1 += endPoint;
-	m2 += endPoint;
-	m3 += endPoint;
-	l1 += endPoint;
-	r1 += endPoint;
-	l2 += endPoint;
-	r2 += endPoint;
+	glm::vec2 l1 = endPoint + rotatePointWithVector({ -(lineWidth * 2.0f) - diagonal,  (lineWidth * 2.0f) }, rotationVector, length);
+	glm::vec2 r1 = endPoint + rotatePointWithVector({ -(lineWidth * 2.0f) - diagonal, -(lineWidth * 2.0f) }, rotationVector, length);
+	glm::vec2 l2 = endPoint + rotatePointWithVector({ -(lineWidth * 2.0f),             (lineWidth * 2.0f) }, rotationVector, length);
+	glm::vec2 r2 = endPoint + rotatePointWithVector({ -(lineWidth * 2.0f),            -(lineWidth * 2.0f) }, rotationVector, length);
 
 	// TODO: the arrows have curvature proportional to how far away from the center of the window they are (using a geometry shader..?)
 	const GLfloat vertexData[] =
