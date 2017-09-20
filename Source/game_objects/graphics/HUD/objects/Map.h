@@ -41,8 +41,6 @@ private:
 	int m_originalWidth;
 	int m_originalHeight;
 
-	GLuint m_textureObject;
-
 	ZoomLevel m_zoomLevel;
 
 	std::vector<Arrow*> m_arrows;
