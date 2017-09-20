@@ -19,11 +19,21 @@ private:
 	int m_windowWidth;
 	int m_windowHeight;
 
-	Window(char* windowName);
+	Window(const char* windowName);
+	void initGLFW(const char* windowName);
+	void initGL_Load();
+
+	~Window();
+
+	/* Should be called whenever the window is resized. */
+	void updateFramebufferSize(int newWidth, int newHeight);
 
 public:
 	GLFWwindow* getGLFWwindow() const { return m_window; }
 
+	/* Returns the width in pixels. */
 	int getWidth() const { return m_windowWidth; }
+
+	/* Returns the height in pixels. */
 	int getHeight() const { return m_windowHeight; }
 };

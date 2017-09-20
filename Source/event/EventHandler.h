@@ -2,24 +2,24 @@
 
 #include <vector>
 
-#include "types/FramebufferSizeHook_interface.h"
-#include "types/CursorPosHook_interface.h"
-#include "types/MouseButtonHook_interface.h"
-#include "types/ScrollHook_interface.h"
+#include "types/FramebufferSizeHook.h"
+#include "types/CursorPosHook.h"
+#include "types/MouseButtonHook.h"
+#include "types/ScrollHook.h"
 
 struct GLFWwindow;
 
 class EventHandler
 {
-	friend Game;
+	friend class Game;
 
 private:
 	static Game* m_game;
 
-	static std::vector<FramebufferSizeHook_interface*> m_framebufferSizeHooks;
-	static std::vector<CursorPosHook_interface*> m_cursorPosHooks;
-	static std::vector<MouseButtonHook_interface*> m_mouseButtonHooks;
-	static std::vector<ScrollHook_interface*> m_scrollHooks;
+	static std::vector<FramebufferSizeHook*> m_framebufferSizeHooks;
+	static std::vector<CursorPosHook*> m_cursorPosHooks;
+	static std::vector<MouseButtonHook*> m_mouseButtonHooks;
+	static std::vector<ScrollHook*> m_scrollHooks;
 
 	/*
 	Must be called before any eventhandlin' can be done.
@@ -33,18 +33,18 @@ public:
 	Functions below have to be passed pointers to heap ("new").
 	Deletion of the pointers must be handled from the caller's side.
 	*/
-	static void addFramebufferSizeHook(FramebufferSizeHook_interface* hook) { m_framebufferSizeHooks.push_back(hook); }
-	static void addCursorPosHook(CursorPosHook_interface* hook) { m_cursorPosHooks.push_back(hook); }
-	static void addMouseButtonHook(MouseButtonHook_interface* hook) { m_mouseButtonHooks.push_back(hook); }
-	static void addScrollHook(ScrollHook_interface* hook) { m_scrollHooks.push_back(hook); }
+	static void addFramebufferSizeHook(FramebufferSizeHook* hook) { m_framebufferSizeHooks.push_back(hook); }
+	static void addCursorPosHook(CursorPosHook* hook) { m_cursorPosHooks.push_back(hook); }
+	static void addMouseButtonHook(MouseButtonHook* hook) { m_mouseButtonHooks.push_back(hook); }
+	static void addScrollHook(ScrollHook* hook) { m_scrollHooks.push_back(hook); }
 
 	/*
 	The respective function below must be called before the deletion of the pointer to a hook.
 	*/
-	static void removeFramebufferSizeHook(FramebufferSizeHook_interface* hook);
-	static void removeCursorPosHook(CursorPosHook_interface* hook);
-	static void removeMouseButtonHook(MouseButtonHook_interface* hook);
-	static void removeScrollHook(ScrollHook_interface* hook);
+	static void removeFramebufferSizeHook(FramebufferSizeHook* hook);
+	static void removeCursorPosHook(CursorPosHook* hook);
+	static void removeMouseButtonHook(MouseButtonHook* hook);
+	static void removeScrollHook(ScrollHook* hook);
 
 private:
 	/*

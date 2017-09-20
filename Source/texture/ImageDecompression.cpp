@@ -1,6 +1,6 @@
 /*
 Heavily based on code written by Igor Pavlov;
-see attached file "ImageDecompression_original (7zMain).c"
+see enclosed file "ImageDecompression_original (7zMain).c"
 */
 
 #include "ImageDecompression.h"
@@ -18,9 +18,9 @@ see attached file "ImageDecompression_original (7zMain).c"
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-void printError(char *sz)
+void printError(char* sz)
 {
-	printf("\nERROR: %s\n", sz);
+	std::cerr << "\nERROR: " << sz << std::endl;
 }
 
 #define ERROR_HANDLED -1
@@ -35,7 +35,7 @@ unsigned char* extractImageFrom7zFile(char* file, int* width, int* height, GLenu
 	SRes res;
 	ISzAlloc allocImp;
 	ISzAlloc allocTempImp;
-	UInt16 *temp = NULL;
+	UInt16* temp = nullptr;
 	size_t tempSize = 0;
 
 #if defined(_WIN32) && !defined(USE_WINDOWS_FILE) && !defined(UNDER_CE)
@@ -86,18 +86,18 @@ unsigned char* extractImageFrom7zFile(char* file, int* width, int* height, GLenu
 	if you use external function, you can make these variable as static.
 	*/
 	UInt32 blockIndex = 0xFFFFFFFF;
-	Byte *outBuffer = 0;
+	Byte* outBuffer = 0;
 	size_t outBufferSize = 0;
 
 	size_t offset = 0;
 	size_t outSizeProcessed = 0;
-	size_t len = SzArEx_GetFileNameUtf16(&db, 0, NULL);
+	size_t len = SzArEx_GetFileNameUtf16(&db, 0, nullptr);
 	if (len > tempSize)
 	{
-		SzFree(NULL, temp);
+		SzFree(nullptr, temp);
 		tempSize = len;
-		temp = (UInt16 *)SzAlloc(NULL, tempSize * sizeof(temp[0]));
-		if (!temp)
+		temp = (UInt16*)SzAlloc(nullptr, tempSize * sizeof(temp[0]));
+		if (temp == nullptr)
 		{
 			res = SZ_ERROR_MEM;
 			goto cleanup;
@@ -130,14 +130,14 @@ unsigned char* extractImageFrom7zFile(char* file, int* width, int* height, GLenu
 	CSzFile outFile;
 	size_t processedSize;
 	size_t j;
-	UInt16 *name = (UInt16 *)temp;
+	UInt16* name = (UInt16*)temp;
 
 	// [Paragraph supplied by me]
 	std::string fileDirectory = std::string(fileName);
 	fileDirectory = fileDirectory.substr(0, fileDirectory.find_last_of('/') + 1);
-	std::wstring destPath_wstring = std::wstring(fileDirectory.begin(), fileDirectory.end()) + std::wstring((const WCHAR *)name);
+	std::wstring destPath_wstring = std::wstring(fileDirectory.begin(), fileDirectory.end()) + std::wstring((const WCHAR*)name);
 
-	const WCHAR *destPath = destPath_wstring.c_str();
+	const WCHAR* destPath = destPath_wstring.c_str();
 	std::cout << std::endl;
 	for (j = 0; name[j] != 0; j++)
 	//if (name[j] == '/')
@@ -193,7 +193,7 @@ unsigned char* extractImageFrom7zFile(char* file, int* width, int* height, GLenu
 
 cleanup:
 	SzArEx_Free(&db, &allocImp);
-	SzFree(NULL, temp);
+	SzFree(nullptr, temp);
 
 	File_Close(&archiveStream.file);
 
@@ -206,7 +206,7 @@ cleanup:
 		else if (res == SZ_ERROR_CRC)
 			printError("CRC error");
 		else if (res != ERROR_HANDLED)
-			printf("\nERROR #%d\n", res);
+			std::cerr << "\nERROR #" << res << std::endl;
 
 		return nullptr;
 	}

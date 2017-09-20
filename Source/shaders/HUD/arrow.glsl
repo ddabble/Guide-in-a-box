@@ -1,22 +1,19 @@
 /*** VERTEX SHADER ***/
 #version 330 core
 
-//layout(location = 1) in vec2 texCoord_in;
-//out vec2 texCoord;
 //out vec4 worldCoord;
-
-layout(location = 0) in vec4 vertexCoord;
 
 uniform mat4 projection;
 
+layout(location = 0) in vec4 vert;
+
 void main()
 {
-	//gl_Position = vertexCoord; texCoord = texCoord_in;
 	//worldCoord = vertexCoord;
 
 	/* Scaling matrix: mat4(mat3(1.5)) */
 
-	gl_Position = projection * vertexCoord;
+	gl_Position = projection * vert;
 }
 
 
@@ -49,19 +46,16 @@ void main()
 /*** FRAGMENT SHADER ***/
 #version 330 core
 
-//uniform sampler2D tex;
-//in vec2 texCoord;
 //in vec4 worldCoord;
 
-out vec4 color;
+out vec4 fs_color;
 
 void main()
 {
-	//color = texture(tex, texCoord);
 	//if (worldCoord.y > 0) color = vec4(0.0, 0.0, 1.0, 1);
 
 	if (!gl_FrontFacing)
-		color = vec4(0.0, 0.0, 1.0, 1);
+		fs_color = vec4(0.0, 0.0, 1.0, 1);
 	else
-		color = vec4(1.0, 0.0, 0.0, 1);
+		fs_color = vec4(1.0, 0.0, 0.0, 1);
 }

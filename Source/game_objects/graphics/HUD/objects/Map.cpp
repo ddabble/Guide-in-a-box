@@ -1,5 +1,6 @@
 #include "Map.h"
 
+#include "../../../../event/EventHandler.h"
 #include "../../../../texture/ImageDecompression.h"
 
 #include "Arrow.h"
@@ -20,8 +21,6 @@ Map::Map(GLuint program, const GraphicsObjectManager& graphicsObjectManager) : H
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-	m_zoomLevel = ZoomLevel();
 
 	this->setCoords({ 0.0f, 0.0f }, (GLfloat)m_originalWidth, (GLfloat)m_originalHeight, 0);
 
@@ -45,14 +44,14 @@ void Map::cursorPosCallback(const InputManager& input)
 {
 	if (input.getMouse().m_isLeftMouseButtonDown)
 	{
-		CursorPos cursorPos = input.getMouse().getCursorPos();
-		move({ cursorPos.deltaX, cursorPos.deltaY }, 0);
+		glm::ivec2 cursorDelta = input.getMouse().getCursorDelta();
+		move(cursorDelta, 0);
 	}
 }
 
 void Map::scrollCallback(float xOffset, float yOffset, const InputManager& input)
 {
-	CursorPos cursorPos = input.getMouse().getCursorPos();
+	glm::ivec2 cursorPos = input.getMouse().getCursorPos();
 
 	ZoomLevel oldZoomLevel = m_zoomLevel;
 	if (oldZoomLevel == m_zoomLevel.offsetLevel((int)yOffset))
